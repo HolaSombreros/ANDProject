@@ -15,25 +15,24 @@
         <EditText
             android:id="@+id/personalRecipes_searchText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
             android:ems="10"
-            android:hint="recipe"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/personalRecipes_availableSwitch"
+            app:layout_constraintEnd_toStartOf="@+id/personalRecipes_availableSwitch"
+            app:layout_constraintHorizontal_weight="3"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:autofillHints="" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Switch
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/personalRecipes_availableSwitch"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="available_ingredients_only"
-            app:layout_constraintStart_toStartOf="@+id/personalRecipes_searchText"
-            app:layout_constraintTop_toBottomOf="@+id/personalRecipes_searchText"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
-
+            android:text="available ingredients only"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/personalRecipes_searchText"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/personalRecipes_recycleView"
@@ -42,7 +41,7 @@
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/personalRecipes_availableSwitch" />
+            app:layout_constraintTop_toBottomOf="@+id/personalRecipes_searchText" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
