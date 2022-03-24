@@ -4,11 +4,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_layout"
-    app:startDestination="@id/fragment_add_recipe">
+    app:startDestination="@id/fragment_personal_recipes">
 
     <fragment
         android:id="@+id/fragment_add_recipe"
         android:name="com.group2.foodie.view.fragment.AddRecipeFragment"
         android:label="@string/title_recipes"
         tools:layout="@layout/fragment_add_recipe" />
+
+    <fragment
+        android:id="@+id/fragment_personal_recipes"
+        android:name="com.group2.foodie.view.fragment.PersonalRecipesFragment"
+        android:label="fragment_personal_recipes"
+        tools:layout="@layout/fragment_personal_recipes" />
 </navigation>
