@@ -9,5 +9,5 @@
         android:id="@+id/addRecipeFragment"
         android:name="com.group2.foodie.view.fragment.AddRecipeFragment"
         android:label="fragment_add_recipe"
-        tools:layout="@layout/fragment_add_recipe" />
+        tools:layout="@layout/fragment_add_recipe"/>
 </navigation>
