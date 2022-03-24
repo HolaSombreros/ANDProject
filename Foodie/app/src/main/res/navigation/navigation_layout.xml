@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_layout"
-    app:startDestination="@id/addRecipeFragment">
+    app:startDestination="@id/fragment_add_recipe">
 
     <fragment
-        android:id="@+id/addRecipeFragment"
+        android:id="@+id/fragment_add_recipe"
         android:name="com.group2.foodie.view.fragment.AddRecipeFragment"
-        android:label="fragment_add_recipe"
+        android:label="@string/title_recipes"
         tools:layout="@layout/fragment_add_recipe" />
 </navigation>
