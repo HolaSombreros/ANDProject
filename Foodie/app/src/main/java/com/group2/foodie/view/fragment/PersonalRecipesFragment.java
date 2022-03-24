@@ -1,5 +1,6 @@
 package com.group2.foodie.view.fragment;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,21 +42,28 @@ public class PersonalRecipesFragment extends Fragment {
 
         recipesRecycler = view.findViewById(R.id.personalRecipes_recycleView);
         recipesRecycler.hasFixedSize();
-        recipesRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            recipesRecycler.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        } else {
+            recipesRecycler.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+        }
 
         ArrayList<Recipe> recipeList = new ArrayList<>();
-        recipeList.add(new Recipe("Burger", R.id.personal_recipe_item_picture, new ArrayList<>(), "1. Kill the pig",true, "Food"));
-        recipeList.add(new Recipe("Burger", R.id.personal_recipe_item_picture, new ArrayList<>(), "1. Kill the pig",true, "Food"));
-        recipeList.add(new Recipe("Burger", R.id.personal_recipe_item_picture, new ArrayList<>(), "1. Kill the pig",true, "Food"));
-        recipeList.add(new Recipe("Burger", R.id.personal_recipe_item_picture, new ArrayList<>(), "1. Kill the pig",true, "Food"));
-        recipeList.add(new Recipe("Burger", R.id.personal_recipe_item_picture, new ArrayList<>(), "1. Kill the pig",true, "Food"));
-        recipeList.add(new Recipe("Burger", R.id.personal_recipe_item_picture, new ArrayList<>(), "1. Kill the pig",true, "Food"));
-        recipeList.add(new Recipe("Burger", R.id.personal_recipe_item_picture, new ArrayList<>(), "1. Kill the pig",true, "Food"));
-        recipeList.add(new Recipe("Burger", R.id.personal_recipe_item_picture, new ArrayList<>(), "1. Kill the pig",true, "Food"));
-        recipeList.add(new Recipe("Burger", R.id.personal_recipe_item_picture, new ArrayList<>(), "1. Kill the pig",true, "Food"));
-        recipeList.add(new Recipe("Burger", R.id.personal_recipe_item_picture, new ArrayList<>(), "1. Kill the pig",true, "Food"));
-        recipeList.add(new Recipe("Burger", R.id.personal_recipe_item_picture, new ArrayList<>(), "1. Kill the pig",true, "Food"));
-        recipeList.add(new Recipe("Burger", R.id.personal_recipe_item_picture, new ArrayList<>(), "1. Kill the pig",true, "Food"));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
+
 
         recipeAdapter = new RecipeAdapter(recipeList);
         //recipeAdapter = new RecipeAdapter(viewModel.getPersonalRecipes());
@@ -64,7 +73,7 @@ public class PersonalRecipesFragment extends Fragment {
         //navController = Navigation.findNavController(getActivity(), R.id.main_activity_fragment);
 
         recipeAdapter.setOnClickListener(v -> {
-           //  TODO
+            //  TODO
             // navController.navigate(R.id.);
         });
     }
