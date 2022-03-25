@@ -10,6 +10,14 @@ public class Ingredient {
     private Measurement measurement;
     private LocalDate localDate;
 
+    public Ingredient() {
+        name = null;
+        imageId = 0;
+        quantity = 0;
+        measurement = null;
+        localDate = null;
+    }
+
     public Ingredient(String name, int imageId, double quantity, Measurement measurement, LocalDate localDate) {
         this.name = name;
         this.imageId = imageId;
