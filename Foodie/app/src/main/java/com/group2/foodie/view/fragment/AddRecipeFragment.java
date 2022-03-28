@@ -4,12 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,13 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.group2.foodie.R;
 import com.group2.foodie.list.IngredientsAdapter;
-import com.group2.foodie.model.Ingredient;
-import com.group2.foodie.model.Measurement;
 import com.group2.foodie.viewmodel.AddRecipeViewModel;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AddRecipeFragment extends Fragment {
     private AddRecipeViewModel viewModel;
@@ -44,7 +39,7 @@ public class AddRecipeFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         viewModel = new ViewModelProvider(getActivity()).get(AddRecipeViewModel.class);
@@ -54,8 +49,7 @@ public class AddRecipeFragment extends Fragment {
 
         ingredients.hasFixedSize();
         ingredients.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        ingredientsAdapter = new IngredientsAdapter();
+        ingredientsAdapter = new IngredientsAdapter(viewModel.getIngredients().getValue());
         ingredients.setAdapter(ingredientsAdapter);
     }
 
@@ -69,12 +63,37 @@ public class AddRecipeFragment extends Fragment {
     }
 
     private void setupViews() {
-        addIngredientBtn.setOnClickListener((v) -> {
-            ingredientsAdapter.addNewListItem();
+        viewModel.getName().observe(getViewLifecycleOwner(), name -> {
+            this.name.setText(name);
         });
 
-        fab.setOnClickListener((v) -> {
+        ArrayAdapter<String> nameAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, viewModel.getCategories());
+        nameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categories.setAdapter(nameAdapter);
 
+        viewModel.getInstructions().observe(getViewLifecycleOwner(), instructions -> {
+            this.instructions.setText(instructions);
+        });
+
+        addIngredientBtn.setOnClickListener(v -> {
+            viewModel.addNewIngredient();
+        });
+
+        viewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMessage -> {
+            if (!errorMessage.equals("")) {
+                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        fab.setOnClickListener(v -> {
+            if (viewModel.createRecipe(name.getText().toString(), categories.getSelectedItem().toString(), instructions.getText().toString())) {
+                Toast.makeText(getActivity(), "Recipe successfully created!", Toast.LENGTH_SHORT).show();
+                viewModel.reset();
+            }
+        });
+
+        viewModel.getIngredients().observe(getViewLifecycleOwner(), ingredients -> {
+            ingredientsAdapter.setList(ingredients);
         });
     }
 }

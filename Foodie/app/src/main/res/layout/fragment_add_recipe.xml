@@ -6,16 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.fragment.AddRecipeFragment"
-    android:padding="16dp">
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_recipe_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:layout_gravity="bottom|end"
-        android:src="@android:drawable/ic_input_add" />
+    android:padding="8dp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -40,7 +31,8 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
-                android:text="Name"
+                android:text=""
+                android:hint="Enter recipe title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/add_recipe_name_label"
                 app:layout_constraintTop_toBottomOf="@id/add_recipe_name_label" />
@@ -77,14 +69,14 @@
                 android:layout_height="wrap_content"
                 android:text="Add Ingredient"
                 app:layout_constraintStart_toStartOf="@id/add_recipe_ingredients_label"
-                app:layout_constraintTop_toBottomOf="@id/add_recipe_ingredients_label" />
+                app:layout_constraintTop_toBottomOf="@id/add_recipe_ingredients" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/add_recipe_ingredients"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintStart_toStartOf="@id/add_recipe_ingredients_label"
-                app:layout_constraintTop_toBottomOf="@id/add_recipe_ingredients_addbutton"/>
+                app:layout_constraintTop_toBottomOf="@id/add_recipe_ingredients_label"/>
 
             <TextView
                 android:id="@+id/add_recipe_instructions_label"
@@ -93,7 +85,7 @@
                 android:text="Step-by-step instructions:"
                 android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="@id/add_recipe_name_label"
-                app:layout_constraintTop_toBottomOf="@id/add_recipe_ingredients"/>
+                app:layout_constraintTop_toBottomOf="@id/add_recipe_ingredients_addbutton"/>
 
             <EditText
                 android:id="@+id/add_recipe_instructions"
@@ -102,9 +94,20 @@
                 android:ems="10"
                 android:inputType="textMultiLine"
                 android:minHeight="48dp"
+                android:text=""
+                android:hint="Enter step-by-step instructions"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/add_recipe_instructions_label"
                 app:layout_constraintTop_toBottomOf="@id/add_recipe_instructions_label" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_recipe_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_gravity="bottom|end"
+        android:src="@android:drawable/ic_input_add" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

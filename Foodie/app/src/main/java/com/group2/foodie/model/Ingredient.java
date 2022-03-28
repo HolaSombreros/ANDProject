@@ -65,4 +65,9 @@ public class Ingredient {
     public void setLocalDate(LocalDate localDate) {
         this.localDate = localDate;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%dx %s (%s)", quantity, name, measurement.toString());
+    }
 }

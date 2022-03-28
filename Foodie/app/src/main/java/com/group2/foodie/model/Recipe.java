@@ -67,4 +67,16 @@ public class Recipe {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    @Override
+    public String toString() {
+        String output = String.format("%s (%s)", name, category);
+        for (Ingredient i : ingredients) {
+            output += "\n" + i.toString();
+        }
+
+        output += "\nInstructions:\n" + instructions;
+
+        return output;
+    }
 }
