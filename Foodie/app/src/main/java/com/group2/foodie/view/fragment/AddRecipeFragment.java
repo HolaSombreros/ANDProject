@@ -80,7 +80,7 @@ public class AddRecipeFragment extends Fragment {
         });
 
         viewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMessage -> {
-            if (!errorMessage.equals("")) {
+            if (errorMessage != null) {
                 Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
             }
         });

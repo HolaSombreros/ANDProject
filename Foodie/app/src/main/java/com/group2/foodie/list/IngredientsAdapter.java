@@ -68,13 +68,11 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
             // TODO - FETCH FROM DATABASE
             String[] dummyIngredients = Repository.getInstance().getDummyIngredients();
 
-            Measurement[] measurements = {Measurement.GRAMS, Measurement.LITERS};
-
             ArrayAdapter<String> nameAdapter = new ArrayAdapter<>(itemView.getContext(), android.R.layout.simple_spinner_item, dummyIngredients);
             nameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             name.setAdapter(nameAdapter);
 
-            ArrayAdapter<Measurement> measurementAdapter = new ArrayAdapter<>(itemView.getContext(), android.R.layout.simple_spinner_item, measurements);
+            ArrayAdapter<Measurement> measurementAdapter = new ArrayAdapter<>(itemView.getContext(), android.R.layout.simple_spinner_item, Measurement.values());
             measurementAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             measurement.setAdapter(measurementAdapter);
 

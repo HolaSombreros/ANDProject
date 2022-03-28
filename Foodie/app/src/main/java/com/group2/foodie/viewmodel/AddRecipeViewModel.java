@@ -1,13 +1,10 @@
 package com.group2.foodie.viewmodel;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.group2.foodie.model.Ingredient;
-import com.group2.foodie.model.Recipe;
 import com.group2.foodie.repositorx.Repository;
 
 import java.util.ArrayList;
@@ -23,14 +20,14 @@ public class AddRecipeViewModel extends ViewModel {
     public AddRecipeViewModel() {
         repository = Repository.getInstance();
 
-        name = new MutableLiveData<>();
+        name = new MutableLiveData<>("");
         ingredients = new MutableLiveData<>();
         List<Ingredient> ingredientList = new ArrayList<>();
         ingredients.setValue(ingredientList);
         addNewIngredient();
 
-        instructions = new MutableLiveData<>();
-        errorMessage = new MutableLiveData<>();
+        instructions = new MutableLiveData<>("");
+        errorMessage = new MutableLiveData<>(null);
     }
 
     public LiveData<String> getName() {

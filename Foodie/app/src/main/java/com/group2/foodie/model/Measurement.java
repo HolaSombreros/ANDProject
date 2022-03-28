@@ -1,7 +1,12 @@
 package com.group2.foodie.model;
 
 public enum Measurement {
-    GRAMS("g"), LITERS("ml");
+    QUANTITY(""),
+    G("g"),
+    ML("ml"),
+    TBSP("tsbp"),
+    TSP("tsp");
+
     private String name;
 
     Measurement(String name) {

@@ -4,7 +4,6 @@ import com.group2.foodie.model.Ingredient;
 import com.group2.foodie.model.Measurement;
 import com.group2.foodie.model.Recipe;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,11 +26,11 @@ public class Repository {
         List<Recipe> output = new ArrayList<>();
         List<Ingredient> aIngredients = new ArrayList<>();
         List<Ingredient> bIngredients = new ArrayList<>();
-        aIngredients.add(new Ingredient("Pizza dough", 0, 200, Measurement.GRAMS, null));
+        aIngredients.add(new Ingredient("Pizza dough", 0, 200, Measurement.G, null));
         aIngredients.add(new Ingredient("Pineapple", 0, 0.5, null, null));
-        bIngredients.add(new Ingredient("Ground beef", 0, 300, Measurement.GRAMS, null));
+        bIngredients.add(new Ingredient("Ground beef", 0, 300, Measurement.G, null));
         bIngredients.add(new Ingredient("Tomato", 0, 2, null, null));
-        bIngredients.add(new Ingredient("Cheese", 0, 1, Measurement.LITERS, null));
+        bIngredients.add(new Ingredient("Cheese", 0, 1, Measurement.ML, null));
 
         output.add(new Recipe("Hawaii Pizza", 0, aIngredients, "Do this, then " +
                 "do that - pretty straight forward.\nAlso, don't forget to eat it at the end", false, "Pizza"));
