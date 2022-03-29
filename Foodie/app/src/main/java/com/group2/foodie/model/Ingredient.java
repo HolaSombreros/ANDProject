@@ -3,7 +3,6 @@ package com.group2.foodie.model;
 import java.time.LocalDate;
 
 public class Ingredient {
-
     private String name;
     private int imageId;
     private double quantity;
@@ -68,6 +67,6 @@ public class Ingredient {
 
     @Override
     public String toString() {
-        return String.format("%dx %s (%s)", quantity, name, measurement.toString());
+        return String.format("%.1fx %s (%s)", quantity, name, measurement.toString());
     }
 }

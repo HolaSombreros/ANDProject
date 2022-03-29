@@ -5,85 +5,128 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.group2.foodie.model.Ingredient;
-import com.group2.foodie.repositorx.Repository;
+import com.group2.foodie.model.Measurement;
+import com.group2.foodie.model.Recipe;
+import com.group2.foodie.repositorx.TempRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AddRecipeViewModel extends ViewModel {
-    private MutableLiveData<String> name;
     private MutableLiveData<List<Ingredient>> ingredients;
-    private MutableLiveData<String> instructions;
     private MutableLiveData<String> errorMessage;
-    private Repository repository;
+    private TempRepository repository;
 
     public AddRecipeViewModel() {
-        repository = Repository.getInstance();
-
-        name = new MutableLiveData<>("");
+        repository = TempRepository.getInstance();
         ingredients = new MutableLiveData<>();
-        List<Ingredient> ingredientList = new ArrayList<>();
-        ingredients.setValue(ingredientList);
-        addNewIngredient();
-
-        instructions = new MutableLiveData<>("");
-        errorMessage = new MutableLiveData<>(null);
+        ingredients.setValue(new ArrayList<>());
+        errorMessage = new MutableLiveData<>();
     }
 
-    public LiveData<String> getName() {
-        return name;
+    public String[] getRecipeCategories() {
+        return repository.getDummyRecipeCategories();
     }
 
-    public String[] getCategories() {
-        return new String[]{"Antipasti", "BBQ food", "Bread & doughs", "Cakes & tea time treats", "Cookies", "Curry", "Drinks", "Meatballs", "Muffins", "Pasta bakes", "Pasta & risotto", "Pies & pastries", "Pizza", "Puddings & desserts", "Roast", "Salad", "Sandwiches & wraps", "Sauces & condiments", "Soup", "Stew", "Vegetable sides"};
+    public String[] getIngredientNames() {
+        return repository.getDummyIngredientNames();
     }
 
-    public MutableLiveData<List<Ingredient>> getIngredients() {
+    public String[] getIngredientMeasurements() {
+        String[] output = new String[Measurement.values().length];
+
+        int i = 0;
+        for (Measurement measurement : Measurement.values()) {
+            output[i++] = measurement.toString();
+        }
+
+        return output;
+    }
+
+    public LiveData<List<Ingredient>> getIngredients() {
         return ingredients;
-    }
-
-    public void addNewIngredient() {
-        List<Ingredient> currentIngredients = ingredients.getValue();
-        currentIngredients.add(new Ingredient());
-        ingredients.setValue(currentIngredients);
-    }
-
-    public LiveData<String> getInstructions() {
-        return instructions;
-    }
-
-    public boolean createRecipe(String name, String category, String instructions) {
-        if (name == null || name.isEmpty()) {
-            errorMessage.setValue("Please enter the recipe title");
-            return false;
-        }
-
-        if (category == null || category.isEmpty()) {
-            errorMessage.setValue("Please select a recipe category");
-            return false;
-        }
-
-        if (instructions == null || instructions.isEmpty()) {
-            errorMessage.setValue("Please enter the recipe instructions");
-            return false;
-        }
-
-//        // TODO - category should be an enum...?
-//        Recipe recipe = new Recipe(name, 0, ingredients.getValue(), instructions, false, category);
-//        Log.w("recipecreated", recipe.toString());
-        return true;
     }
 
     public LiveData<String> getErrorMessage() {
         return errorMessage;
     }
 
-    public void reset() {
-        name.setValue(null);
-        ingredients.setValue(new ArrayList<>());
-        addNewIngredient();
+    public boolean addNewIngredient(String name, String quantity, String measurement) {
+        if (isIngredientInputValid(name, quantity)) {
 
-        instructions.setValue(null);
+            Ingredient newIngredient = new Ingredient(name,
+                    0,
+                    (!quantity.isEmpty() ? Integer.parseInt(quantity) : 0),
+                    Measurement.fromString(measurement),
+                    null);
+
+            List<Ingredient> currentIngredients = ingredients.getValue();
+            currentIngredients.add(newIngredient);
+            ingredients.setValue(currentIngredients);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean isIngredientInputValid(String name, String quantity) {
+        if (name == null || name.isEmpty()) {
+            errorMessage.setValue("Please specify the ingredient name");
+            return false;
+        }
+
+        if (quantity != null && !quantity.isEmpty()) {
+            try {
+                int intQuantity = Integer.parseInt(quantity);
+
+                if (intQuantity <= 0) {
+                    errorMessage.setValue("The ingredient quantity (if any) must be larger than 0");
+                    return false;
+                }
+            } catch (Exception e) {
+                errorMessage.setValue("The ingredient quantity (if any) must be numeric");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public void removeIngredient(Ingredient ingredient) {
+        List<Ingredient> currentIngredients = ingredients.getValue();
+        currentIngredients.remove(ingredient);
+        ingredients.setValue(currentIngredients);
+    }
+
+    public boolean addRecipe(String name, String category, String instructions) {
+        if (name == null || name.isEmpty()) {
+            errorMessage.setValue("Please specify the recipe title");
+            return false;
+        }
+
+        if (category == null || category.isEmpty()) {
+            errorMessage.setValue("Please specify the recipe category");
+            return false;
+        }
+
+        if (ingredients.getValue().size() < 1) {
+            errorMessage.setValue("Please specify the recipe ingredients");
+            return false;
+        }
+
+        if (instructions == null || instructions.isEmpty()) {
+            errorMessage.setValue("Please specify the recipe instructions");
+            return false;
+        }
+
+        // TODO - category should be an enum...?
+        Recipe recipe = new Recipe(name, 0, ingredients.getValue(), instructions, false, category);
+        return true;
+    }
+
+    public void reset() {
+        ingredients.setValue(new ArrayList<>());
         errorMessage.setValue(null);
     }
 }

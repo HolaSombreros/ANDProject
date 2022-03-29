@@ -7,19 +7,27 @@ import com.group2.foodie.model.Recipe;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Repository {
-    private static Repository instance;
+public class TempRepository {
+    private static TempRepository instance;
 
-    private Repository() {
+    private TempRepository() {
 
     }
 
-    public static Repository getInstance() {
+    public static TempRepository getInstance() {
         if (instance == null) {
-            instance = new Repository();
+            instance = new TempRepository();
         }
 
         return instance;
+    }
+
+    public String[] getDummyRecipeCategories() {
+        return new String[] {"Antipasti", "BBQ food", "Bread & doughs", "Cakes & tea time treats",
+                "Cookies", "Curry", "Drinks", "Meatballs", "Muffins", "Pasta bakes",
+                "Pasta & risotto", "Pies & pastries", "Pizza", "Puddings & desserts",
+                "Roast", "Salad", "Sandwiches & wraps", "Sauces & condiments", "Soup", "Stew",
+                "Vegetable sides"};
     }
 
     public List<Recipe> getDummyRecipes() {
@@ -40,7 +48,7 @@ public class Repository {
         return output;
     }
 
-    public String[] getDummyIngredients() {
+    public String[] getDummyIngredientNames() {
         // TODO - FETCH FROM DATABASE
         return new String[] {
                 "Avocado", "Butter (salted)", "Butter (unsalted)", "Cumin", "Garlic",

@@ -3,30 +3,32 @@ package com.group2.foodie.list;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.group2.foodie.R;
 import com.group2.foodie.model.Ingredient;
-import com.group2.foodie.model.Measurement;
-import com.group2.foodie.repositorx.Repository;
 
 import java.util.List;
 
 public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.ViewHolder> {
     private List<Ingredient> ingredients;
-    private onClickListener onClickListener;
+    private OnRemoveListener listener;
 
     public IngredientsAdapter(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public void setOnClickListener(onClickListener onClickListener) {
-        this.onClickListener = onClickListener;
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+        notifyDataSetChanged();
+    }
+
+    public void setOnRemoveListener(OnRemoveListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -38,9 +40,17 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-//        holder.name.setSelection(, false);
-//        holder.quantity.setText(String.valueOf(ingredients.get(position).getQuantity()));
-//        holder.measurement.setSelection(holder.measurement.getSelectedItemPosition());
+        Ingredient ingredient = ingredients.get(position);
+
+        holder.name.setText(ingredient.getName());
+
+        if (ingredient.getQuantity() > 0) {
+            holder.quantity.setText(String.valueOf(ingredient.getQuantity()));
+        } else {
+            holder.quantity.setText("");
+        }
+
+        holder.measurement.setText(ingredient.getMeasurement().toString());
     }
 
     @Override
@@ -48,15 +58,11 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         return ingredients.size();
     }
 
-    public void setList(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-        notifyDataSetChanged();
-    }
-
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private Spinner name;
-        private EditText quantity;
-        private Spinner measurement;
+        private TextView name;
+        private TextView quantity;
+        private TextView measurement;
+        private Button removeBtn;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -64,33 +70,15 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
             name = itemView.findViewById(R.id.recipe_ingredient_name);
             quantity = itemView.findViewById(R.id.recipe_ingredient_quantity);
             measurement = itemView.findViewById(R.id.recipe_ingredient_measurement);
+            removeBtn = itemView.findViewById(R.id.recipe_ingredient_removeBtn);
 
-            // TODO - FETCH FROM DATABASE
-            String[] dummyIngredients = Repository.getInstance().getDummyIngredients();
-
-            ArrayAdapter<String> nameAdapter = new ArrayAdapter<>(itemView.getContext(), android.R.layout.simple_spinner_item, dummyIngredients);
-            nameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            name.setAdapter(nameAdapter);
-
-            ArrayAdapter<Measurement> measurementAdapter = new ArrayAdapter<>(itemView.getContext(), android.R.layout.simple_spinner_item, Measurement.values());
-            measurementAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            measurement.setAdapter(measurementAdapter);
-
-            measurement.setSelection(0, false);
-            measurement.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
-                    onClickListener.onClick(ingredients.get(getBindingAdapterPosition()));
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-                }
+            removeBtn.setOnClickListener(v -> {
+                listener.onRemove(ingredients.get(getBindingAdapterPosition()));
             });
         }
     }
 
-    public interface onClickListener {
-        void onClick(Ingredient ingredient);
+    public interface OnRemoveListener {
+        void onRemove(Ingredient ingredient);
     }
 }
