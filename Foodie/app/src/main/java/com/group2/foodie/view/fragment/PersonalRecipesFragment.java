@@ -3,9 +3,14 @@ package com.group2.foodie.view.fragment;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,8 +38,10 @@ public class PersonalRecipesFragment extends Fragment {
     private RecyclerView recipesRecycler;
     private RecipeAdapter recipeAdapter;
     private FloatingActionButton fab;
+    private ImageButton searchButton;
     private PersonalRecipesViewModel viewModel;
     private NavController navController;
+    private EditText searchBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,6 +59,8 @@ public class PersonalRecipesFragment extends Fragment {
     private void initializeViews(View view) {
         navController = Navigation.findNavController(view);
         recipesRecycler = view.findViewById(R.id.personalRecipes_recycleView);
+        searchBar = view.findViewById(R.id.personalRecipes_searchText);
+        searchButton = view.findViewById(R.id.personalRecipes_searchButton);
         fab = view.findViewById(R.id.personalRecipes_fab);
     }
 
@@ -63,14 +72,12 @@ public class PersonalRecipesFragment extends Fragment {
             recipesRecycler.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         }
 
-        // delete later
         recipeAdapter = new RecipeAdapter();
 
         viewModel.getPersonalRecipes().observe(getViewLifecycleOwner(), recipes -> {
             recipeAdapter.setRecipes(recipes);
         });
 
-        //recipeAdapter = new RecipeAdapter(viewModel.getPersonalRecipes());
         recipesRecycler.setAdapter(recipeAdapter);
 
         recipeAdapter.setOnClickListener(recipe -> {
@@ -79,7 +86,11 @@ public class PersonalRecipesFragment extends Fragment {
             navController.navigate(R.id.fragment_view_recipe);
         });
 
-        fab.setOnClickListener((v) -> {
+        searchButton.setOnClickListener(v->{
+            viewModel.filterByName(searchBar.getText().toString());
+        });
+
+        fab.setOnClickListener(v -> {
             navController.navigate(R.id.fragment_add_recipe);
         });
     }

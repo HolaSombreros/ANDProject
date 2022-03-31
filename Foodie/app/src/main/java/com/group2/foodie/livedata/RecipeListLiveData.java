@@ -24,7 +24,7 @@ public class RecipeListLiveData extends LiveData<List<Recipe>> {
         public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
             Recipe recipe = snapshot.getValue(Recipe.class);
             List<Recipe> currentRecipes = getValue();
-            currentRecipes.add(recipe);
+       //     currentRecipes.add(recipe);
             setValue(currentRecipes);
         }
 

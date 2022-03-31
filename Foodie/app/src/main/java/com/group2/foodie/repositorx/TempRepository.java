@@ -1,5 +1,6 @@
 package com.group2.foodie.repositorx;
 
+import com.group2.foodie.R;
 import com.group2.foodie.model.Ingredient;
 import com.group2.foodie.model.Measurement;
 import com.group2.foodie.model.Recipe;
@@ -40,7 +41,7 @@ public class TempRepository {
         bIngredients.add(new Ingredient("Tomato", 0, 2, null, null));
         bIngredients.add(new Ingredient("Cheese", 0, 1, Measurement.ML, null));
 
-        output.add(new Recipe("Hawaii Pizza", 0, aIngredients, "Do this, then " +
+        output.add(new Recipe("Hawaii Pizza", R.drawable.ic_fridge, aIngredients, "Do this, then " +
                 "do that - pretty straight forward.\nAlso, don't forget to eat it at the end", false, "Pizza", null));
         output.add(new Recipe("Cheeseburger", 0, bIngredients, "Do this, then " +
                 "do that - pretty straight forward.\nAlso, don't forget to eat it at the end", false, "Burger", null));

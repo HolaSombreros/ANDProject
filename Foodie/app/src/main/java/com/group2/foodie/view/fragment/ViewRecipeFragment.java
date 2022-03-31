@@ -1,5 +1,6 @@
 package com.group2.foodie.view.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -67,7 +70,7 @@ public class ViewRecipeFragment extends Fragment {
     private void setupViews() {
         Bundle bundle = getActivity().getIntent().getExtras();
         Recipe recipe = viewModel.getRecipe(bundle.getString("recipe")).getValue();
-        User user = viewModel.getCurrentUser().getValue();
+       // User user = viewModel.getCurrentUser().getValue();
         ingredients.hasFixedSize();
         ingredients.setLayoutManager(new LinearLayoutManager(getActivity()));
         ingredientsAdapter = new ViewIngredientsAdapter(recipe.getIngredients());
@@ -76,11 +79,13 @@ public class ViewRecipeFragment extends Fragment {
         title.setText(recipe.getName());
         category.setText(recipe.getCategory());
         publisher.setText(recipe.getPublisher().getUsername());
-        if (user.getFavoriteRecipes().contains(recipe))
+        //if (user.getFavoriteRecipes().contains(recipe))
             foodImage.setImageResource(R.drawable.ic_full_heart);
-        else
-            foodImage.setImageResource(R.drawable.ic_empty_heart);
-        foodImage.setImageResource(recipe.getImageId());
+        //else
+          //  foodImage.setImageResource(R.drawable.ic_empty_heart);
+        // TODO
+        if (ContextCompat.getDrawable(getActivity(), recipe.getImageId()) != null)
+            foodImage.setImageResource(recipe.getImageId());
         instructions.setText(recipe.getInstructions());
 
         editButton.setOnClickListener(r -> {
