@@ -30,4 +30,8 @@ public class PersonalRecipesViewModel extends ViewModel {
                 filteredRecipes.add(recipe);
         filteredList.setValue(filteredRecipes);
     }
+
+    public void init() {
+        repository.init();
+    }
 }

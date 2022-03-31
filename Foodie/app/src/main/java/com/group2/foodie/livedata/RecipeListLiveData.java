@@ -1,6 +1,9 @@
 package com.group2.foodie.livedata;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -17,12 +20,16 @@ public class RecipeListLiveData extends LiveData<List<Recipe>> {
     public RecipeListLiveData(DatabaseReference dbRef) {
         this.dbRef = dbRef;
         setValue(new ArrayList<>());
+        Log.e("recipecreated", "Instantiated RecipeListLiveData!");
     }
 
-    private ChildEventListener listener = new ChildEventListener() {
+    private ChildEventListener childEventListener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
             Recipe recipe = snapshot.getValue(Recipe.class);
+
+            Log.w("recipecreated", "Recipe: " + recipe.toString());
+
             List<Recipe> currentRecipes = getValue();
        //     currentRecipes.add(recipe);
             setValue(currentRecipes);
@@ -35,10 +42,7 @@ public class RecipeListLiveData extends LiveData<List<Recipe>> {
 
         @Override
         public void onChildRemoved(DataSnapshot snapshot) {
-            Recipe recipe = snapshot.getValue(Recipe.class);
-            List<Recipe> currentRecipes = getValue();
-            currentRecipes.remove(recipe);
-            setValue(currentRecipes);
+
         }
 
         @Override
@@ -55,12 +59,12 @@ public class RecipeListLiveData extends LiveData<List<Recipe>> {
     @Override
     protected void onActive() {
         super.onActive();
-        dbRef.addChildEventListener(listener);
+        dbRef.addChildEventListener(childEventListener);
     }
 
     @Override
     protected void onInactive() {
         super.onInactive();
-        dbRef.removeEventListener(listener);
+        dbRef.removeEventListener(childEventListener);
     }
 }
