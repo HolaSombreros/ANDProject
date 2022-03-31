@@ -1,5 +1,6 @@
 package com.group2.foodie.view.fragment;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -64,28 +65,31 @@ public class PersonalRecipesFragment extends Fragment {
 
         // delete later
         ArrayList<Recipe> recipeList = new ArrayList<>();
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
+        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
         recipeAdapter = new RecipeAdapter(recipeList);
 
 
         //recipeAdapter = new RecipeAdapter(viewModel.getPersonalRecipes());
         recipesRecycler.setAdapter(recipeAdapter);
 
-        recipeAdapter.setOnClickListener(v -> {
-            // navController.navigate(R.id.);
+        recipeAdapter.setOnClickListener(recipe -> {
+            Intent intent = new Intent();
+            intent.putExtra("recipe", recipe.getId());
+            navController.navigate(R.id.fragment_view_recipe);
         });
 
         fab.setOnClickListener((v) -> {

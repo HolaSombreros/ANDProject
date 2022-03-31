@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,11 +13,11 @@ import com.group2.foodie.model.Ingredient;
 
 import java.util.List;
 
-public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.ViewHolder> {
+public class EditableIngredientsAdapter extends RecyclerView.Adapter<EditableIngredientsAdapter.ViewHolder> {
     private List<Ingredient> ingredients;
     private OnRemoveListener listener;
 
-    public IngredientsAdapter(List<Ingredient> ingredients) {
+    public EditableIngredientsAdapter(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -34,7 +33,7 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.recipe_ingredient_item, parent, false);
+        View view = inflater.inflate(R.layout.editable_recipe_ingredient_item, parent, false);
         return new ViewHolder(view);
     }
 

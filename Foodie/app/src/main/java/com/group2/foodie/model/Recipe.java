@@ -1,23 +1,38 @@
 package com.group2.foodie.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Recipe {
-
+    private String id;
     private String name;
     private int imageId;
     private List<Ingredient> ingredients;
     private String instructions;
     private boolean isPublic;
     private String category;
+    private User publisher;
 
-    public Recipe(String name, int imageId, List<Ingredient> ingredients, String instructions, boolean isPublic, String category) {
+    public Recipe() {
+        ingredients = new ArrayList<>();
+    }
+
+    public Recipe(String name, int imageId, List<Ingredient> ingredients, String instructions, boolean isPublic, String category, User publisher) {
         this.name = name;
         this.imageId = imageId;
         this.ingredients = ingredients;
         this.instructions = instructions;
         this.isPublic = isPublic;
         this.category = category;
+        this.publisher = publisher;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -78,5 +93,13 @@ public class Recipe {
         output += "\nInstructions:\n" + instructions;
 
         return output;
+    }
+
+    public User getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(User publisher) {
+        this.publisher = publisher;
     }
 }

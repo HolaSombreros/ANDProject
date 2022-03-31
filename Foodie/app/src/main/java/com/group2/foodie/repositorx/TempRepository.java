@@ -41,9 +41,9 @@ public class TempRepository {
         bIngredients.add(new Ingredient("Cheese", 0, 1, Measurement.ML, null));
 
         output.add(new Recipe("Hawaii Pizza", 0, aIngredients, "Do this, then " +
-                "do that - pretty straight forward.\nAlso, don't forget to eat it at the end", false, "Pizza"));
+                "do that - pretty straight forward.\nAlso, don't forget to eat it at the end", false, "Pizza", null));
         output.add(new Recipe("Cheeseburger", 0, bIngredients, "Do this, then " +
-                "do that - pretty straight forward.\nAlso, don't forget to eat it at the end", false, "Burger"));
+                "do that - pretty straight forward.\nAlso, don't forget to eat it at the end", false, "Burger", null));
 
         return output;
     }
