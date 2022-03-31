@@ -8,6 +8,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.group2.foodie.R;
 import com.group2.foodie.livedata.RecipeListLiveData;
 import com.group2.foodie.model.Ingredient;
+import com.group2.foodie.model.Measurement;
 import com.group2.foodie.model.Recipe;
 
 import java.util.ArrayList;
@@ -39,8 +40,14 @@ public class RecipeRepository {
 
     public LiveData<List<Recipe>> getRecipe() {
         LiveData<List<Recipe>> r = new MutableLiveData<>(new ArrayList<>());
-        r.getValue().add(new Recipe("Hawaii Pizza", R.drawable.ic_fridge, new ArrayList<>() , "Do this, then " +
-                "do that - pretty straight forward.\nAlso, don't forget to eat it at the end", false, "Pizza", null));
+        Recipe r1 = new Recipe("Hawaii Pizza", R.drawable.ic_fridge, new ArrayList<>() , "Do this, then " +
+                "do that - pretty straight forward.\nAlso, don't forget to eat it at the end", false, "Pizza", null);
+        List<Ingredient> aIngredients = new ArrayList<>();
+        aIngredients.add(new Ingredient("Pizza dough", 0, 200, Measurement.G, null));
+        aIngredients.add(new Ingredient("Pineapple", 0, 0.5, Measurement.G, null));
+        r1.setIngredients(aIngredients);
+        r1.setId("r111");
+        r.getValue().add(r1);
         r.getValue().add(new Recipe("Cheeseburger", 0, new ArrayList<>(), "Do this, then " +
                 "do that - pretty straight forward.\nAlso, don't forget to eat it at the end", false, "Burger", null));
         return r;

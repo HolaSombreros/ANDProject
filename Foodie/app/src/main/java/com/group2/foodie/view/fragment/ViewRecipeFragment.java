@@ -56,7 +56,7 @@ public class ViewRecipeFragment extends Fragment {
 
     private void initializeViews(View view) {
         navController = Navigation.findNavController(view);
-        ingredients = view.findViewById(R.id.personalRecipes_recycleView);
+        ingredients = view.findViewById(R.id.viewRecipe_recyclerView);
         title = view.findViewById(R.id.viewRecipe_title);
         category = view.findViewById(R.id.viewRecipe_category);
         publisher = view.findViewById(R.id.viewRecipe_publisher);
@@ -68,9 +68,8 @@ public class ViewRecipeFragment extends Fragment {
     }
 
     private void setupViews() {
-        Bundle bundle = getActivity().getIntent().getExtras();
-        Recipe recipe = viewModel.getRecipe(bundle.getString("recipe")).getValue();
-       // User user = viewModel.getCurrentUser().getValue();
+        Recipe recipe = viewModel.getRecipe(getArguments().getString("recipe")).getValue();
+        // User user = viewModel.getCurrentUser().getValue();
         ingredients.hasFixedSize();
         ingredients.setLayoutManager(new LinearLayoutManager(getActivity()));
         ingredientsAdapter = new ViewIngredientsAdapter(recipe.getIngredients());
@@ -78,7 +77,7 @@ public class ViewRecipeFragment extends Fragment {
 
         title.setText(recipe.getName());
         category.setText(recipe.getCategory());
-        publisher.setText(recipe.getPublisher().getUsername());
+       // publisher.setText(recipe.getPublisher().getUsername());
         //if (user.getFavoriteRecipes().contains(recipe))
             foodImage.setImageResource(R.drawable.ic_full_heart);
         //else

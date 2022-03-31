@@ -26,7 +26,7 @@ public class ViewIngredientsAdapter extends RecyclerView.Adapter<ViewIngredients
     @Override
     public ViewIngredientsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.editable_recipe_ingredient_item, parent, false);
+        View view = inflater.inflate(R.layout.view_recipe_ingredient_item, parent, false);
         return new ViewIngredientsAdapter.ViewHolder(view);
     }
 

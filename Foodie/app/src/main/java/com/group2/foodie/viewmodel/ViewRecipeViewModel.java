@@ -1,12 +1,16 @@
 package com.group2.foodie.viewmodel;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.group2.foodie.model.Recipe;
 import com.group2.foodie.model.User;
 import com.group2.foodie.repository.RecipeRepository;
 import com.group2.foodie.repository.UserRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ViewRecipeViewModel extends ViewModel {
     private RecipeRepository recipeRepository;
@@ -18,7 +22,11 @@ public class ViewRecipeViewModel extends ViewModel {
     }
 
     public LiveData<Recipe> getRecipe(String id) {
-        //return recipeRepository.getRecipe(String id);
+        List<Recipe> recipes = recipeRepository.getRecipe().getValue();
+        for (Recipe r : recipes) {
+            if (r.getId().equals(id))
+                return new MutableLiveData<>(r);
+        }
         return null;
     }
 

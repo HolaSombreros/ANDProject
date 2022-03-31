@@ -24,9 +24,10 @@ public class PersonalRecipesViewModel extends ViewModel {
     }
 
     public void filterByName(String text) {
-        filteredList = new MutableLiveData<>(new ArrayList<>());
+        List<Recipe> filteredRecipes = new ArrayList<>();
         for (Recipe recipe : repository.getRecipe().getValue())
             if (recipe.getName().toLowerCase().contains(text.toLowerCase()))
-                filteredList.getValue().add(recipe);
+                filteredRecipes.add(recipe);
+        filteredList.setValue(filteredRecipes);
     }
 }

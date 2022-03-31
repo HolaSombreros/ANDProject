@@ -38,7 +38,6 @@ public class PersonalRecipesFragment extends Fragment {
     private RecyclerView recipesRecycler;
     private RecipeAdapter recipeAdapter;
     private FloatingActionButton fab;
-    private ImageButton searchButton;
     private PersonalRecipesViewModel viewModel;
     private NavController navController;
     private EditText searchBar;
@@ -60,7 +59,6 @@ public class PersonalRecipesFragment extends Fragment {
         navController = Navigation.findNavController(view);
         recipesRecycler = view.findViewById(R.id.personalRecipes_recycleView);
         searchBar = view.findViewById(R.id.personalRecipes_searchText);
-        searchButton = view.findViewById(R.id.personalRecipes_searchButton);
         fab = view.findViewById(R.id.personalRecipes_fab);
     }
 
@@ -81,13 +79,22 @@ public class PersonalRecipesFragment extends Fragment {
         recipesRecycler.setAdapter(recipeAdapter);
 
         recipeAdapter.setOnClickListener(recipe -> {
-            Intent intent = new Intent();
-            intent.putExtra("recipe", recipe.getId());
-            navController.navigate(R.id.fragment_view_recipe);
+            Bundle bundle = new Bundle();
+            bundle.putString("recipe", recipe.getId());
+            navController.navigate(R.id.fragment_view_recipe, bundle);
         });
 
-        searchButton.setOnClickListener(v->{
-            viewModel.filterByName(searchBar.getText().toString());
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                viewModel.filterByName(searchBar.getText().toString());
+            }
         });
 
         fab.setOnClickListener(v -> {
