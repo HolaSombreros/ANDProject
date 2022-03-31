@@ -31,7 +31,7 @@ public class RecipeListLiveData extends LiveData<List<Recipe>> {
             Log.w("recipecreated", "Recipe: " + recipe.toString());
 
             List<Recipe> currentRecipes = getValue();
-            currentRecipes.add(recipe);
+       //     currentRecipes.add(recipe);
             setValue(currentRecipes);
         }
 

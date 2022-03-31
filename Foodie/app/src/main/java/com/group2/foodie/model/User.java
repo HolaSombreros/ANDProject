@@ -1,5 +1,6 @@
 package com.group2.foodie.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
@@ -13,6 +14,14 @@ public class User {
     private List<User> following;
     private List<Ingredient> ingredients;
     private Fridge fridge;
+
+    public User() {
+        recipes = new ArrayList<>();
+        favoriteRecipes = new ArrayList<>();
+        followers = new ArrayList<>();
+        following = new ArrayList<>();
+        ingredients = new ArrayList<>();
+    }
 
     public User(String username, String email, String password, List<Recipe> recipes, List<Recipe> favoriteRecipes, List<User> followers, List<User> following, List<Ingredient> ingredients, Fridge fridge) {
         this.username = username;

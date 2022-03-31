@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.group2.foodie.R;
@@ -39,7 +40,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RecipeAdapter.ViewHolder viewHolder, int position) {
-        viewHolder.image.setImageResource(recipes.get(position).getImageId());
+        // TODO
+   //     if (ContextCompat.getDrawable(this, recipes.get(position).getImageId()) != null)
+  //      viewHolder.image.setImageResource(recipes.get(position).getImageId());
         viewHolder.recipeName.setText(recipes.get(position).getName());
     }
 

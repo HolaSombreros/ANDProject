@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.group2.foodie.R;
-import com.group2.foodie.list.IngredientsAdapter;
+import com.group2.foodie.list.EditableIngredientsAdapter;
 import com.group2.foodie.viewmodel.AddRecipeViewModel;
 
 public class AddRecipeFragment extends Fragment {
@@ -33,10 +33,9 @@ public class AddRecipeFragment extends Fragment {
     private EditText recipeInstructionsInput;
     private FloatingActionButton addRecipeFab;
 
+    private EditableIngredientsAdapter ingredientsAdapter;
     // TODO - Switch for public/private
     // TODO - Handle image
-
-    private IngredientsAdapter ingredientsAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,7 +53,7 @@ public class AddRecipeFragment extends Fragment {
 
         ingredientsRecyclerView.hasFixedSize();
         ingredientsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        ingredientsAdapter = new IngredientsAdapter(viewModel.getIngredients().getValue());
+        ingredientsAdapter = new EditableIngredientsAdapter(viewModel.getIngredients().getValue());
         ingredientsRecyclerView.setAdapter(ingredientsAdapter);
 
         ingredientsAdapter.setOnRemoveListener(ingredient -> {

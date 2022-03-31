@@ -1,9 +1,17 @@
 package com.group2.foodie.repository;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.group2.foodie.R;
 import com.group2.foodie.livedata.RecipeListLiveData;
+import com.group2.foodie.model.Ingredient;
 import com.group2.foodie.model.Recipe;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecipeRepository {
     private static RecipeRepository instance;
@@ -14,6 +22,7 @@ public class RecipeRepository {
     private RecipeRepository() {
         database = FirebaseDatabase.getInstance();
         dbRef = database.getReference("recipes");
+        init();
     }
 
     public static RecipeRepository getInstance() {
@@ -26,6 +35,15 @@ public class RecipeRepository {
 
     public RecipeListLiveData getRecipes() {
         return recipes;
+    }
+
+    public LiveData<List<Recipe>> getRecipe() {
+        LiveData<List<Recipe>> r = new MutableLiveData<>(new ArrayList<>());
+        r.getValue().add(new Recipe("Hawaii Pizza", R.drawable.ic_fridge, new ArrayList<>() , "Do this, then " +
+                "do that - pretty straight forward.\nAlso, don't forget to eat it at the end", false, "Pizza", null));
+        r.getValue().add(new Recipe("Cheeseburger", 0, new ArrayList<>(), "Do this, then " +
+                "do that - pretty straight forward.\nAlso, don't forget to eat it at the end", false, "Burger", null));
+        return r;
     }
 
     public void init() {

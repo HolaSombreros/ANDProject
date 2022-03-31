@@ -124,7 +124,7 @@ public class AddRecipeViewModel extends ViewModel {
         }
 
         // TODO - category should be an enum...?
-        Recipe recipe = new Recipe(name, 0, ingredients.getValue(), instructions, false, category);
+        Recipe recipe = new Recipe(name, 0, ingredients.getValue(), instructions, false, category, null);
         recipeRepository.addRecipe(recipe);
         return true;
     }
