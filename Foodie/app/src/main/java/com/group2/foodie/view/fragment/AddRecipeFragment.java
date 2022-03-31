@@ -33,6 +33,9 @@ public class AddRecipeFragment extends Fragment {
     private EditText recipeInstructionsInput;
     private FloatingActionButton addRecipeFab;
 
+    // TODO - Switch for public/private
+    // TODO - Handle image
+
     private IngredientsAdapter ingredientsAdapter;
 
     @Override

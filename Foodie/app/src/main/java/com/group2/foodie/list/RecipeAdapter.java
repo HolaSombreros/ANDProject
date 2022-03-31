@@ -13,13 +13,18 @@ import com.group2.foodie.R;
 import com.group2.foodie.model.Recipe;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder>{
 
-    private ArrayList<Recipe> recipes;
+    private List<Recipe> recipes;
     private OnClickListener listener;
 
-    public RecipeAdapter(ArrayList<Recipe> recipes) {
+    public RecipeAdapter() {
+        recipes = new ArrayList<>();
+    }
+
+    public void setRecipes(List<Recipe> recipes) {
         this.recipes = recipes;
     }
 

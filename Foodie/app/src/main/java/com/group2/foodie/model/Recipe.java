@@ -3,13 +3,17 @@ package com.group2.foodie.model;
 import java.util.List;
 
 public class Recipe {
-
+    private String id;
     private String name;
     private int imageId;
     private List<Ingredient> ingredients;
     private String instructions;
     private boolean isPublic;
     private String category;
+
+    public Recipe() {
+
+    }
 
     public Recipe(String name, int imageId, List<Ingredient> ingredients, String instructions, boolean isPublic, String category) {
         this.name = name;
@@ -18,6 +22,14 @@ public class Recipe {
         this.instructions = instructions;
         this.isPublic = isPublic;
         this.category = category;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
