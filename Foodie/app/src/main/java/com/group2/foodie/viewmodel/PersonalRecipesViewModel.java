@@ -13,10 +13,13 @@ public class PersonalRecipesViewModel extends ViewModel {
 
     public PersonalRecipesViewModel() {
         repository = RecipeRepository.getInstance();
-        repository.init();
     }
 
     public LiveData<List<Recipe>> getPersonalRecipes() {
         return repository.getRecipes();
+    }
+
+    public void init() {
+        repository.init();
     }
 }
