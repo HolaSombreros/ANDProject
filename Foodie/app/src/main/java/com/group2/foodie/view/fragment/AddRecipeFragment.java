@@ -34,6 +34,8 @@ public class AddRecipeFragment extends Fragment {
     private FloatingActionButton addRecipeFab;
 
     private EditableIngredientsAdapter ingredientsAdapter;
+    // TODO - Switch for public/private
+    // TODO - Handle image
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

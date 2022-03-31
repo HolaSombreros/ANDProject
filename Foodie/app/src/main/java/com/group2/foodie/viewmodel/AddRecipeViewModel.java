@@ -8,6 +8,7 @@ import com.group2.foodie.model.Ingredient;
 import com.group2.foodie.model.Measurement;
 import com.group2.foodie.model.Recipe;
 import com.group2.foodie.repositorx.TempRepository;
+import com.group2.foodie.repository.RecipeRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +17,11 @@ public class AddRecipeViewModel extends ViewModel {
     private MutableLiveData<List<Ingredient>> ingredients;
     private MutableLiveData<String> errorMessage;
     private TempRepository repository;
+    private RecipeRepository recipeRepository;
 
     public AddRecipeViewModel() {
         repository = TempRepository.getInstance();
+        recipeRepository = RecipeRepository.getInstance();
         ingredients = new MutableLiveData<>();
         ingredients.setValue(new ArrayList<>());
         errorMessage = new MutableLiveData<>();
@@ -122,6 +125,7 @@ public class AddRecipeViewModel extends ViewModel {
 
         // TODO - category should be an enum...?
         Recipe recipe = new Recipe(name, 0, ingredients.getValue(), instructions, false, category, null);
+        recipeRepository.addRecipe(recipe);
         return true;
     }
 

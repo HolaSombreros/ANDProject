@@ -14,7 +14,7 @@ public class Recipe {
     private User publisher;
 
     public Recipe() {
-        ingredients = new ArrayList<>();
+
     }
 
     public Recipe(String name, int imageId, List<Ingredient> ingredients, String instructions, boolean isPublic, String category, User publisher) {

@@ -27,7 +27,7 @@ public class TempRepository {
                 "Cookies", "Curry", "Drinks", "Meatballs", "Muffins", "Pasta bakes",
                 "Pasta & risotto", "Pies & pastries", "Pizza", "Puddings & desserts",
                 "Roast", "Salad", "Sandwiches & wraps", "Sauces & condiments", "Soup", "Stew",
-                "Vegetable sides"};
+                "Vegetable sides", "Other"};
     }
 
     public List<Recipe> getDummyRecipes() {

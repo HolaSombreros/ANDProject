@@ -64,24 +64,11 @@ public class PersonalRecipesFragment extends Fragment {
         }
 
         // delete later
-        ArrayList<Recipe> recipeList = new ArrayList<>();
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food", null));
-        recipeAdapter = new RecipeAdapter(recipeList);
+        recipeAdapter = new RecipeAdapter();
 
+        viewModel.getPersonalRecipes().observe(getViewLifecycleOwner(), recipes -> {
+            recipeAdapter.setRecipes(recipes);
+        });
 
         //recipeAdapter = new RecipeAdapter(viewModel.getPersonalRecipes());
         recipesRecycler.setAdapter(recipeAdapter);
