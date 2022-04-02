@@ -2,12 +2,12 @@
     <!-- Base application theme. -->
     <style name="Theme.Foodie" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/blue_700_dark</item>
-        <item name="colorPrimaryVariant">@color/blue_700_medium</item>
+        <item name="colorPrimary">@color/blue_500</item>
+        <item name="colorPrimaryVariant">@color/blue_300</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/purple_700_medium</item>
-        <item name="colorSecondaryVariant">@color/purple_700_light</item>
+        <item name="colorSecondary">@color/purple_300</item>
+        <item name="colorSecondaryVariant">@color/purple_500</item>
         <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>

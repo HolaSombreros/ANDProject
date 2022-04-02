@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/recipe_ingredient_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="Ingredient name"
+        android:textSize="16sp"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/recipe_ingredient_quantity"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/recipe_ingredient_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:text="100"
+        android:textSize="16sp"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintStart_toEndOf="@id/recipe_ingredient_name"
+        app:layout_constraintTop_toTopOf="@id/recipe_ingredient_name"
+        app:layout_constraintEnd_toStartOf="@id/recipe_ingredient_measurement"
+        app:layout_constraintBottom_toBottomOf="@id/recipe_ingredient_name"
+        android:layout_marginStart="16dp"/>
+
+    <TextView
+        android:id="@+id/recipe_ingredient_measurement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:gravity="end"
+        android:text="g"
+        android:textSize="16sp"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@id/recipe_ingredient_name"
+        app:layout_constraintEnd_toStartOf="@id/recipe_ingredient_removeBtn"
+        app:layout_constraintStart_toEndOf="@id/recipe_ingredient_quantity"
+        app:layout_constraintTop_toTopOf="@id/recipe_ingredient_name" />
+
+    <Button
+        android:id="@+id/recipe_ingredient_removeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remove"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="?attr/colorError"
+        app:layout_constraintStart_toEndOf="@id/recipe_ingredient_measurement"
+        app:layout_constraintBaseline_toBaselineOf="@id/recipe_ingredient_name"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

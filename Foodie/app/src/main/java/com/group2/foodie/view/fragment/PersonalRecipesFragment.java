@@ -1,10 +1,16 @@
 package com.group2.foodie.view.fragment;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,6 +40,7 @@ public class PersonalRecipesFragment extends Fragment {
     private FloatingActionButton fab;
     private PersonalRecipesViewModel viewModel;
     private NavController navController;
+    private EditText searchBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,6 +51,7 @@ public class PersonalRecipesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(getActivity()).get(PersonalRecipesViewModel.class);
+        viewModel.init();
         initializeViews(view);
         setupViews();
     }
@@ -51,6 +59,7 @@ public class PersonalRecipesFragment extends Fragment {
     private void initializeViews(View view) {
         navController = Navigation.findNavController(view);
         recipesRecycler = view.findViewById(R.id.personalRecipes_recycleView);
+        searchBar = view.findViewById(R.id.personalRecipes_searchText);
         fab = view.findViewById(R.id.personalRecipes_fab);
     }
 
@@ -62,33 +71,34 @@ public class PersonalRecipesFragment extends Fragment {
             recipesRecycler.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         }
 
-        // delete later
-        ArrayList<Recipe> recipeList = new ArrayList<>();
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeList.add(new Recipe("Burger", R.drawable.ic_fridge, new ArrayList<>(), "1. Kill the pig", true, "Food"));
-        recipeAdapter = new RecipeAdapter(recipeList);
+        recipeAdapter = new RecipeAdapter();
 
-
-        //recipeAdapter = new RecipeAdapter(viewModel.getPersonalRecipes());
-        recipesRecycler.setAdapter(recipeAdapter);
-
-        recipeAdapter.setOnClickListener(v -> {
-            // navController.navigate(R.id.);
+        viewModel.getPersonalRecipes().observe(getViewLifecycleOwner(), recipes -> {
+            recipeAdapter.setRecipes(recipes);
         });
 
-        fab.setOnClickListener((v) -> {
+        recipesRecycler.setAdapter(recipeAdapter);
+
+        recipeAdapter.setOnClickListener(recipe -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("recipe", recipe.getId());
+            navController.navigate(R.id.fragment_view_recipe, bundle);
+        });
+
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                viewModel.filterByName(searchBar.getText().toString());
+            }
+        });
+
+        fab.setOnClickListener(v -> {
             navController.navigate(R.id.fragment_add_recipe);
         });
     }

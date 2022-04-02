@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_300_light">#EE98FB</color>
-    <color name="purple_300_medium">#BA68C8</color>
-    <color name="purple_300_dark">#883997</color>
-    <color name="purple_500_light">#D05CE3</color>
-    <color name="purple_500_medium">#9C27B0</color>
-    <color name="purple_500_dark">#6A0080</color>
-    <color name="purple_700_light">#AE52D4</color>
-    <color name="purple_700_medium">#7B1FA2</color>
-    <color name="purple_700_dark">#4A0072</color>
+    <color name="purple_300">#D05CE3</color>
+    <color name="purple_500">#9C27B0</color>
+    <color name="purple_700">#6A0080</color>
 
-    <color name="blue_300_light">#8BF6FF</color>
-    <color name="blue_300_medium">#4FC3F7</color>
-    <color name="blue_300_dark">#0093C4</color>
-    <color name="blue_500_light">#67DAFF</color>
-    <color name="blue_500_medium">#03A9F4</color>
-    <color name="blue_500_dark">#007AC1</color>
-    <color name="blue_700_light">#5EB8FF</color>
-    <color name="blue_700_medium">#0288D1</color>
-    <color name="blue_700_dark">#005B9F</color>
+    <color name="blue_300">#67DAFF</color>
+    <color name="blue_500">#03A9F4</color>
+    <color name="blue_700">#007AC1</color>
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>

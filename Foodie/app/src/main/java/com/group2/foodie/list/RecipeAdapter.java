@@ -7,20 +7,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.group2.foodie.R;
 import com.group2.foodie.model.Recipe;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder>{
 
-    private ArrayList<Recipe> recipes;
+    private List<Recipe> recipes;
     private OnClickListener listener;
 
-    public RecipeAdapter(ArrayList<Recipe> recipes) {
+    public RecipeAdapter() {
+        recipes = new ArrayList<>();
+    }
+
+    public void setRecipes(List<Recipe> recipes) {
         this.recipes = recipes;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -33,7 +40,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RecipeAdapter.ViewHolder viewHolder, int position) {
-        viewHolder.image.setImageResource(recipes.get(position).getImageId());
+        // TODO
+   //     if (ContextCompat.getDrawable(this, recipes.get(position).getImageId()) != null)
+  //      viewHolder.image.setImageResource(recipes.get(position).getImageId());
         viewHolder.recipeName.setText(recipes.get(position).getName());
     }
 

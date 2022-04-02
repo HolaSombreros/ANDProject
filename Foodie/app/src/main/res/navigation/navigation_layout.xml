@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/fragment_add_recipe"
         android:name="com.group2.foodie.view.fragment.AddRecipeFragment"
-        android:label="@string/title_recipes"
+        android:label="@string/title_add_recipe"
         tools:layout="@layout/fragment_add_recipe" />
 
     <fragment
@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_fragment_personal_recipes_to_fragment_add_recipe"
             app:destination="@id/fragment_add_recipe" />
+        <action
+            android:id="@+id/action_fragment_personal_recipes_to_fragment_view_recipe"
+            app:destination="@id/fragment_view_recipe" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -44,6 +47,9 @@
         android:name="com.group2.foodie.view.fragment.MyFollowersFragment"
         android:label="fragment_my_followers"
         tools:layout="@layout/fragment_my_followers" />
-
-
+    <fragment
+        android:id="@+id/fragment_view_recipe"
+        android:name="com.group2.foodie.view.fragment.ViewRecipeFragment"
+        android:label="@string/title_add_recipe"
+        tools:layout="@layout/fragment_view_recipe" />
 </navigation>
