@@ -27,7 +27,13 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.group2.foodie.view.fragment.LoginFragment"
-        android:label="LoginFragment" />
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login"/>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.group2.foodie.view.fragment.RegisterFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_register"/>
     <fragment
         android:id="@+id/fragment_app_intro"
         android:name="com.group2.foodie.view.fragment.AppIntroFragment"

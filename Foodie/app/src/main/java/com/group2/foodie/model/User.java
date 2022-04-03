@@ -35,6 +35,18 @@ public class User {
         this.fridge = fridge;
     }
 
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.recipes = new ArrayList<>();
+        this.favoriteRecipes = new ArrayList<>();
+        this.followers = new ArrayList<>();
+        this.following = new ArrayList<>();
+        this.ingredients = new ArrayList<>();
+        this.fridge = new Fridge(ingredients);
+    }
+
     public String getUsername() {
         return username;
     }
