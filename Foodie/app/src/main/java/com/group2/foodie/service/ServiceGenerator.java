@@ -9,13 +9,10 @@ public class ServiceGenerator {
 
     public static SpoonacularApi getSpoonacularApi(){
         if(spoonacularApi == null) {
-            synchronized (new Object()){
                 spoonacularApi = new Retrofit.Builder().baseUrl("https://api.spoonacular.com/").
                         addConverterFactory(GsonConverterFactory.create()).
                         build().create(SpoonacularApi.class);
             }
-            return spoonacularApi;
-        }
-        return null;
+        return spoonacularApi;
     }
 }

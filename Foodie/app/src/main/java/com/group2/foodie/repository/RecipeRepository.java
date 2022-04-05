@@ -21,6 +21,7 @@ import com.group2.foodie.model.Measurement;
 import com.group2.foodie.model.Recipe;
 import com.group2.foodie.service.ServiceGenerator;
 import com.group2.foodie.service.SpoonacularApi;
+import com.group2.foodie.util.DailyFormatter;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -39,11 +40,8 @@ public class RecipeRepository {
     private FirebaseDatabase database;
     private DatabaseReference dbRef;
     private RecipeListLiveData recipes;
-    private static SpoonacularApi spoonacularApi;
-    private DailyRecipeLiveData dailyRecipeLiveData;
 
     private RecipeRepository() {
-        spoonacularApi = ServiceGenerator.getSpoonacularApi();
         database = FirebaseDatabase.getInstance();
         dbRef = database.getReference();
         init();
@@ -78,49 +76,6 @@ public class RecipeRepository {
 
     public void init() {
         recipes = new RecipeListLiveData(dbRef);
-        dailyRecipeLiveData = new DailyRecipeLiveData(dbRef);
-
-    }
-    public String formatDate() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        String timeStamp = LocalDate.now().format(formatter);
-        return timeStamp;
-    }
-
-    public void test() {
-        DatabaseReference ref = dbRef.child("dailyrecipe");
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                DailyRecipe dailyRecipe = snapshot.getValue(DailyRecipe.class);
-                if(dailyRecipe != null && Integer.parseInt(dailyRecipe.getDate()) < Integer.parseInt(formatDate())) {
-                    Call<DailyRecipeResponse> call = spoonacularApi.getDailyRecipe();
-                    call.enqueue(new Callback<DailyRecipeResponse>() {
-                        @EverythingIsNonNull
-                        @Override
-                        public void onResponse(Call<DailyRecipeResponse> call, Response<DailyRecipeResponse> response) {
-                            if (response.isSuccessful()) {
-                                DailyRecipe otherDaily = response.body().getDailyRecipe();
-                                otherDaily.setDate(formatDate());
-                                dbRef.child("dailyrecipe").setValue(otherDaily);
-                            }
-                        }
-
-                        @EverythingIsNonNull
-                        @Override
-                        public void onFailure(Call<DailyRecipeResponse> call, Throwable t) {
-                            Log.i("Retrofit", "Something went wrong :(");
-                            Log.w("error", t.getMessage());
-                        }
-                    });
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
     }
 
     public void addRecipe(Recipe recipe) {
@@ -130,10 +85,6 @@ public class RecipeRepository {
     public void removeRecipe(Recipe recipe) {
         // TODO - Uncomment and test.
 //        dbRef.child(recipe.getId()).removeValue();
-    }
-
-    public DailyRecipeLiveData getDailyRecipe() {
-        return dailyRecipeLiveData;
     }
 
 }

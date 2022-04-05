@@ -4,27 +4,24 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.group2.foodie.dailyrecipe.DailyRecipe;
-import com.group2.foodie.repository.RecipeRepository;
+import com.group2.foodie.service.DailyRecipeService;
 
 public class DailyRecipeViewModel extends ViewModel {
-    private RecipeRepository recipeRepository;
+    private DailyRecipeService service;
 
     public DailyRecipeViewModel(){
-        this.recipeRepository = RecipeRepository.getInstance();
+        this.service = DailyRecipeService.getInstance();
     }
 
     public LiveData<DailyRecipe> getDailyRecipe(){
-        return recipeRepository.getDailyRecipe();
+        return service.getDailyRecipe();
     }
 
     public void searchDailyRecipe() {
-        recipeRepository.test();
-    }
-    public void test() {
-        recipeRepository.test();
+        service.searchDailyRecipe();
     }
 
     public void init() {
-        recipeRepository.init();
+        service.init();
     }
 }

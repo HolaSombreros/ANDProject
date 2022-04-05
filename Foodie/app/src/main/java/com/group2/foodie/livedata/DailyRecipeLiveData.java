@@ -13,7 +13,7 @@ public class DailyRecipeLiveData extends LiveData<DailyRecipe> {
     private DatabaseReference dbRef;
 
     public DailyRecipeLiveData(DatabaseReference dbRef) {
-        this.dbRef = dbRef;
+        this.dbRef = dbRef.child("dailyrecipe");
     }
 
     private ValueEventListener eventListener = new ValueEventListener() {

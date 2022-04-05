@@ -14,8 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.group2.foodie.R;
@@ -28,6 +30,7 @@ public class DailyRecipeFragment extends Fragment {
     private DailyRecipeViewModel dailyRecipeViewModel;
     private TextView instructions;
     private EditText recipeName;
+    private ImageView imageView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,18 +38,24 @@ public class DailyRecipeFragment extends Fragment {
         return (ViewGroup) inflater.inflate(
                 R.layout.fragment_daily_recipe, container, false);
     }
+    private void initViews(View view) {
+        instructions = view.findViewById(R.id.daily_instructions);
+        recipeName = view.findViewById(R.id.daily_recipe_name);
+        imageView = view.findViewById(R.id.daily_image);
+    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         dailyRecipeViewModel = new ViewModelProvider(getActivity()).get(DailyRecipeViewModel.class);
-        //dailyRecipeViewModel.init();
-        instructions = view.findViewById(R.id.daily_instructions);
-        recipeName = view.findViewById(R.id.daily_recipe_name);
+        dailyRecipeViewModel.init();
+        initViews(view);
         dailyRecipeViewModel.searchDailyRecipe();
         dailyRecipeViewModel.getDailyRecipe().observe(getViewLifecycleOwner(), recipe-> {
              instructions.setText(recipe.getInstructions());
                 recipeName.setText(recipe.getTitle());
-                //Log.w("daily", recipe.getTitle());
+                Log.w("daily", recipe.toString());
+                Glide.with(getActivity()).load(recipe.getImage()).into(imageView);
+
 
         });
     }

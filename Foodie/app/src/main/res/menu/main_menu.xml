@@ -16,4 +16,8 @@
         android:id="@+id/navbar_profile"
         android:icon="@drawable/ic_profile"
         android:title="@string/title_profile" />
+    <item
+        android:id="@+id/fragment_daily_recipe"
+        android:icon="@drawable/ic_recipes"
+        android:title="@string/daily_recipe" />
 </menu>

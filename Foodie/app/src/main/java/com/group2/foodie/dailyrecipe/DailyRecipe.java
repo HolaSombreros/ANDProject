@@ -6,18 +6,18 @@ public class DailyRecipe {
     private List<ExtendedIngredient> extendedIngredients;
     private int readyInMinutes;
     private String instructions;
-    private String imageUrl;
+    private String image;
     private int servings;
     private String date;
 
     public DailyRecipe() {}
 
-    public DailyRecipe(String title, List<ExtendedIngredient> extendedIngredients, int readyInMinutes, String instructions, String imageUrl, int servings, String date) {
+    public DailyRecipe(String title, List<ExtendedIngredient> extendedIngredients, int readyInMinutes, String instructions, String image, int servings, String date) {
         this.title = title;
         this.extendedIngredients = extendedIngredients;
         this.readyInMinutes = readyInMinutes;
         this.instructions = instructions;
-        this.imageUrl = imageUrl;
+        this.image = image;
         this.servings = servings;
         this.date = date;
     }
@@ -62,12 +62,12 @@ public class DailyRecipe {
         this.instructions = instructions;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImage() {
+        return image;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public int getServings() {
@@ -85,7 +85,7 @@ public class DailyRecipe {
                 ", ingredients=" + extendedIngredients +
                 ", readyInMinutes=" + readyInMinutes +
                 ", instructions=" + instructions +
-                ", imageUrl='" + imageUrl + '\'' +
+                ", imageUrl='" + image + '\'' +
                 ", servings=" + servings +
                 ", date=" + date +
                 '}';

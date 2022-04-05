@@ -59,11 +59,11 @@
             <ImageView
                 android:id="@+id/daily_image"
                 android:layout_width="match_parent"
-                android:layout_height="255dp"
+                android:layout_height="match_parent"
                 android:layout_marginTop="24dp"
+                android:adjustViewBounds="true"
                 android:src="@drawable/ic_recipes"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.42"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/daily_recipe_name" />
 
@@ -83,14 +83,6 @@
                 android:text="@string/instructions"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/daily_instructions_label" />
-
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Button"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
