@@ -7,6 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.group2.foodie.view.fragment.MyFollowersFragment;
 import com.group2.foodie.view.fragment.DailyRecipeFragment;
+import com.group2.foodie.view.fragment.PersonalRecipesFragment;
 
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
@@ -14,7 +15,6 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     public ViewPagerAdapter(FragmentActivity fa) {
         super(fa);
     }
-
 
     @NonNull
     @Override

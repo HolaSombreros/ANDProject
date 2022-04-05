@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navbar_recipes"
+        android:id="@+id/fragment_personal_recipes"
         android:icon="@drawable/ic_recipes"
         android:title="@string/title_recipes" />
 

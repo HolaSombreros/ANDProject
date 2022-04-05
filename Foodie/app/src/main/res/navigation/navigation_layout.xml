@@ -15,7 +15,7 @@
     <fragment
         android:id="@+id/fragment_personal_recipes"
         android:name="com.group2.foodie.view.fragment.PersonalRecipesFragment"
-        android:label="fragment_personal_recipes"
+        android:label="Personal Recipes"
         tools:layout="@layout/fragment_personal_recipes" >
         <action
             android:id="@+id/action_fragment_personal_recipes_to_fragment_add_recipe"
@@ -27,11 +27,12 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.group2.foodie.view.fragment.LoginFragment"
-        android:label="LoginFragment" />
+        android:label="Login"
+        tools:layout="@layout/fragment_login"/>
     <fragment
         android:id="@+id/fragment_app_intro"
         android:name="com.group2.foodie.view.fragment.AppIntroFragment"
-        android:label="fragment_app_intro"
+        android:label="Foodie"
         tools:layout="@layout/fragment_app_intro" >
         <action
             android:id="@+id/action_fragment_app_intro_to_fragment_personal_recipes"
@@ -40,16 +41,21 @@
     <fragment
         android:id="@+id/fragment_daily_recipe"
         android:name="com.group2.foodie.view.fragment.DailyRecipeFragment"
-        android:label="fragment_daily_recipe2"
+        android:label="Daily Recipe"
         tools:layout="@layout/fragment_daily_recipe" />
     <fragment
         android:id="@+id/fragment_my_followers"
         android:name="com.group2.foodie.view.fragment.MyFollowersFragment"
-        android:label="fragment_my_followers"
+        android:label="My followers"
         tools:layout="@layout/fragment_my_followers" />
     <fragment
         android:id="@+id/fragment_view_recipe"
         android:name="com.group2.foodie.view.fragment.ViewRecipeFragment"
         android:label="@string/title_add_recipe"
         tools:layout="@layout/fragment_view_recipe" />
+    <fragment
+        android:id="@+id/personal_profile"
+        android:name="com.group2.foodie.view.fragment.PersonalProfileFragment"
+        android:label="Personal Profile"
+        tools:layout="@layout/fragment_personal_profile" />
 </navigation>
