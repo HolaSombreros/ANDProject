@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_layout"
-    app:startDestination="@id/fragment_app_intro">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/fragment_add_recipe"
@@ -27,8 +27,14 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.group2.foodie.view.fragment.LoginFragment"
-        android:label="Login"
+        android:label="LoginFragment"
         tools:layout="@layout/fragment_login"/>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.group2.foodie.view.fragment.RegisterFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_register"/>
+
     <fragment
         android:id="@+id/fragment_app_intro"
         android:name="com.group2.foodie.view.fragment.AppIntroFragment"
