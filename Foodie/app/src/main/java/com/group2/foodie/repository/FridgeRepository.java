@@ -6,6 +6,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.group2.foodie.livedata.FridgeIngredientsLiveData;
 import com.group2.foodie.model.FridgeIngredient;
+import com.group2.foodie.model.Ingredient;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class FridgeRepository {
         fridgeIngredientsLiveData = new FridgeIngredientsLiveData(dbRef);
     }
 
-    public LiveData<List<FridgeIngredient>> getFridgeIngredients() {
+    public LiveData<List<Ingredient>> getFridgeIngredients() {
         return fridgeIngredientsLiveData;
     }
 }

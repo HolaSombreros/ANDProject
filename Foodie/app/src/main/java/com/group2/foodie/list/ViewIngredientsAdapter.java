@@ -1,5 +1,6 @@
 package com.group2.foodie.list;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.group2.foodie.R;
 import com.group2.foodie.model.Ingredient;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +39,10 @@ public class ViewIngredientsAdapter extends RecyclerView.Adapter<ViewIngredients
     public void onBindViewHolder(ViewIngredientsAdapter.ViewHolder holder, int position) {
         Ingredient ingredient = ingredients.get(position);
         holder.name.setText(ingredient.getName());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(ingredient.getLocalDate(),formatter);
+        if (localDate != null && localDate.isBefore(LocalDate.now()))
+            holder.name.setTextColor(Color.RED);
         holder.quantity.setText(String.valueOf(ingredient.getQuantity()));
         holder.measurement.setText(ingredient.getMeasurement().toString());
     }

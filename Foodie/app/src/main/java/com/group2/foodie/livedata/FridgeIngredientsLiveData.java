@@ -12,11 +12,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.group2.foodie.model.FridgeIngredient;
+import com.group2.foodie.model.Ingredient;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FridgeIngredientsLiveData extends LiveData<List<FridgeIngredient>> {
+public class FridgeIngredientsLiveData extends LiveData<List<Ingredient>> {
     private DatabaseReference dbRef;
 
     public FridgeIngredientsLiveData(DatabaseReference dbRef) {
@@ -27,10 +28,10 @@ public class FridgeIngredientsLiveData extends LiveData<List<FridgeIngredient>> 
     private ChildEventListener listener = new ChildEventListener() {
         @Override
         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-            FridgeIngredient ingredient = snapshot.getValue(FridgeIngredient.class);
+            Ingredient ingredient = snapshot.getValue(Ingredient.class);
             ingredient.setName(snapshot.getKey());
 
-            List<FridgeIngredient> current = getValue();
+            List<Ingredient> current = getValue();
             current.add(ingredient);
             setValue(current);
 
@@ -44,9 +45,9 @@ public class FridgeIngredientsLiveData extends LiveData<List<FridgeIngredient>> 
 
         @Override
         public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-            FridgeIngredient ingredient = snapshot.getValue(FridgeIngredient.class);
+            Ingredient ingredient = snapshot.getValue(Ingredient.class);
 
-            List<FridgeIngredient> current = getValue();
+            List<Ingredient> current = getValue();
             current.remove(ingredient);
             setValue(current);
         }

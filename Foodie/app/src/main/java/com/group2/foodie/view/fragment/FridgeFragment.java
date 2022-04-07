@@ -41,6 +41,7 @@ public class FridgeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(getActivity()).get(FridgeViewModel.class);
+        viewModel.init();
         initializeViews(view);
         setupViews();
     }

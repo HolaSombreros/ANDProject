@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.fragment_personal_recipes,
-                R.id.navbar_fridge,
+                R.id.fragment_fridge,
                 R.id.navbar_profile
         ).setOpenableLayout(drawerLayout).build();
 

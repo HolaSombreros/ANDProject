@@ -79,10 +79,10 @@ public class ViewRecipeFragment extends Fragment {
             instructions.setText(recipe.getInstructions());
             ingredientsAdapter.setIngredients(recipe.getIngredients());
 
-            if (user.getFavoriteRecipes().contains(recipe))
-                favoriteImage.setImageResource(R.drawable.ic_full_heart);
-            else
-                favoriteImage.setImageResource(R.drawable.ic_empty_heart);
+ //           if (user.getFavoriteRecipes().contains(recipe))
+   //             favoriteImage.setImageResource(R.drawable.ic_full_heart);
+     //       else
+       //         favoriteImage.setImageResource(R.drawable.ic_empty_heart);
 
             // TODO
     //      if (ContextCompat.getDrawable(getActivity(), recipe.getImageId()) != null)

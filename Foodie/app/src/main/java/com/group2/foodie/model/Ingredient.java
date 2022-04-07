@@ -7,7 +7,7 @@ public class Ingredient {
     private int imageId;
     private double quantity;
     private Measurement measurement;
-    private LocalDate localDate;
+    private String localDate;
 
     public Ingredient() {
         name = null;
@@ -17,7 +17,7 @@ public class Ingredient {
         localDate = null;
     }
 
-    public Ingredient(String name, int imageId, double quantity, Measurement measurement, LocalDate localDate) {
+    public Ingredient(String name, int imageId, double quantity, Measurement measurement, String localDate) {
         this.name = name;
         this.imageId = imageId;
         this.quantity = quantity;
@@ -57,11 +57,11 @@ public class Ingredient {
         this.measurement = measurement;
     }
 
-    public LocalDate getLocalDate() {
+    public String getLocalDate() {
         return localDate;
     }
 
-    public void setLocalDate(LocalDate localDate) {
+    public void setLocalDate(String localDate) {
         this.localDate = localDate;
     }
 
