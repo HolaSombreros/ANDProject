@@ -40,7 +40,7 @@ public class ViewIngredientsAdapter extends RecyclerView.Adapter<ViewIngredients
         Ingredient ingredient = ingredients.get(position);
         holder.name.setText(ingredient.getName());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.parse(ingredient.getLocalDate(),formatter);
+        LocalDate localDate = LocalDate.parse(ingredient.getExpirationDate(),formatter);
         if (localDate != null && localDate.isBefore(LocalDate.now()))
             holder.name.setTextColor(Color.RED);
         holder.quantity.setText(String.valueOf(ingredient.getQuantity()));

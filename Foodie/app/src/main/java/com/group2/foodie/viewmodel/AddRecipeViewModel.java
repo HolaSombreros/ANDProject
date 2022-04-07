@@ -37,17 +37,6 @@ public class AddRecipeViewModel extends ViewModel {
         return repository.getDummyIngredientNames();
     }
 
-    public String[] getIngredientMeasurements() {
-        String[] output = new String[Measurement.values().length];
-
-        int i = 0;
-        for (Measurement measurement : Measurement.values()) {
-            output[i++] = measurement.toString();
-        }
-
-        return output;
-    }
-
     public LiveData<List<Ingredient>> getIngredients() {
         return ingredients;
     }
