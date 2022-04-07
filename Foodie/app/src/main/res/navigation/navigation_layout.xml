@@ -81,5 +81,15 @@
         android:id="@+id/fragment_fridge"
         android:name="com.group2.foodie.view.fragment.FridgeFragment"
         android:label="Fridge"
-        tools:layout="@layout/fragment_fridge" />
+        tools:layout="@layout/fragment_fridge" >
+        <action
+            android:id="@+id/action_fragment_fridge_to_fragment_addedit_ingredient"
+            app:destination="@id/fragment_addedit_ingredient" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_addedit_ingredient"
+        android:name="com.group2.foodie.view.fragment.AddEditIngredientFragment"
+        android:label="AddEditIngredient"
+        tools:layout="@layout/fragment_addedit_ingredient"
+        />
 </navigation>

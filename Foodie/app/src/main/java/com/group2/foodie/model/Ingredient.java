@@ -4,22 +4,19 @@ import java.time.LocalDate;
 
 public class Ingredient {
     private String name;
-    private int imageId;
     private double quantity;
     private Measurement measurement;
     private String localDate;
 
     public Ingredient() {
         name = null;
-        imageId = 0;
         quantity = 0;
         measurement = null;
         localDate = null;
     }
 
-    public Ingredient(String name, int imageId, double quantity, Measurement measurement, String localDate) {
+    public Ingredient(String name, double quantity, Measurement measurement, String localDate) {
         this.name = name;
-        this.imageId = imageId;
         this.quantity = quantity;
         this.measurement = measurement;
         this.localDate = localDate;
@@ -31,14 +28,6 @@ public class Ingredient {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
     }
 
     public double getQuantity() {
