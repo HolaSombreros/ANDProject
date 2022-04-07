@@ -24,6 +24,7 @@ import com.group2.foodie.util.Util;
 import com.group2.foodie.viewmodel.AddEditIngredientViewModel;
 
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 
 public class AddEditIngredientFragment extends Fragment {
@@ -66,9 +67,6 @@ public class AddEditIngredientFragment extends Fragment {
     }
 
     private void setupViews() {
-
-        expirationDate.setMinDate(LocalDate.now().toEpochDay());
-
         expirationDate.setOnDateChangeListener((calendarView, year, month, day) -> {
             viewModel.setDate(String.format("%d-%02d-%02d", year, (month + 1), day));
         });
@@ -88,7 +86,10 @@ public class AddEditIngredientFragment extends Fragment {
                 name.setText(ingredient.getName());
                 quantity.setText(String.valueOf(ingredient.getQuantity()));
                 measurement.setSelection(ingredient.getMeasurement().ordinal());
-                expirationDate.setDate(Util.getLocalDateFromString(ingredient.getExpirationDate()).toEpochDay());
+                LocalDate localDate = Util.getLocalDateFromString(ingredient.getExpirationDate());
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(localDate.getYear(), localDate.getMonth().getValue()-1, localDate.getDayOfMonth());
+                expirationDate.setDate(calendar.getTimeInMillis());
                 remove.setVisibility(View.VISIBLE);
             });
         }
