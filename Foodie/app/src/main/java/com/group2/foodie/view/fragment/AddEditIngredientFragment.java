@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -19,7 +20,11 @@ import androidx.navigation.Navigation;
 
 import com.group2.foodie.R;
 import com.group2.foodie.model.Measurement;
+import com.group2.foodie.util.Util;
 import com.group2.foodie.viewmodel.AddEditIngredientViewModel;
+
+import java.time.LocalDate;
+import java.util.Date;
 
 public class AddEditIngredientFragment extends Fragment {
 
@@ -28,20 +33,24 @@ public class AddEditIngredientFragment extends Fragment {
     private EditText name;
     private EditText quantity;
     private Spinner measurement;
-    private EditText expirationDate;
+    private CalendarView expirationDate;
     private Button save;
     private Button remove;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_fridge, container, false);
+        return inflater.inflate(R.layout.fragment_addedit_ingredient, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(getActivity()).get(AddEditIngredientViewModel.class);
-        viewModel.init(getArguments().getString("ingredient"));
+        if (getArguments() != null) {
+            viewModel.init(getArguments().getString("ingredient"));
+        } else {
+            viewModel.init("");
+        }
         initializeViews(view);
         setupViews();
     }
@@ -58,35 +67,44 @@ public class AddEditIngredientFragment extends Fragment {
 
     private void setupViews() {
 
+        expirationDate.setMinDate(LocalDate.now().toEpochDay());
+
+        expirationDate.setOnDateChangeListener((calendarView, year, month, day) -> {
+            viewModel.setDate(String.format("%d-%02d-%02d", year, (month + 1), day));
+        });
+
+        expirationDate.setMinDate(LocalDate.now().toEpochDay());
+
         ArrayAdapter<String> ingredientMeasurementAdapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_spinner_item,
                 viewModel.getIngredientMeasurements());
         ingredientMeasurementAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         measurement.setAdapter(ingredientMeasurementAdapter);
 
-        remove.setVisibility(View.VISIBLE);
+        remove.setVisibility(View.INVISIBLE);
 
-        if (getArguments().getString("ingredient") != null) {
+        if (getArguments() != null) {
             viewModel.getIngredient().observe(getViewLifecycleOwner(), ingredient -> {
                 name.setText(ingredient.getName());
                 quantity.setText(String.valueOf(ingredient.getQuantity()));
                 measurement.setSelection(ingredient.getMeasurement().ordinal());
-                expirationDate.setText(ingredient.getLocalDate());
-                remove.setVisibility(View.INVISIBLE);
+                expirationDate.setDate(Util.getLocalDateFromString(ingredient.getExpirationDate()).toEpochDay());
+                remove.setVisibility(View.VISIBLE);
             });
         }
 
         save.setOnClickListener(v -> {
-            if (getArguments().getString("ingredient") != null)
+            if (getArguments() != null)
                 viewModel.saveIngredient(name.getText().toString(), Double.parseDouble(quantity.getText().toString()),
-                        Measurement.fromString(measurement.getSelectedItem().toString()), expirationDate.getText().toString());
+                        Measurement.fromString(measurement.getSelectedItem().toString()), viewModel.getDate());
             else
                 viewModel.addIngredient(name.getText().toString(), Double.parseDouble(quantity.getText().toString()),
-                        Measurement.fromString(measurement.getSelectedItem().toString()), expirationDate.getText().toString());
+                        Measurement.fromString(measurement.getSelectedItem().toString()), viewModel.getDate());
+            navController.navigate(R.id.fragment_fridge);
         });
 
         AlertDialog.Builder deleteDialogBuilder = new AlertDialog.Builder(getActivity());
-        deleteDialogBuilder.setMessage("Are you sure you want to delete this recipe?");
+        deleteDialogBuilder.setMessage("Are you sure you want to delete this ingredient?");
         deleteDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> {
             viewModel.removeIngredient();
             navController.navigate(R.id.fragment_fridge);
@@ -98,7 +116,5 @@ public class AddEditIngredientFragment extends Fragment {
         remove.setOnClickListener(v -> {
             deleteDialog.show();
         });
-
-
     }
 }

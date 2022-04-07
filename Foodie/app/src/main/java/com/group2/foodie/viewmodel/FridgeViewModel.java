@@ -21,6 +21,6 @@ public class FridgeViewModel extends ViewModel {
     }
 
     public void init() {
-        repository.init();
+        repository.init("-1");
     }
 }

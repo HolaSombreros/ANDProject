@@ -10,6 +10,7 @@ import com.group2.foodie.repository.FridgeRepository;
 public class AddEditIngredientViewModel extends ViewModel {
 
     private FridgeRepository repository;
+    private String date;
 
     public AddEditIngredientViewModel() {
         repository = FridgeRepository.getInstance();
@@ -46,5 +47,13 @@ public class AddEditIngredientViewModel extends ViewModel {
     public void addIngredient(String name, double quantity, Measurement measurement, String expirationDate) {
         Ingredient ingredient = new Ingredient(name, quantity, measurement, expirationDate);
         repository.addFridgeIngredient(ingredient);
+    }
+
+    public void setDate(String string) {
+        date = string;
+    }
+
+    public String getDate() {
+        return date;
     }
 }

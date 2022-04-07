@@ -49,7 +49,6 @@ public class AddRecipeViewModel extends ViewModel {
         if (isIngredientInputValid(name, quantity)) {
 
             Ingredient newIngredient = new Ingredient(name,
-                    0,
                     (!quantity.isEmpty() ? Integer.parseInt(quantity) : 0),
                     Measurement.fromString(measurement),
                     null);

@@ -67,6 +67,10 @@ public class ViewIngredientsAdapter extends RecyclerView.Adapter<ViewIngredients
             name = itemView.findViewById(R.id.view_recipe_ingredient_name);
             quantity = itemView.findViewById(R.id.view_recipe_ingredient_quantity);
             measurement = itemView.findViewById(R.id.view_recipe_ingredient_measurement);
+
+            itemView.setOnClickListener(v-> {
+                listener.onClick(ingredients.get(getBindingAdapterPosition()));
+            });
         }
     }
 }

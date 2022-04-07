@@ -66,11 +66,11 @@ public class FridgeFragment extends Fragment {
         ingredientsAdapter.setOnClickListener(ingredient -> {
             Bundle bundle = new Bundle();
             bundle.putString("ingredient", ingredient.getName());
-            navController.navigate(R.id.fragment_addedit_ingredient);
+            navController.navigate(R.id.fragment_addedit_ingredient, bundle);
         });
 
         fab.setOnClickListener(v -> {
-           navController.navigate(R.id.fragment_addedit_ingredient);
+            navController.navigate(R.id.fragment_addedit_ingredient);
         });
     }
 }
