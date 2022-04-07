@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,7 +27,7 @@ public class FridgeIngredientsLiveData extends LiveData<List<Ingredient>> {
         @Override
         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
             Ingredient ingredient = snapshot.getValue(Ingredient.class);
-            ingredient.setName(snapshot.getKey());
+            ingredient.setId(snapshot.getKey());
 
             List<Ingredient> current = getValue();
             current.add(ingredient);

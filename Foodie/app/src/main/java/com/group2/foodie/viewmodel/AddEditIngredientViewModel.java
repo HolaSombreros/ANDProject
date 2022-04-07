@@ -8,10 +8,10 @@ import com.group2.foodie.model.Measurement;
 import com.group2.foodie.repository.FridgeRepository;
 
 public class AddEditIngredientViewModel extends ViewModel {
-
     private FridgeRepository repository;
     private String date;
 
+    // TODO - Data validation.
     public AddEditIngredientViewModel() {
         repository = FridgeRepository.getInstance();
     }
@@ -27,17 +27,6 @@ public class AddEditIngredientViewModel extends ViewModel {
 
     public void init(String ingredientName) {
         repository.init(ingredientName);
-    }
-
-    public String[] getIngredientMeasurements() {
-        String[] output = new String[Measurement.values().length];
-
-        int i = 0;
-        for (Measurement measurement : Measurement.values()) {
-            output[i++] = measurement.toString();
-        }
-
-        return output;
     }
 
     public void removeIngredient() {

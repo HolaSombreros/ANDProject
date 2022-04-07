@@ -80,7 +80,7 @@
     <fragment
         android:id="@+id/fragment_fridge"
         android:name="com.group2.foodie.view.fragment.FridgeFragment"
-        android:label="Fridge"
+        android:label="My Fridge"
         tools:layout="@layout/fragment_fridge" >
         <action
             android:id="@+id/action_fragment_fridge_to_fragment_addedit_ingredient"

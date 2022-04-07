@@ -2,6 +2,7 @@ package com.group2.foodie.view.fragment;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,7 +76,7 @@ public class AddEditIngredientFragment extends Fragment {
 
         ArrayAdapter<String> ingredientMeasurementAdapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_spinner_item,
-                viewModel.getIngredientMeasurements());
+                Util.getMeasurements());
         ingredientMeasurementAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         measurement.setAdapter(ingredientMeasurementAdapter);
 
@@ -90,6 +91,7 @@ public class AddEditIngredientFragment extends Fragment {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(localDate.getYear(), localDate.getMonth().getValue()-1, localDate.getDayOfMonth());
                 expirationDate.setDate(calendar.getTimeInMillis());
+                viewModel.setDate(localDate.toString());
                 remove.setVisibility(View.VISIBLE);
             });
         }

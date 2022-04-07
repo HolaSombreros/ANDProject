@@ -44,17 +44,19 @@ public class FridgeRepository {
 
     public void addFridgeIngredient(Ingredient ingredient) {
         String userId = FirebaseAuth.getInstance().getUid();
-        dbRef.child("fridge").child(userId).child(ingredient.getName()).setValue(ingredient);
+        dbRef.child("fridge").child(userId).push().setValue(ingredient);
     }
 
     public void editFridgeIngredient(Ingredient ingredient) {
         String userId = FirebaseAuth.getInstance().getUid();
-        dbRef.child("fridge").child(userId).child(ingredient.getName()).updateChildren(ingredient.asMap());
+        dbRef.child("fridge").child(userId)
+                .child(getFridgeIngredient().getValue().getId())
+                .updateChildren(ingredient.asMap());
     }
 
     public void removeFridgeIngredient() {
         String userId = FirebaseAuth.getInstance().getUid();
         Ingredient ingredient = fridgeIngredientLiveData.getValue();
-        dbRef.child("fridge").child(userId).child(ingredient.getName()).removeValue();
+        dbRef.child("fridge").child(userId).child(ingredient.getId()).removeValue();
     }
 }

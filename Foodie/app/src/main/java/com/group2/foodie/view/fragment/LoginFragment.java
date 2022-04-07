@@ -90,7 +90,6 @@ public class LoginFragment extends Fragment {
 
         FirebaseUser current = auth.getCurrentUser();
         if (current != null) {
-            Log.w("foodieappie", current.getEmail() + " - " + current.getUid());
             navController.navigate(R.id.fragment_app_intro);
         }
     }

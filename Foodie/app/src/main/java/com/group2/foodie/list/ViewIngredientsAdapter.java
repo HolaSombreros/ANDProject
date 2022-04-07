@@ -39,11 +39,18 @@ public class ViewIngredientsAdapter extends RecyclerView.Adapter<ViewIngredients
     public void onBindViewHolder(ViewIngredientsAdapter.ViewHolder holder, int position) {
         Ingredient ingredient = ingredients.get(position);
         holder.name.setText(ingredient.getName());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.parse(ingredient.getExpirationDate(),formatter);
-        if (localDate != null && localDate.isBefore(LocalDate.now()))
-            holder.name.setTextColor(Color.RED);
-        holder.quantity.setText(String.valueOf(ingredient.getQuantity()));
+        if (ingredient.getExpirationDate() != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate localDate = LocalDate.parse(ingredient.getExpirationDate(), formatter);
+            if (localDate.isBefore(LocalDate.now()))
+                holder.name.setTextColor(Color.RED);
+        }
+
+        if (ingredient.getQuantity() > 0)
+            holder.quantity.setText(String.valueOf(ingredient.getQuantity()));
+        else
+            holder.quantity.setText("");
+
         holder.measurement.setText(ingredient.getMeasurement().toString());
     }
 

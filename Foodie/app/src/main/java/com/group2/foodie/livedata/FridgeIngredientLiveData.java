@@ -20,7 +20,7 @@ public class FridgeIngredientLiveData  extends LiveData<Ingredient> {
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
             Ingredient ingredient = snapshot.getValue(Ingredient.class);
-            ingredient.setName(snapshot.getKey());
+            ingredient.setId(snapshot.getKey());
 
             setValue(ingredient);
         }

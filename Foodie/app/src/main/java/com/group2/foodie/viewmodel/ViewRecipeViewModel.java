@@ -30,7 +30,7 @@ public class ViewRecipeViewModel extends ViewModel {
     }
 
     public void removeRecipe() {
-        //recipeRepository.removeRecipe(String id);
+        recipeRepository.removeRecipe();
     }
 
     public LiveData<User> getCurrentUser() {

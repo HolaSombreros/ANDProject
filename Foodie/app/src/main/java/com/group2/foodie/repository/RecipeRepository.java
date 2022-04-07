@@ -49,8 +49,9 @@ public class RecipeRepository {
         dbRef.child("users").child(FirebaseAuth.getInstance().getUid()).child(recipeUid).setValue(recipe);
     }
 
-    public void removeRecipe(Recipe recipe) {
-        // TODO - Uncomment and test.
-//        dbRef.child(recipe.getId()).removeValue();
+    public void removeRecipe() {
+        String recipeId = getRecipe().getValue().getId();
+        dbRef.child("users").child(FirebaseAuth.getInstance().getUid()).child(recipeId).removeValue();
+        dbRef.child("recipes").child(recipeId).removeValue();
     }
 }

@@ -23,6 +23,7 @@ public class RecipeLiveData  extends LiveData<Recipe> {
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
             Recipe recipe = snapshot.getValue(Recipe.class);
+            recipe.setId(snapshot.getKey());
             setValue(recipe);
         }
 

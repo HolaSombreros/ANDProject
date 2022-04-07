@@ -1,12 +1,11 @@
 package com.group2.foodie.view.fragment;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,13 +13,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.group2.foodie.R;
-import com.group2.foodie.list.RecipeAdapter;
 import com.group2.foodie.list.ViewIngredientsAdapter;
 import com.group2.foodie.viewmodel.FridgeViewModel;
 
@@ -31,6 +28,8 @@ public class FridgeFragment extends Fragment {
     private FloatingActionButton fab;
     private FridgeViewModel viewModel;
     private NavController navController;
+    private EditText searchBar;
+    private Switch filterBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,6 +49,8 @@ public class FridgeFragment extends Fragment {
         navController = Navigation.findNavController(view);
         ingredientsRecycler = view.findViewById(R.id.fridge_recyclerView);
         fab = view.findViewById(R.id.fridge_fab);
+        searchBar = view.findViewById(R.id.fridge_searchBar);
+        filterBtn = view.findViewById(R.id.fridge_filterBtn);
     }
 
     private void setupViews() {
@@ -65,7 +66,7 @@ public class FridgeFragment extends Fragment {
 
         ingredientsAdapter.setOnClickListener(ingredient -> {
             Bundle bundle = new Bundle();
-            bundle.putString("ingredient", ingredient.getName());
+            bundle.putString("ingredient", ingredient.getId());
             navController.navigate(R.id.fragment_addedit_ingredient, bundle);
         });
 
