@@ -14,12 +14,13 @@ import java.util.List;
 
 public class ViewIngredientsAdapter extends RecyclerView.Adapter<ViewIngredientsAdapter.ViewHolder> {
     private List<Ingredient> ingredients;
+    private OnClickListenerIngredient listener;
 
     public ViewIngredientsAdapter() {
         this.ingredients = new ArrayList<>();
     }
 
-    public void setRecipe(List<Ingredient> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
         notifyDataSetChanged();
     }
@@ -42,6 +43,10 @@ public class ViewIngredientsAdapter extends RecyclerView.Adapter<ViewIngredients
     @Override
     public int getItemCount() {
         return ingredients.size();
+    }
+
+    public void setOnClickListener(OnClickListenerIngredient listener) {
+        this.listener = listener;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

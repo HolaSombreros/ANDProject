@@ -1,8 +1,6 @@
 package com.group2.foodie.view.fragment;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,19 +73,21 @@ public class ViewRecipeFragment extends Fragment {
             title.setText(recipe.getName());
             category.setText(recipe.getCategory());
             publisher.setText(recipe.getPublisherId());
-//            foodImage.set
             instructions.setText(recipe.getInstructions());
-            ingredientsAdapter.setRecipe(recipe.getIngredients());
+            ingredientsAdapter.setIngredients(recipe.getIngredients());
+
+            if (user.getFavoriteRecipes().contains(recipe))
+                favoriteImage.setImageResource(R.drawable.ic_full_heart);
+            else
+                favoriteImage.setImageResource(R.drawable.ic_empty_heart);
+
+            // TODO
+    //      if (ContextCompat.getDrawable(getActivity(), recipe.getImageId()) != null)
+    //      foodImage.setImageResource(recipe.getImageId());
         });
 
-       // publisher.setText(recipe.getPublisher().getUsername());
-        //if (user.getFavoriteRecipes().contains(recipe))
-//            foodImage.setImageResource(R.drawable.ic_full_heart);
-//        //else
-//          //  foodImage.setImageResource(R.drawable.ic_empty_heart);
-//        // TODO
-//        if (ContextCompat.getDrawable(getActivity(), recipe.getImageId()) != null)
-//            foodImage.setImageResource(recipe.getImageId());
+
+
 
         editButton.setOnClickListener(r -> {
             // navigate
@@ -99,7 +99,8 @@ public class ViewRecipeFragment extends Fragment {
             viewModel.removeRecipe();
             navController.navigate(R.id.fragment_personal_recipes);
         });
-        deleteDialogBuilder.setNegativeButton("No", ((dialogInterface, i) -> {}));
+        deleteDialogBuilder.setNegativeButton("No", ((dialogInterface, i) -> {
+        }));
         AlertDialog deleteDialog = deleteDialogBuilder.create();
 
         removeButton.setOnClickListener(r -> {

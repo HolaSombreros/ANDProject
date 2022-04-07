@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.group2.foodie.R;
@@ -19,7 +18,7 @@ import java.util.List;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder>{
 
     private List<Recipe> recipes;
-    private OnClickListener listener;
+    private OnClickListenerRecipe listener;
 
     public RecipeAdapter() {
         recipes = new ArrayList<>();
@@ -51,7 +50,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         return recipes.size();
     }
 
-    public void setOnClickListener(OnClickListener listener) {
+    public void setOnClickListener(OnClickListenerRecipe listener) {
         this.listener = listener;
     }
 

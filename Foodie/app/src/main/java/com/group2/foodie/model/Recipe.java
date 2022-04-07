@@ -1,6 +1,5 @@
 package com.group2.foodie.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Recipe {
