@@ -31,24 +31,6 @@ public class TempRepository {
                 "Vegetable sides", "Other"};
     }
 
-    public List<Recipe> getDummyRecipes() {
-        List<Recipe> output = new ArrayList<>();
-        List<Ingredient> aIngredients = new ArrayList<>();
-        List<Ingredient> bIngredients = new ArrayList<>();
-        aIngredients.add(new Ingredient("Pizza dough", 0, 200, Measurement.G, null));
-        aIngredients.add(new Ingredient("Pineapple", 0, 0.5, null, null));
-        bIngredients.add(new Ingredient("Ground beef", 0, 300, Measurement.G, null));
-        bIngredients.add(new Ingredient("Tomato", 0, 2, null, null));
-        bIngredients.add(new Ingredient("Cheese", 0, 1, Measurement.ML, null));
-
-        output.add(new Recipe("Hawaii Pizza", R.drawable.ic_fridge, aIngredients, "Do this, then " +
-                "do that - pretty straight forward.\nAlso, don't forget to eat it at the end", false, "Pizza", null));
-        output.add(new Recipe("Cheeseburger", 0, bIngredients, "Do this, then " +
-                "do that - pretty straight forward.\nAlso, don't forget to eat it at the end", false, "Burger", null));
-
-        return output;
-    }
-
     public String[] getDummyIngredientNames() {
         // TODO - FETCH FROM DATABASE
         return new String[] {

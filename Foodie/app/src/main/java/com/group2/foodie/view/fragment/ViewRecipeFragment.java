@@ -18,6 +18,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.group2.foodie.R;
 import com.group2.foodie.list.ViewIngredientsAdapter;
 import com.group2.foodie.viewmodel.ViewRecipeViewModel;
@@ -72,7 +74,8 @@ public class ViewRecipeFragment extends Fragment {
         viewModel.getRecipe().observe(getViewLifecycleOwner(), recipe -> {
             title.setText(recipe.getName());
             category.setText(recipe.getCategory());
-            publisher.setText(recipe.getPublisherId());
+            publisher.setText(recipe.getPublisherUsername());
+//            foodImage.set
             instructions.setText(recipe.getInstructions());
             ingredientsAdapter.setIngredients(recipe.getIngredients());
 
@@ -107,5 +110,4 @@ public class ViewRecipeFragment extends Fragment {
             deleteDialog.show();
         });
     }
-
 }

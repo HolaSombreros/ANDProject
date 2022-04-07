@@ -11,12 +11,13 @@ public class Recipe {
     private boolean isPublic;
     private String category;
     private String publisherId;
+    private String publisherUsername;
 
     public Recipe() {
 
     }
 
-    public Recipe(String name, int imageId, List<Ingredient> ingredients, String instructions, boolean isPublic, String category, String publisherId) {
+    public Recipe(String name, int imageId, List<Ingredient> ingredients, String instructions, boolean isPublic, String category, String publisherId, String publisherUsername) {
         this.name = name;
         this.imageId = imageId;
         this.ingredients = ingredients;
@@ -24,6 +25,7 @@ public class Recipe {
         this.isPublic = isPublic;
         this.category = category;
         this.publisherId = publisherId;
+        this.publisherUsername = publisherUsername;
     }
 
     public String getId() {
@@ -100,5 +102,13 @@ public class Recipe {
 
     public void setPublisherId(String publisherId) {
         this.publisherId = publisherId;
+    }
+
+    public String getPublisherUsername() {
+        return publisherUsername;
+    }
+
+    public void setPublisherUsername(String publisherUsername) {
+        this.publisherUsername = publisherUsername;
     }
 }
