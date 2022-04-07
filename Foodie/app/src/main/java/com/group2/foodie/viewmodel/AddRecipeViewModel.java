@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.group2.foodie.model.Ingredient;
 import com.group2.foodie.model.Measurement;
 import com.group2.foodie.model.Recipe;
@@ -124,7 +125,7 @@ public class AddRecipeViewModel extends ViewModel {
         }
 
         // TODO - category should be an enum...?
-        Recipe recipe = new Recipe(name, 0, ingredients.getValue(), instructions, false, category, null);
+        Recipe recipe = new Recipe(name, 0, ingredients.getValue(), instructions, false, category, FirebaseAuth.getInstance().getUid());
         recipeRepository.addRecipe(recipe);
         return true;
     }
