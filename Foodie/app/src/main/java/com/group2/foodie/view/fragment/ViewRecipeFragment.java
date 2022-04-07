@@ -1,6 +1,5 @@
 package com.group2.foodie.view.fragment;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +10,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -22,12 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.group2.foodie.R;
 import com.group2.foodie.list.ViewIngredientsAdapter;
-import com.group2.foodie.model.Recipe;
-import com.group2.foodie.model.User;
 import com.group2.foodie.viewmodel.ViewRecipeViewModel;
 
 public class ViewRecipeFragment extends Fragment {
-
     private ViewRecipeViewModel viewModel;
     private ViewIngredientsAdapter ingredientsAdapter;
     private NavController navController;
@@ -50,6 +44,7 @@ public class ViewRecipeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(getActivity()).get(ViewRecipeViewModel.class);
+        viewModel.init(getArguments().getString("recipe"));
         initializeViews(view);
         setupViews();
     }
@@ -68,33 +63,36 @@ public class ViewRecipeFragment extends Fragment {
     }
 
     private void setupViews() {
-        Recipe recipe = viewModel.getRecipe(getArguments().getString("recipe")).getValue();
-        // User user = viewModel.getCurrentUser().getValue();
         ingredients.hasFixedSize();
         ingredients.setLayoutManager(new LinearLayoutManager(getActivity()));
-        ingredientsAdapter = new ViewIngredientsAdapter(recipe.getIngredients());
+        ingredientsAdapter = new ViewIngredientsAdapter();
         ingredients.setAdapter(ingredientsAdapter);
 
-        title.setText(recipe.getName());
-        category.setText(recipe.getCategory());
+        viewModel.getRecipe().observe(getViewLifecycleOwner(), recipe -> {
+            title.setText(recipe.getName());
+            category.setText(recipe.getCategory());
+            publisher.setText(recipe.getPublisherId());
+//            foodImage.set
+            instructions.setText(recipe.getInstructions());
+            ingredientsAdapter.setRecipe(recipe.getIngredients());
+        });
+
        // publisher.setText(recipe.getPublisher().getUsername());
         //if (user.getFavoriteRecipes().contains(recipe))
-            foodImage.setImageResource(R.drawable.ic_full_heart);
-        //else
-          //  foodImage.setImageResource(R.drawable.ic_empty_heart);
-        // TODO
-        if (ContextCompat.getDrawable(getActivity(), recipe.getImageId()) != null)
-            foodImage.setImageResource(recipe.getImageId());
-        instructions.setText(recipe.getInstructions());
+//            foodImage.setImageResource(R.drawable.ic_full_heart);
+//        //else
+//          //  foodImage.setImageResource(R.drawable.ic_empty_heart);
+//        // TODO
+//        if (ContextCompat.getDrawable(getActivity(), recipe.getImageId()) != null)
+//            foodImage.setImageResource(recipe.getImageId());
 
         editButton.setOnClickListener(r -> {
             // navigate
         });
 
         removeButton.setOnClickListener(r -> {
-            viewModel.removeRecipe(recipe.getId());
+            viewModel.removeRecipe();
             navController.navigate(R.id.fragment_personal_recipes);
         });
     }
-
 }

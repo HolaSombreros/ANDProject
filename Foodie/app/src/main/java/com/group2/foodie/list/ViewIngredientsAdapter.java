@@ -9,13 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.group2.foodie.R;
 import com.group2.foodie.model.Ingredient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewIngredientsAdapter extends RecyclerView.Adapter<ViewIngredientsAdapter.ViewHolder> {
     private List<Ingredient> ingredients;
 
-    public ViewIngredientsAdapter(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
+    public ViewIngredientsAdapter() {
+        this.ingredients = new ArrayList<>();
     }
 
     public void setRecipe(List<Ingredient> ingredients) {
