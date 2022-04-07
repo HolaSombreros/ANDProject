@@ -22,7 +22,7 @@ public class ViewRecipeViewModel extends ViewModel {
     }
 
     public LiveData<Recipe> getRecipe(String id) {
-        List<Recipe> recipes = recipeRepository.getRecipe().getValue();
+        List<Recipe> recipes = recipeRepository.getRecipes().getValue();
         for (Recipe r : recipes) {
             if (r.getId().equals(id))
                 return new MutableLiveData<>(r);

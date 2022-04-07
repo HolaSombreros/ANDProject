@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -54,28 +55,12 @@ public class RecipeRepository {
         return instance;
     }
 
-
     public RecipeListLiveData getRecipes() {
         return recipes;
     }
 
-    public LiveData<List<Recipe>> getRecipe() {
-        LiveData<List<Recipe>> r = new MutableLiveData<>(new ArrayList<>());
-        Recipe r1 = new Recipe("Hawaii Pizza", R.drawable.ic_fridge, new ArrayList<>(), "Do this, then " +
-                "do that - pretty straight forward.\nAlso, don't forget to eat it at the end", false, "Pizza", null);
-        List<Ingredient> aIngredients = new ArrayList<>();
-        aIngredients.add(new Ingredient("Pizza dough", 0, 200, Measurement.G, null));
-        aIngredients.add(new Ingredient("Pineapple", 0, 0.5, Measurement.G, null));
-        r1.setIngredients(aIngredients);
-        r1.setId("r111");
-        r.getValue().add(r1);
-        r.getValue().add(new Recipe("Cheeseburger", 0, new ArrayList<>(), "Do this, then " +
-                "do that - pretty straight forward.\nAlso, don't forget to eat it at the end", false, "Burger", null));
-        return r;
-    }
-
     public void init() {
-        recipes = new RecipeListLiveData(dbRef);
+        recipes = new RecipeListLiveData(dbRef.child("users").child(FirebaseAuth.getInstance().getUid()));
     }
 
     public void addRecipe(Recipe recipe) {

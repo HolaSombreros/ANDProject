@@ -1,6 +1,8 @@
 package com.group2.foodie.view.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,9 +93,17 @@ public class ViewRecipeFragment extends Fragment {
             // navigate
         });
 
-        removeButton.setOnClickListener(r -> {
+        AlertDialog.Builder deleteDialogBuilder = new AlertDialog.Builder(getActivity());
+        deleteDialogBuilder.setMessage("Are you sure you want to delete this recipe?");
+        deleteDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> {
             viewModel.removeRecipe(recipe.getId());
             navController.navigate(R.id.fragment_personal_recipes);
+        });
+        deleteDialogBuilder.setNegativeButton("No", ((dialogInterface, i) -> {}));
+        AlertDialog deleteDialog = deleteDialogBuilder.create();
+
+        removeButton.setOnClickListener(r -> {
+            deleteDialog.show();
         });
     }
 
