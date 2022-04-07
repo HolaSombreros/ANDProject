@@ -1,25 +1,25 @@
 package com.group2.foodie.model;
 
-import java.time.LocalDate;
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Ingredient {
     private String name;
     private double quantity;
     private Measurement measurement;
-    private String localDate;
+    private String expirationDate;
 
     public Ingredient() {
-        name = null;
-        quantity = 0;
-        measurement = null;
-        localDate = null;
+
     }
 
-    public Ingredient(String name, double quantity, Measurement measurement, String localDate) {
+    public Ingredient(String name, double quantity, Measurement measurement, String expirationDate) {
         this.name = name;
         this.quantity = quantity;
         this.measurement = measurement;
-        this.localDate = localDate;
+        this.expirationDate = expirationDate;
     }
 
     public String getName() {
@@ -46,16 +46,25 @@ public class Ingredient {
         this.measurement = measurement;
     }
 
-    public String getLocalDate() {
-        return localDate;
+    public String getExpirationDate() {
+        return expirationDate;
     }
 
-    public void setLocalDate(String localDate) {
-        this.localDate = localDate;
+    public void setExpirationDate(String expirationDate) {
+        this.expirationDate = expirationDate;
     }
 
     @Override
     public String toString() {
         return String.format("%.1fx %s (%s)", quantity, name, measurement.toString());
+    }
+
+    @Exclude
+    public Map<String, Object> asMap() {
+        Map<String, Object> output = new HashMap<>();
+        output.put("quantity", quantity);
+        output.put("measurement", measurement);
+        output.put("expirationDate", expirationDate);
+        return output;
     }
 }

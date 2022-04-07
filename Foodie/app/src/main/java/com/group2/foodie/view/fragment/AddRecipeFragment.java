@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.group2.foodie.R;
 import com.group2.foodie.list.EditableIngredientsAdapter;
+import com.group2.foodie.util.Util;
 import com.group2.foodie.viewmodel.AddRecipeViewModel;
 
 public class AddRecipeFragment extends Fragment {
@@ -88,7 +89,7 @@ public class AddRecipeFragment extends Fragment {
 
         ArrayAdapter<String> ingredientMeasurementAdapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_spinner_item,
-                viewModel.getIngredientMeasurements());
+                Util.getMeasurements());
         ingredientMeasurementAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ingredientMeasurementInput.setAdapter(ingredientMeasurementAdapter);
 

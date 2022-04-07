@@ -11,7 +11,6 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.group2.foodie.model.FridgeIngredient;
 import com.group2.foodie.model.Ingredient;
 
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ public class FridgeIngredientsLiveData extends LiveData<List<Ingredient>> {
     private DatabaseReference dbRef;
 
     public FridgeIngredientsLiveData(DatabaseReference dbRef) {
-        this.dbRef = dbRef.child("fridge").child(FirebaseAuth.getInstance().getUid());
+        this.dbRef = dbRef;
         setValue(new ArrayList<>());
     }
 
