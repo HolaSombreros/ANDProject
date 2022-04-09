@@ -1,17 +1,13 @@
 package com.group2.foodie.view.fragment;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,18 +16,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.group2.foodie.R;
 import com.group2.foodie.list.RecipeAdapter;
-import com.group2.foodie.model.Recipe;
-import com.group2.foodie.viewmodel.AddRecipeViewModel;
 import com.group2.foodie.viewmodel.PersonalRecipesViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PersonalRecipesFragment extends Fragment {
 

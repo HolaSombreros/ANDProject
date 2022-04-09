@@ -16,19 +16,19 @@ public class PersonalRecipesViewModel extends ViewModel {
 
     public PersonalRecipesViewModel() {
         repository = RecipeRepository.getInstance();
-        filteredList = new MutableLiveData<>(repository.getRecipe().getValue());
+        filteredList = new MutableLiveData<>();
     }
 
     public LiveData<List<Recipe>> getPersonalRecipes() {
-        return filteredList;
+        return repository.getRecipes();
     }
 
     public void filterByName(String text) {
-        List<Recipe> filteredRecipes = new ArrayList<>();
-        for (Recipe recipe : repository.getRecipe().getValue())
-            if (recipe.getName().toLowerCase().contains(text.toLowerCase()))
-                filteredRecipes.add(recipe);
-        filteredList.setValue(filteredRecipes);
+//        List<Recipe> filteredRecipes = new ArrayList<>();
+//        for (Recipe recipe : repository.getRecipe().getValue())
+//            if (recipe.getName().toLowerCase().contains(text.toLowerCase()))
+//                filteredRecipes.add(recipe);
+//        filteredList.setValue(filteredRecipes);
     }
 
     public void init() {

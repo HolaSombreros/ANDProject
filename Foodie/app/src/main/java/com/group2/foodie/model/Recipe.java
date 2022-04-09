@@ -1,6 +1,5 @@
 package com.group2.foodie.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Recipe {
@@ -11,20 +10,22 @@ public class Recipe {
     private String instructions;
     private boolean isPublic;
     private String category;
-    private User publisher;
+    private String publisherId;
+    private String publisherUsername;
 
     public Recipe() {
 
     }
 
-    public Recipe(String name, int imageId, List<Ingredient> ingredients, String instructions, boolean isPublic, String category, User publisher) {
+    public Recipe(String name, int imageId, List<Ingredient> ingredients, String instructions, boolean isPublic, String category, String publisherId, String publisherUsername) {
         this.name = name;
         this.imageId = imageId;
         this.ingredients = ingredients;
         this.instructions = instructions;
         this.isPublic = isPublic;
         this.category = category;
-        this.publisher = publisher;
+        this.publisherId = publisherId;
+        this.publisherUsername = publisherUsername;
     }
 
     public String getId() {
@@ -95,11 +96,19 @@ public class Recipe {
         return output;
     }
 
-    public User getPublisher() {
-        return publisher;
+    public String getPublisherId() {
+        return publisherId;
     }
 
-    public void setPublisher(User publisher) {
-        this.publisher = publisher;
+    public void setPublisherId(String publisherId) {
+        this.publisherId = publisherId;
+    }
+
+    public String getPublisherUsername() {
+        return publisherUsername;
+    }
+
+    public void setPublisherUsername(String publisherUsername) {
+        this.publisherUsername = publisherUsername;
     }
 }

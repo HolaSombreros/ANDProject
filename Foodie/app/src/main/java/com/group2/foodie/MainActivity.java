@@ -5,25 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
-import com.group2.foodie.R;
-import com.group2.foodie.adapter.ViewPagerAdapter;
-import com.group2.foodie.view.fragment.DailyRecipeFragment;
 
 public class MainActivity extends AppCompatActivity {
     private NavController navController;
@@ -50,8 +40,9 @@ public class MainActivity extends AppCompatActivity {
         navController = Navigation.findNavController(this, R.id.main_activity_fragment);
         setSupportActionBar(toolbar);
         appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.fragment_app_intro,
                 R.id.fragment_personal_recipes,
-                R.id.navbar_fridge,
+                R.id.fragment_fridge,
                 R.id.navbar_profile
         ).setOpenableLayout(drawerLayout).build();
 
@@ -67,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         return NavigationUI.onNavDestinationSelected(item, navController) || super.onOptionsItemSelected(item);
-
     }
+
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START))
@@ -76,5 +67,4 @@ public class MainActivity extends AppCompatActivity {
         else
             super.onBackPressed();
     }
-
 }

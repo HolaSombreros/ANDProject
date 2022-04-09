@@ -1,28 +1,34 @@
 package com.group2.foodie.model;
 
-import java.time.LocalDate;
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Ingredient {
+    private String id;
     private String name;
-    private int imageId;
     private double quantity;
     private Measurement measurement;
-    private LocalDate localDate;
+    private String expirationDate;
 
     public Ingredient() {
-        name = null;
-        imageId = 0;
-        quantity = 0;
-        measurement = null;
-        localDate = null;
+
     }
 
-    public Ingredient(String name, int imageId, double quantity, Measurement measurement, LocalDate localDate) {
+    public Ingredient(String name, double quantity, Measurement measurement, String expirationDate) {
         this.name = name;
-        this.imageId = imageId;
         this.quantity = quantity;
         this.measurement = measurement;
-        this.localDate = localDate;
+        this.expirationDate = expirationDate;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -31,14 +37,6 @@ public class Ingredient {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
     }
 
     public double getQuantity() {
@@ -57,16 +55,25 @@ public class Ingredient {
         this.measurement = measurement;
     }
 
-    public LocalDate getLocalDate() {
-        return localDate;
+    public String getExpirationDate() {
+        return expirationDate;
     }
 
-    public void setLocalDate(LocalDate localDate) {
-        this.localDate = localDate;
+    public void setExpirationDate(String expirationDate) {
+        this.expirationDate = expirationDate;
     }
 
     @Override
     public String toString() {
         return String.format("%.1fx %s (%s)", quantity, name, measurement.toString());
+    }
+
+    @Exclude
+    public Map<String, Object> asMap() {
+        Map<String, Object> output = new HashMap<>();
+        output.put("quantity", quantity);
+        output.put("measurement", measurement);
+        output.put("expirationDate", expirationDate);
+        return output;
     }
 }

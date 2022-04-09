@@ -3,7 +3,6 @@ package com.group2.foodie.livedata;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -27,11 +26,9 @@ public class RecipeListLiveData extends LiveData<List<Recipe>> {
         @Override
         public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
             Recipe recipe = snapshot.getValue(Recipe.class);
-
-            Log.w("recipecreated", "Recipe: " + recipe.toString());
-
+            recipe.setId(snapshot.getKey());
             List<Recipe> currentRecipes = getValue();
-       //     currentRecipes.add(recipe);
+            currentRecipes.add(recipe);
             setValue(currentRecipes);
         }
 

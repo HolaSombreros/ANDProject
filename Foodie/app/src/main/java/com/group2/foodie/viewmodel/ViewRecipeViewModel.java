@@ -21,17 +21,16 @@ public class ViewRecipeViewModel extends ViewModel {
         userRepository = userRepository.getInstance();
     }
 
-    public LiveData<Recipe> getRecipe(String id) {
-        List<Recipe> recipes = recipeRepository.getRecipe().getValue();
-        for (Recipe r : recipes) {
-            if (r.getId().equals(id))
-                return new MutableLiveData<>(r);
-        }
-        return null;
+    public void init(String recipeId) {
+        recipeRepository.init2(recipeId);
     }
 
-    public void removeRecipe(String id) {
-        //recipeRepository.removeRecipe(String id);
+    public LiveData<Recipe> getRecipe() {
+        return recipeRepository.getRecipe();
+    }
+
+    public void removeRecipe() {
+        recipeRepository.removeRecipe();
     }
 
     public LiveData<User> getCurrentUser() {

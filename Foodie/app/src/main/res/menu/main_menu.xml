@@ -8,7 +8,7 @@
         android:title="@string/title_recipes" />
 
     <item
-        android:id="@+id/navbar_fridge"
+        android:id="@+id/fragment_fridge"
         android:icon="@drawable/ic_fridge"
         android:title="@string/title_fridge" />
 

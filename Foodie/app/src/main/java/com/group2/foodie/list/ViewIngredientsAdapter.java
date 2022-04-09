@@ -1,5 +1,6 @@
 package com.group2.foodie.list;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,16 +10,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.group2.foodie.R;
 import com.group2.foodie.model.Ingredient;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewIngredientsAdapter extends RecyclerView.Adapter<ViewIngredientsAdapter.ViewHolder> {
     private List<Ingredient> ingredients;
+    private OnClickListenerIngredient listener;
 
-    public ViewIngredientsAdapter(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
+    public ViewIngredientsAdapter() {
+        this.ingredients = new ArrayList<>();
     }
 
-    public void setRecipe(List<Ingredient> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
         notifyDataSetChanged();
     }
@@ -34,13 +39,28 @@ public class ViewIngredientsAdapter extends RecyclerView.Adapter<ViewIngredients
     public void onBindViewHolder(ViewIngredientsAdapter.ViewHolder holder, int position) {
         Ingredient ingredient = ingredients.get(position);
         holder.name.setText(ingredient.getName());
-        holder.quantity.setText(String.valueOf(ingredient.getQuantity()));
+        if (ingredient.getExpirationDate() != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate localDate = LocalDate.parse(ingredient.getExpirationDate(), formatter);
+            if (localDate.isBefore(LocalDate.now()))
+                holder.name.setTextColor(Color.RED);
+        }
+
+        if (ingredient.getQuantity() > 0)
+            holder.quantity.setText(String.valueOf(ingredient.getQuantity()));
+        else
+            holder.quantity.setText("");
+
         holder.measurement.setText(ingredient.getMeasurement().toString());
     }
 
     @Override
     public int getItemCount() {
         return ingredients.size();
+    }
+
+    public void setOnClickListener(OnClickListenerIngredient listener) {
+        this.listener = listener;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -54,6 +74,10 @@ public class ViewIngredientsAdapter extends RecyclerView.Adapter<ViewIngredients
             name = itemView.findViewById(R.id.view_recipe_ingredient_name);
             quantity = itemView.findViewById(R.id.view_recipe_ingredient_quantity);
             measurement = itemView.findViewById(R.id.view_recipe_ingredient_measurement);
+
+            itemView.setOnClickListener(v-> {
+                listener.onClick(ingredients.get(getBindingAdapterPosition()));
+            });
         }
     }
 }
