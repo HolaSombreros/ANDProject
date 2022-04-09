@@ -41,7 +41,6 @@
         android:name="com.group2.foodie.view.fragment.RegisterFragment"
         android:label="RegisterFragment"
         tools:layout="@layout/fragment_register"/>
-
     <fragment
         android:id="@+id/fragment_app_intro"
         android:name="com.group2.foodie.view.fragment.AppIntroFragment"
@@ -72,6 +71,7 @@
         android:name="com.group2.foodie.view.fragment.ViewRecipeFragment"
         android:label="@string/title_add_recipe"
         tools:layout="@layout/fragment_view_recipe" />
+
     <fragment
         android:id="@+id/fragment_personal_profile"
         android:name="com.group2.foodie.view.fragment.PersonalProfileFragment"

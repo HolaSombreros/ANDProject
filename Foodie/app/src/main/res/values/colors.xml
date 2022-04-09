@@ -8,6 +8,10 @@
     <color name="blue_500">#03A9F4</color>
     <color name="blue_700">#007AC1</color>
 
+    <color name="pink_300">#e861a4</color>
+    <color name="pink_500">#ff409f</color>
+    <color name="pink_700">#d10d6e</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

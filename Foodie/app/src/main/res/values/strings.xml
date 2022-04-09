@@ -21,7 +21,7 @@
     <string name="profile_name">Profile name</string>
     <string name="account_email">Account email</string>
     <string name="email_address">Email address</string>
-    <string name="repeat_password">Repeat Password</string>
+    <string name="repeat_password">Confirm Password</string>
     <string name="sign_in">Sign in</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="passwords_not_match">Passwords do not match</string>
@@ -31,4 +31,5 @@
     <string name="ready_in">Ready in</string>
     <string name="preparation_time">Preparation time</string>
     <string name="servings">Servings</string>
+    <string name="log_out">Log Out</string>
 </resources>

@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.group2.foodie.model.User;
+
 public class LoginViewModel extends ViewModel {
     private MutableLiveData<String> errorMessage;
 

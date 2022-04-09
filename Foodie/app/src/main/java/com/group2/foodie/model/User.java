@@ -14,6 +14,7 @@ public class User {
     private List<User> following;
     private List<Ingredient> ingredients;
     private Fridge fridge;
+    private int profilePictureId;
 
     public User() {
         recipes = new ArrayList<>();
@@ -45,6 +46,7 @@ public class User {
         this.following = new ArrayList<>();
         this.ingredients = new ArrayList<>();
         this.fridge = new Fridge(ingredients);
+        profilePictureId = 0;
     }
 
     public String getUsername() {
@@ -117,5 +119,13 @@ public class User {
 
     public void setFridge(Fridge fridge) {
         this.fridge = fridge;
+    }
+
+    public int getProfilePictureId() {
+        return profilePictureId;
+    }
+
+    public void setProfilePictureId(int profilePictureId) {
+        this.profilePictureId = profilePictureId;
     }
 }

@@ -1,11 +1,13 @@
 package com.group2.foodie.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,6 +34,7 @@ public class LoginFragment extends Fragment {
     private TextInputEditText usernameInput;
     private TextInputEditText passwordInput;
     private Button loginButton;
+    private TextView registerRedirect;
     private FirebaseAuth auth;
     private NavController navController;
 
@@ -56,6 +59,7 @@ public class LoginFragment extends Fragment {
        usernameInput = view.findViewById(R.id.inputUsername);
        passwordInput = view.findViewById(R.id.inputPassword);
        loginButton = view.findViewById(R.id.login);
+       registerRedirect = view.findViewById(R.id.registerRedirectTxt);
     }
 
     private void setupViews() {
@@ -66,8 +70,13 @@ public class LoginFragment extends Fragment {
         viewModel.getErrorMessage().observe(getViewLifecycleOwner(), error -> {
             Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
         });
+
+        registerRedirect.setOnClickListener(v ->{
+            navController.navigate(R.id.fragment_register);
+        });
     }
 
+    //TODO: this should be done in the VIEW MODEL
     private void login() {
         if (viewModel.login(usernameInput.getText().toString(), passwordInput.getText().toString())) {
             auth.signInWithEmailAndPassword(usernameInput.getText().toString(),

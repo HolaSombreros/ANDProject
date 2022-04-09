@@ -20,4 +20,8 @@
         android:id="@+id/fragment_daily_recipe"
         android:icon="@drawable/ic_recipes"
         android:title="@string/daily_recipe" />
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/ic_logout"
+        android:title="@string/log_out"/>
 </menu>
