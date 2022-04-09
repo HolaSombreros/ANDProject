@@ -19,40 +19,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/daily_recipe_name_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/daily_recipe"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <EditText
                 android:id="@+id/daily_recipe_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:editable="false"
-                android:minHeight="48dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:inputType="none"
+                android:textSize="24sp"
                 android:text="@string/daily_recipe_name"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/daily_recipe_name_label"
-                app:layout_constraintTop_toBottomOf="@id/daily_recipe_name_label" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:layout_marginTop="24dp"
-                android:textSize="16dp"
                 android:id="@+id/daily_recipe_ingredients_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-smallcaps"
                 android:text="@string/recipe_ingredients"
-                app:layout_constraintStart_toStartOf="@id/daily_recipe_name_label"
-                app:layout_constraintTop_toBottomOf="@+id/daily_image" />
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/daily_preparation_time" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="8dp"
                 android:id="@+id/daily_recipe_ingredients"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="@id/daily_recipe_ingredients_label"
                 app:layout_constraintTop_toBottomOf="@+id/daily_recipe_ingredients_label" />
 
@@ -68,10 +62,24 @@
                 app:layout_constraintTop_toBottomOf="@+id/daily_recipe_name" />
 
             <TextView
-                android:id="@+id/daily_instructions_label"
-                android:layout_width="234dp"
-                android:layout_height="19dp"
+                android:id="@+id/daily_preparation_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="@string/ready_in"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/daily_servings" />
+
+
+            <TextView
+                android:id="@+id/daily_instructions_label"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif-smallcaps"
                 android:text="@string/step_by_step_instructions"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/daily_recipe_ingredients" />
@@ -83,6 +91,17 @@
                 android:text="@string/instructions"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/daily_instructions_label" />
+
+            <TextView
+                android:id="@+id/daily_servings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="@string/servings"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/daily_image" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

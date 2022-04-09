@@ -11,6 +11,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.group2.foodie.dailyrecipe.DailyRecipe;
 import com.group2.foodie.dailyrecipe.DailyRecipeResponse;
+import com.group2.foodie.dailyrecipe.ExtendedIngredient;
 import com.group2.foodie.livedata.DailyRecipeLiveData;
 import com.group2.foodie.util.DailyFormatter;
 
@@ -67,6 +68,7 @@ public class DailyRecipeService {
                         public void onResponse(Call<DailyRecipeResponse> call, Response<DailyRecipeResponse> response) {
                             if (response.isSuccessful()) {
                                 DailyRecipe otherDaily = response.body().getDailyRecipe();
+                                otherDaily.getExtendedIngredients().removeIf(ex -> ex.getOriginalName().equals(""));
                                 otherDaily.setDate(formatDate());
                                 otherDaily.setInstructions(DailyFormatter.formatIngredients(otherDaily.getInstructions()));
                                 dbRef.child("dailyrecipe").setValue(otherDaily);
