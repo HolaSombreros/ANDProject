@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_fragment_app_intro_to_fragment_fridge"
             app:destination="@id/fragment_fridge" />
+        <action
+            android:id="@+id/action_fragment_app_intro_to_fragment_personal_profile"
+            app:destination="@id/fragment_personal_profile" />
     </fragment>
     <fragment
         android:id="@+id/fragment_daily_recipe"
@@ -92,4 +95,15 @@
         android:label="AddEditIngredient"
         tools:layout="@layout/fragment_addedit_ingredient"
         />
+    <fragment
+        android:id="@+id/fragment_logout"
+        android:name="com.group2.foodie.view.fragment.LogoutFragment"
+        android:label="Logout"
+        tools:layout="@layout/fragment_logout">
+        <action
+            android:id="@+id/action_fragment_logout_to_fragment_login"
+            app:destination="@id/fragment_login" />
+    </fragment>
+
+
 </navigation>

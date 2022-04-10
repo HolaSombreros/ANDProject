@@ -34,8 +34,11 @@ public class UserRepository {
     }
 
     //TODO: upodate method
+    public void updateUser(User user){
 
-    public void logOut(User user){
+    }
+
+    public void logOut(){
         auth.signOut();
     }
 

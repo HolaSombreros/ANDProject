@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 R.id.fragment_app_intro,
                 R.id.fragment_personal_recipes,
                 R.id.fragment_fridge,
-                R.id.navbar_profile
+                R.id.fragment_personal_profile
         ).setOpenableLayout(drawerLayout).build();
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);

@@ -32,4 +32,6 @@
     <string name="preparation_time">Preparation time</string>
     <string name="servings">Servings</string>
     <string name="log_out">Log Out</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
 </resources>
