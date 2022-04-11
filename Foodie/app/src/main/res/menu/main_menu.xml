@@ -21,6 +21,12 @@
         android:id="@+id/fragment_daily_recipe"
         android:icon="@drawable/ic_recipes"
         android:title="@string/daily_recipe" />
+
+    <item
+        android:id="@+id/fragment_followingfollowers"
+        android:icon="@drawable/ic_profile"
+        android:title="My Followers?????" />
+
     <item
         android:id="@+id/fragment_logout"
         android:icon="@drawable/ic_logout"
