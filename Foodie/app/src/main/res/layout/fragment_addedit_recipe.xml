@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    tools:context=".view.fragment.AddEditRecipeFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/addedit_recipe_recipeNameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recipe name:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/addedit_recipe_publicSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="Public"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/addedit_recipeNameInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter recipe title"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:text=""
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/addedit_recipe_recipeNameLabel"
+            app:layout_constraintTop_toBottomOf="@+id/addedit_recipe_publicSwitch" />
+
+        <TextView
+            android:id="@+id/addedit_recipe_categoryLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Recipe category:"
+            app:layout_constraintStart_toStartOf="@id/addedit_recipe_recipeNameLabel"
+            app:layout_constraintTop_toBottomOf="@id/addedit_recipeNameInput" />
+
+        <Spinner
+            android:id="@+id/addedit_recipe_categoryInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            app:layout_constraintStart_toStartOf="@id/addedit_recipe_categoryLabel"
+            app:layout_constraintTop_toBottomOf="@id/addedit_recipe_categoryLabel" />
+
+        <ImageView
+            android:id="@+id/addedit_recipe_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@mipmap/ic_app_launcher"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/addedit_recipe_categoryLabel" />
+
+        <Button
+            android:id="@+id/addedit_recipe_uploadButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Upload"
+            app:layout_constraintEnd_toEndOf="@+id/addedit_recipe_image"
+            app:layout_constraintStart_toStartOf="@+id/addedit_recipe_image"
+            app:layout_constraintTop_toBottomOf="@+id/addedit_recipe_image" />
+
+        <TextView
+            android:id="@+id/addedit_recipe_addNewIngredientLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add a new recipe ingredient:"
+            app:layout_constraintStart_toStartOf="@id/addedit_recipe_recipeNameLabel"
+            app:layout_constraintTop_toBottomOf="@+id/addedit_recipe_uploadButton" />
+
+        <Spinner
+            android:id="@+id/addedit_recipe_ingredientNameInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toStartOf="@id/addedit_recipe_ingredientQuantityInput"
+            app:layout_constraintHorizontal_weight="4"
+            app:layout_constraintStart_toStartOf="@id/addedit_recipe_addNewIngredientLabel"
+            app:layout_constraintTop_toBottomOf="@id/addedit_recipe_addNewIngredientLabel" />
+
+        <EditText
+            android:id="@+id/addedit_recipe_ingredientQuantityInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:hint="Qty"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toStartOf="@id/addedit_recipe_ingredientMeasurementInput"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@id/addedit_recipe_ingredientNameInput"
+            app:layout_constraintTop_toTopOf="@id/addedit_recipe_ingredientNameInput" />
+
+        <Spinner
+            android:id="@+id/addedit_recipe_ingredientMeasurementInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/addedit_recipe_ingredientQuantityInput"
+            app:layout_constraintTop_toTopOf="@id/addedit_recipe_ingredientNameInput" />
+
+        <Button
+            android:id="@+id/addedit_recipe_addIngredientButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Add Ingredient"
+            app:layout_constraintStart_toStartOf="@id/addedit_recipe_ingredientsLabel"
+            app:layout_constraintTop_toBottomOf="@id/addedit_recipe_ingredientNameInput" />
+
+        <TextView
+            android:id="@+id/addedit_recipe_ingredientsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Recipe ingredients:"
+            app:layout_constraintStart_toStartOf="@id/addedit_recipe_recipeNameLabel"
+            app:layout_constraintTop_toBottomOf="@id/addedit_recipe_addIngredientButton" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/addedit_recipe_ingredientsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/addedit_recipe_ingredientsLabel"
+            app:layout_constraintTop_toBottomOf="@id/addedit_recipe_ingredientsLabel" />
+
+        <TextView
+            android:id="@+id/addedit_recipe_instructionsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Step-by-step instructions:"
+            app:layout_constraintStart_toStartOf="@id/addedit_recipe_recipeNameLabel"
+            app:layout_constraintTop_toBottomOf="@id/addedit_recipe_ingredientsRecyclerView" />
+
+        <EditText
+            android:id="@+id/addedit_recipe_instructionsInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter step-by-step instructions"
+            android:inputType="textMultiLine"
+            android:minHeight="48dp"
+            android:text=""
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/addedit_recipe_instructionsLabel"
+            app:layout_constraintTop_toBottomOf="@id/addedit_recipe_instructionsLabel" />
+
+        <Button
+            android:id="@+id/addedit_recipe_saveButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addedit_recipe_instructionsInput" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

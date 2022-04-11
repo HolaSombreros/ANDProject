@@ -89,11 +89,10 @@ public class ViewRecipeFragment extends Fragment {
     //      foodImage.setImageResource(recipe.getImageId());
         });
 
-
-
-
         editButton.setOnClickListener(r -> {
-            // navigate
+            Bundle bundle = new Bundle();
+            bundle.putString("recipe", getArguments().getString("recipe"));
+            navController.navigate(R.id.fragment_addedit_recipe, bundle);
         });
 
         AlertDialog.Builder deleteDialogBuilder = new AlertDialog.Builder(getActivity());
