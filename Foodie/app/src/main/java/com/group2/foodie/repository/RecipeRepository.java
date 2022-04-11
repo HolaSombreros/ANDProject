@@ -35,7 +35,7 @@ public class RecipeRepository {
     }
 
     public void init() {
-        recipes = new RecipeListLiveData(dbRef.child("users").child(FirebaseAuth.getInstance().getUid()));
+        recipes = new RecipeListLiveData(dbRef.child("users").child(FirebaseAuth.getInstance().getUid()).child("recipes"));
     }
 
     public void init2(String recipeId) {
@@ -46,18 +46,18 @@ public class RecipeRepository {
         DatabaseReference reference = dbRef.child("recipes").push();
         String recipeUid = reference.getKey();
         reference.setValue(recipe);
-        dbRef.child("users").child(FirebaseAuth.getInstance().getUid()).child(recipeUid).setValue(recipe);
+        dbRef.child("users").child(FirebaseAuth.getInstance().getUid()).child("recipes").child(recipeUid).setValue(recipe);
     }
 
     public void editRecipe(Recipe recipe) {
         String recipeId = getRecipe().getValue().getId();
-        dbRef.child("users").child(FirebaseAuth.getInstance().getUid()).child(recipeId).updateChildren(recipe.asMap());
+        dbRef.child("users").child(FirebaseAuth.getInstance().getUid()).child("recipes").child(recipeId).updateChildren(recipe.asMap());
         dbRef.child("recipes").child(recipeId).updateChildren(recipe.asMap());
     }
 
     public void removeRecipe() {
         String recipeId = getRecipe().getValue().getId();
-        dbRef.child("users").child(FirebaseAuth.getInstance().getUid()).child(recipeId).removeValue();
+        dbRef.child("users").child(FirebaseAuth.getInstance().getUid()).child("recipes").child(recipeId).removeValue();
         dbRef.child("recipes").child(recipeId).removeValue();
     }
 }

@@ -113,7 +113,7 @@ public class AddEditRecipeViewModel extends ViewModel {
     public boolean addRecipe(String name, String category, boolean isPublic, String instructions) {
         if (!validate(name, category, instructions))
             return false;
-        // TODO - category should be an enum...?
+        // TODO - category should be an enum...? - display name also is null
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         Recipe recipe = new Recipe(name, 0, ingredients.getValue(), instructions, isPublic, category, currentUser.getUid(), currentUser.getDisplayName());
         recipeRepository.addRecipe(recipe);
