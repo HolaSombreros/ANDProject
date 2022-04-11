@@ -18,7 +18,7 @@ import java.util.List;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder>{
 
     private List<Recipe> recipes;
-    private OnClickListenerRecipe listener;
+    private OnClickListener<Recipe> listener;
 
     public RecipeAdapter() {
         recipes = new ArrayList<>();
@@ -50,7 +50,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         return recipes.size();
     }
 
-    public void setOnClickListener(OnClickListenerRecipe listener) {
+    public void setOnClickListener(OnClickListener<Recipe> listener) {
         this.listener = listener;
     }
 

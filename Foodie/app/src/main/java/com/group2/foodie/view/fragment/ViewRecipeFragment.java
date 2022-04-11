@@ -75,18 +75,22 @@ public class ViewRecipeFragment extends Fragment {
             title.setText(recipe.getName());
             category.setText(recipe.getCategory());
             publisher.setText(recipe.getPublisherUsername());
-//            foodImage.set
             instructions.setText(recipe.getInstructions());
             ingredientsAdapter.setIngredients(recipe.getIngredients());
+            //     TODO
+            //     if (ContextCompat.getDrawable(getActivity(), recipe.getImageId()) != null)
+            //      foodImage.setImageResource(recipe.getImageId());
+        });
 
- //           if (user.getFavoriteRecipes().contains(recipe))
-   //             favoriteImage.setImageResource(R.drawable.ic_full_heart);
-     //       else
-       //         favoriteImage.setImageResource(R.drawable.ic_empty_heart);
+        viewModel.isFavorite().observe(getViewLifecycleOwner(), fav -> {
+            if (fav)
+                favoriteImage.setImageResource(R.drawable.ic_full_heart);
+            else
+                favoriteImage.setImageResource(R.drawable.ic_empty_heart);
+        });
 
-            // TODO
-    //      if (ContextCompat.getDrawable(getActivity(), recipe.getImageId()) != null)
-    //      foodImage.setImageResource(recipe.getImageId());
+        favoriteImage.setOnClickListener(f -> {
+            viewModel.changeFavorite();
         });
 
         editButton.setOnClickListener(r -> {

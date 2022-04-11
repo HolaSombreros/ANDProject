@@ -1,13 +1,5 @@
 package com.group2.foodie.repositorx;
 
-import com.group2.foodie.R;
-import com.group2.foodie.model.Ingredient;
-import com.group2.foodie.model.Measurement;
-import com.group2.foodie.model.Recipe;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class TempRepository {
     private static TempRepository instance;
 

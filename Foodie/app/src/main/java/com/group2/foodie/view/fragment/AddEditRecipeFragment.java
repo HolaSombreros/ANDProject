@@ -149,7 +149,7 @@ public class AddEditRecipeFragment extends Fragment {
                         recipeInstructionsInput.getText().toString())) {
                     Toast.makeText(getActivity(), "Recipe \"" + recipeNameInput.getText().toString() +
                             "\" saved!", Toast.LENGTH_SHORT).show();
-                    navController.navigate(R.id.fragment_personal_recipes);
+                    navController.popBackStack();
                 }
             }
             else if (viewModel.addRecipe(recipeNameInput.getText().toString(),
@@ -158,7 +158,7 @@ public class AddEditRecipeFragment extends Fragment {
                     recipeInstructionsInput.getText().toString())) {
                 Toast.makeText(getActivity(), "Recipe \"" + recipeNameInput.getText().toString() +
                         "\" created!", Toast.LENGTH_SHORT).show();
-                navController.navigate(R.id.fragment_personal_recipes);
+                navController.popBackStack();
             }
         });
     }

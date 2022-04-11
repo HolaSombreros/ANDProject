@@ -15,7 +15,7 @@ import java.util.List;
 
 public class EditableIngredientsAdapter extends RecyclerView.Adapter<EditableIngredientsAdapter.ViewHolder> {
     private List<Ingredient> ingredients;
-    private OnRemoveListener listener;
+    private OnClickListener<Ingredient> listener;
 
     public EditableIngredientsAdapter(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
@@ -26,7 +26,7 @@ public class EditableIngredientsAdapter extends RecyclerView.Adapter<EditableIng
         notifyDataSetChanged();
     }
 
-    public void setOnRemoveListener(OnRemoveListener listener) {
+    public void setOnRemoveListener(OnClickListener<Ingredient> listener) {
         this.listener = listener;
     }
 
@@ -72,12 +72,10 @@ public class EditableIngredientsAdapter extends RecyclerView.Adapter<EditableIng
             removeBtn = itemView.findViewById(R.id.recipe_ingredient_removeBtn);
 
             removeBtn.setOnClickListener(v -> {
-                listener.onRemove(ingredients.get(getBindingAdapterPosition()));
+                listener.onClick(ingredients.get(getBindingAdapterPosition()));
             });
         }
     }
 
-    public interface OnRemoveListener {
-        void onRemove(Ingredient ingredient);
-    }
+
 }

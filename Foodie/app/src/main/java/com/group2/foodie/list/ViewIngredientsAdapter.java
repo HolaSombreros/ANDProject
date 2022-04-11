@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ViewIngredientsAdapter extends RecyclerView.Adapter<ViewIngredientsAdapter.ViewHolder> {
     private List<Ingredient> ingredients;
-    private OnClickListenerIngredient listener;
+    private OnClickListener<Ingredient> listener;
 
     public ViewIngredientsAdapter() {
         this.ingredients = new ArrayList<>();
@@ -59,7 +59,7 @@ public class ViewIngredientsAdapter extends RecyclerView.Adapter<ViewIngredients
         return ingredients.size();
     }
 
-    public void setOnClickListener(OnClickListenerIngredient listener) {
+    public void setOnClickListener(OnClickListener<Ingredient> listener) {
         this.listener = listener;
     }
 

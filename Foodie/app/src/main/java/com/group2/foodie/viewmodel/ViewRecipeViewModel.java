@@ -37,4 +37,16 @@ public class ViewRecipeViewModel extends ViewModel {
         //return userRepository.getCurrentUser();
         return null;
     }
+
+    public LiveData<Boolean> isFavorite() {
+        return recipeRepository.getFavorite();
+    }
+
+    public void changeFavorite() {
+        if (isFavorite().getValue()) {
+            recipeRepository.removeFavorite();
+        } else {
+            recipeRepository.addFavorite();
+        }
+    }
 }

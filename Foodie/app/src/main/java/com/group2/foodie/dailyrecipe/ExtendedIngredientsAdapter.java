@@ -1,6 +1,5 @@
 package com.group2.foodie.dailyrecipe;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

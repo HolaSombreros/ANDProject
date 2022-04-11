@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.group2.foodie.R;
+import com.group2.foodie.model.Ingredient;
 import com.group2.foodie.model.Measurement;
 import com.group2.foodie.util.Util;
 import com.group2.foodie.viewmodel.AddEditIngredientViewModel;
@@ -72,7 +74,7 @@ public class AddEditIngredientFragment extends Fragment {
             viewModel.setDate(String.format("%d-%02d-%02d", year, (month + 1), day));
         });
 
-        expirationDate.setMinDate(LocalDate.now().toEpochDay());
+        viewModel.setDate(LocalDate.now().toString());
 
         ArrayAdapter<String> ingredientMeasurementAdapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_spinner_item,
@@ -88,29 +90,41 @@ public class AddEditIngredientFragment extends Fragment {
                 quantity.setText(String.valueOf(ingredient.getQuantity()));
                 measurement.setSelection(ingredient.getMeasurement().ordinal());
                 LocalDate localDate = Util.getLocalDateFromString(ingredient.getExpirationDate());
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(localDate.getYear(), localDate.getMonth().getValue()-1, localDate.getDayOfMonth());
-                expirationDate.setDate(calendar.getTimeInMillis());
+                Calendar calendarDate = Calendar.getInstance();
+                calendarDate.set(localDate.getYear(), localDate.getMonth().getValue() - 1, localDate.getDayOfMonth());
+                expirationDate.setDate(calendarDate.getTimeInMillis());
                 viewModel.setDate(localDate.toString());
                 remove.setVisibility(View.VISIBLE);
             });
         }
 
+        viewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMessage -> {
+            if (errorMessage != null) {
+                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
+
         save.setOnClickListener(v -> {
-            if (getArguments() != null)
-                viewModel.saveIngredient(name.getText().toString(), Double.parseDouble(quantity.getText().toString()),
-                        Measurement.fromString(measurement.getSelectedItem().toString()), viewModel.getDate());
-            else
-                viewModel.addIngredient(name.getText().toString(), Double.parseDouble(quantity.getText().toString()),
-                        Measurement.fromString(measurement.getSelectedItem().toString()), viewModel.getDate());
-            navController.navigate(R.id.fragment_fridge);
+            if (getArguments() != null) {
+                if (viewModel.saveIngredient(name.getText().toString(), quantity.getText().toString(),
+                        Measurement.fromString(measurement.getSelectedItem().toString()), viewModel.getDate())) {
+                    Toast.makeText(getActivity(), "Ingredient \"" + name.getText().toString() +
+                            "\" saved!", Toast.LENGTH_SHORT).show();
+                    navController.popBackStack();
+                }
+            } else if (viewModel.addIngredient(name.getText().toString(), quantity.getText().toString(),
+                    Measurement.fromString(measurement.getSelectedItem().toString()), viewModel.getDate())) {
+                Toast.makeText(getActivity(), "Ingredient \"" + name.getText().toString() +
+                        "\" added!", Toast.LENGTH_SHORT).show();
+                navController.popBackStack();
+            }
         });
 
         AlertDialog.Builder deleteDialogBuilder = new AlertDialog.Builder(getActivity());
         deleteDialogBuilder.setMessage("Are you sure you want to delete this ingredient?");
         deleteDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> {
             viewModel.removeIngredient();
-            navController.navigate(R.id.fragment_fridge);
+            navController.popBackStack();
         });
         deleteDialogBuilder.setNegativeButton("No", ((dialogInterface, i) -> {
         }));
