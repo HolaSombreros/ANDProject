@@ -1,5 +1,7 @@
 package com.group2.foodie.viewmodel;
 
+import android.graphics.Bitmap;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -101,7 +103,7 @@ public class AddEditRecipeViewModel extends ViewModel {
     }
 
     public boolean editRecipe(String name, String category, boolean isPublic, String instructions) {
-        if (!validate(name, category, instructions))
+        if (!isValid(name, category, instructions))
             return false;
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -110,17 +112,22 @@ public class AddEditRecipeViewModel extends ViewModel {
         return true;
     }
 
-    public boolean addRecipe(String name, String category, boolean isPublic, String instructions) {
-        if (!validate(name, category, instructions))
-            return false;
+    public void uploadRecipeImage(Bitmap bitmap, String path) {
+        recipeRepository.uploadRecipeImage(bitmap, path);
+    }
+
+    public String addRecipe(String name, String category, boolean isPublic, String instructions) {
+        if (!isValid(name, category, instructions)) {
+            return null;
+        }
+
         // TODO - category should be an enum...? - display name also is null
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         Recipe recipe = new Recipe(name, 0, ingredients.getValue(), instructions, isPublic, category, currentUser.getUid(), currentUser.getDisplayName());
-        recipeRepository.addRecipe(recipe);
-        return true;
+        return recipeRepository.addRecipe(recipe);
     }
 
-    private boolean validate(String name, String category, String instructions) {
+    public boolean isValid(String name, String category, String instructions) {
         if (name == null || name.isEmpty()) {
             errorMessage.setValue("Please specify the recipe title");
             return false;

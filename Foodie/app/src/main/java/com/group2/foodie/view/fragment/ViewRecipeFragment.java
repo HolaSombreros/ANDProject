@@ -20,8 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.group2.foodie.R;
 import com.group2.foodie.list.ViewIngredientsAdapter;
+import com.group2.foodie.util.GlideApp;
 import com.group2.foodie.viewmodel.ViewRecipeViewModel;
 
 public class ViewRecipeFragment extends Fragment {
@@ -83,9 +86,8 @@ public class ViewRecipeFragment extends Fragment {
                 favoriteImage.setImageResource(R.drawable.ic_full_heart);
             else
                 favoriteImage.setImageResource(R.drawable.ic_empty_heart);
-            //     TODO
-            //     if (ContextCompat.getDrawable(getActivity(), recipe.getImageId()) != null)
-            //      foodImage.setImageResource(recipe.getImageId());
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/" + recipe.getId() + ".jpg");
+            GlideApp.with(this).load(storageRef).into(foodImage);
         });
 
 
@@ -93,9 +95,7 @@ public class ViewRecipeFragment extends Fragment {
             viewModel.changeFavorite();
         });
 
-        editButton.setOnClickListener(r ->
-
-        {
+        editButton.setOnClickListener(r -> {
             Bundle bundle = new Bundle();
             bundle.putString("recipe", getArguments().getString("recipe"));
             navController.navigate(R.id.fragment_addedit_recipe, bundle);
@@ -103,21 +103,15 @@ public class ViewRecipeFragment extends Fragment {
 
         AlertDialog.Builder deleteDialogBuilder = new AlertDialog.Builder(getActivity());
         deleteDialogBuilder.setMessage("Are you sure you want to delete this recipe?");
-        deleteDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) ->
-
-        {
+        deleteDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> {
             viewModel.removeRecipe();
             navController.navigate(R.id.fragment_personal_recipes);
         });
-        deleteDialogBuilder.setNegativeButton("No", ((dialogInterface, i) ->
-
-        {
+        deleteDialogBuilder.setNegativeButton("No", ((dialogInterface, i) -> {
         }));
         AlertDialog deleteDialog = deleteDialogBuilder.create();
 
-        removeButton.setOnClickListener(r ->
-
-        {
+        removeButton.setOnClickListener(r -> {
             deleteDialog.show();
         });
     }
