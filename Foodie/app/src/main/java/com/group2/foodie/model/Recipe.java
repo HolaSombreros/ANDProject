@@ -1,6 +1,10 @@
 package com.group2.foodie.model;
 
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Recipe {
     private String id;
@@ -110,5 +114,19 @@ public class Recipe {
 
     public void setPublisherUsername(String publisherUsername) {
         this.publisherUsername = publisherUsername;
+    }
+
+    @Exclude
+    public Map<String, Object> asMap() {
+        Map<String, Object> output = new HashMap<>();
+        output.put("name", name);
+        output.put("imageId", imageId);
+        output.put("ingredients", ingredients);
+        output.put("instructions", instructions);
+        output.put("public", isPublic);
+        output.put("category", category);
+        output.put("publisherId", publisherId);
+        output.put("publisherUsername", publisherUsername);
+        return output;
     }
 }

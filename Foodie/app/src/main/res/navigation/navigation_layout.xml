@@ -7,10 +7,10 @@
     app:startDestination="@id/fragment_login">
 
     <fragment
-        android:id="@+id/fragment_add_recipe"
-        android:name="com.group2.foodie.view.fragment.AddRecipeFragment"
+        android:id="@+id/fragment_addedit_recipe"
+        android:name="com.group2.foodie.view.fragment.AddEditRecipeFragment"
         android:label="@string/title_add_recipe"
-        tools:layout="@layout/fragment_add_recipe" />
+        tools:layout="@layout/fragment_addedit_recipe" />
 
     <fragment
         android:id="@+id/fragment_personal_recipes"
@@ -19,7 +19,7 @@
         tools:layout="@layout/fragment_personal_recipes" >
         <action
             android:id="@+id/action_fragment_personal_recipes_to_fragment_add_recipe"
-            app:destination="@id/fragment_add_recipe" />
+            app:destination="@id/fragment_addedit_recipe" />
         <action
             android:id="@+id/action_fragment_personal_recipes_to_fragment_view_recipe"
             app:destination="@id/fragment_view_recipe" />

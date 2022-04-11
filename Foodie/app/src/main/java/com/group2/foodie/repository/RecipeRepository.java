@@ -49,6 +49,12 @@ public class RecipeRepository {
         dbRef.child("users").child(FirebaseAuth.getInstance().getUid()).child(recipeUid).setValue(recipe);
     }
 
+    public void editRecipe(Recipe recipe) {
+        String recipeId = getRecipe().getValue().getId();
+        dbRef.child("users").child(FirebaseAuth.getInstance().getUid()).child(recipeId).updateChildren(recipe.asMap());
+        dbRef.child("recipes").child(recipeId).updateChildren(recipe.asMap());
+    }
+
     public void removeRecipe() {
         String recipeId = getRecipe().getValue().getId();
         dbRef.child("users").child(FirebaseAuth.getInstance().getUid()).child(recipeId).removeValue();
