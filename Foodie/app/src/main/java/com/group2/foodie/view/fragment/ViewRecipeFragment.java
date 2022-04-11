@@ -20,8 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.group2.foodie.R;
 import com.group2.foodie.list.ViewIngredientsAdapter;
+import com.group2.foodie.util.GlideApp;
 import com.group2.foodie.viewmodel.ViewRecipeViewModel;
 
 public class ViewRecipeFragment extends Fragment {
@@ -84,9 +87,9 @@ public class ViewRecipeFragment extends Fragment {
      //       else
        //         favoriteImage.setImageResource(R.drawable.ic_empty_heart);
 
-            // TODO
-    //      if (ContextCompat.getDrawable(getActivity(), recipe.getImageId()) != null)
-    //      foodImage.setImageResource(recipe.getImageId());
+
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/" + recipe.getId() + ".jpg");
+            GlideApp.with(this).load(storageRef).into(foodImage);
         });
 
         editButton.setOnClickListener(r -> {

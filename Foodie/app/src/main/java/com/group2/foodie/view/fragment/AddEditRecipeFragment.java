@@ -1,6 +1,8 @@
 package com.group2.foodie.view.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -48,7 +50,6 @@ public class AddEditRecipeFragment extends Fragment {
     private Button saveBtn;
 
     private EditableIngredientsAdapter ingredientsAdapter;
-    // TODO - Handle image
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -121,6 +122,9 @@ public class AddEditRecipeFragment extends Fragment {
             }
         });
 
+        image.setDrawingCacheEnabled(true);
+        image.buildDrawingCache();
+
         uploadBtn.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
             intent.setType("image/*");
@@ -170,10 +174,20 @@ public class AddEditRecipeFragment extends Fragment {
                     navController.navigate(R.id.fragment_personal_recipes);
                 }
             }
-            else if (viewModel.addRecipe(recipeNameInput.getText().toString(),
+            else if (viewModel.isValid(recipeNameInput.getText().toString(),
                     recipeCategoryInput.getSelectedItem().toString(),
-                    publicSwitch.isChecked(),
-                    recipeInstructionsInput.getText().toString())) {
+                    recipeInstructionsInput.getText().toString()))
+            {
+                String recipeId = viewModel.addRecipe(recipeNameInput.getText().toString(),
+                        recipeCategoryInput.getSelectedItem().toString(),
+                        publicSwitch.isChecked(),
+                        recipeInstructionsInput.getText().toString());
+
+                if (recipeId != null) {
+                    Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
+                    viewModel.uploadRecipeImage(bitmap, recipeId);
+                }
+
                 Toast.makeText(getActivity(), "Recipe \"" + recipeNameInput.getText().toString() +
                         "\" created!", Toast.LENGTH_SHORT).show();
                 navController.navigate(R.id.fragment_personal_recipes);
