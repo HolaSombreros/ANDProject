@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.group2.foodie.R;
@@ -63,6 +64,10 @@ public class ViewIngredientsAdapter extends RecyclerView.Adapter<ViewIngredients
         this.listener = listener;
     }
 
+    public void removeOnClickListener() {
+        listener = null;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView name;
         private TextView quantity;
@@ -75,8 +80,9 @@ public class ViewIngredientsAdapter extends RecyclerView.Adapter<ViewIngredients
             quantity = itemView.findViewById(R.id.view_recipe_ingredient_quantity);
             measurement = itemView.findViewById(R.id.view_recipe_ingredient_measurement);
 
-            itemView.setOnClickListener(v-> {
-                listener.onClick(ingredients.get(getBindingAdapterPosition()));
+            itemView.setOnClickListener(v -> {
+                if (listener != null)
+                    listener.onClick(ingredients.get(getBindingAdapterPosition()));
             });
         }
     }

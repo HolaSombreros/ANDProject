@@ -69,6 +69,7 @@ public class ViewRecipeFragment extends Fragment {
         ingredients.hasFixedSize();
         ingredients.setLayoutManager(new LinearLayoutManager(getActivity()));
         ingredientsAdapter = new ViewIngredientsAdapter();
+        ingredientsAdapter.removeOnClickListener();
         ingredients.setAdapter(ingredientsAdapter);
 
         viewModel.getRecipe().observe(getViewLifecycleOwner(), recipe -> {
@@ -77,23 +78,24 @@ public class ViewRecipeFragment extends Fragment {
             publisher.setText(recipe.getPublisherUsername());
             instructions.setText(recipe.getInstructions());
             ingredientsAdapter.setIngredients(recipe.getIngredients());
+            // TODO favorite stuff
+            if (recipe.isFavorite())
+                favoriteImage.setImageResource(R.drawable.ic_full_heart);
+            else
+                favoriteImage.setImageResource(R.drawable.ic_empty_heart);
             //     TODO
             //     if (ContextCompat.getDrawable(getActivity(), recipe.getImageId()) != null)
             //      foodImage.setImageResource(recipe.getImageId());
         });
 
-        viewModel.isFavorite().observe(getViewLifecycleOwner(), fav -> {
-            if (fav)
-                favoriteImage.setImageResource(R.drawable.ic_full_heart);
-            else
-                favoriteImage.setImageResource(R.drawable.ic_empty_heart);
-        });
 
         favoriteImage.setOnClickListener(f -> {
             viewModel.changeFavorite();
         });
 
-        editButton.setOnClickListener(r -> {
+        editButton.setOnClickListener(r ->
+
+        {
             Bundle bundle = new Bundle();
             bundle.putString("recipe", getArguments().getString("recipe"));
             navController.navigate(R.id.fragment_addedit_recipe, bundle);
@@ -101,15 +103,21 @@ public class ViewRecipeFragment extends Fragment {
 
         AlertDialog.Builder deleteDialogBuilder = new AlertDialog.Builder(getActivity());
         deleteDialogBuilder.setMessage("Are you sure you want to delete this recipe?");
-        deleteDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> {
+        deleteDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) ->
+
+        {
             viewModel.removeRecipe();
             navController.navigate(R.id.fragment_personal_recipes);
         });
-        deleteDialogBuilder.setNegativeButton("No", ((dialogInterface, i) -> {
+        deleteDialogBuilder.setNegativeButton("No", ((dialogInterface, i) ->
+
+        {
         }));
         AlertDialog deleteDialog = deleteDialogBuilder.create();
 
-        removeButton.setOnClickListener(r -> {
+        removeButton.setOnClickListener(r ->
+
+        {
             deleteDialog.show();
         });
     }

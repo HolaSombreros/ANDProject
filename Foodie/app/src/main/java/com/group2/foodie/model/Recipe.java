@@ -12,6 +12,7 @@ public class Recipe {
     private int imageId;
     private List<Ingredient> ingredients;
     private String instructions;
+    @Exclude private boolean isFavorite;
     private boolean isPublic;
     private String category;
     private String publisherId;
@@ -86,6 +87,14 @@ public class Recipe {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 
     @Override

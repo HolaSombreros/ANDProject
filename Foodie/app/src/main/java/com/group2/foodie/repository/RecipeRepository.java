@@ -1,6 +1,5 @@
 package com.group2.foodie.repository;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,7 +15,7 @@ public class RecipeRepository {
     private DatabaseReference dbRef;
     private RecipeListLiveData recipes;
     private RecipeLiveData recipe;
-    private MutableLiveData<Boolean> favorite;
+    private MutableLiveData<Boolean> isFavorite;
 
     private RecipeRepository() {
         database = FirebaseDatabase.getInstance();
@@ -38,22 +37,12 @@ public class RecipeRepository {
         return recipe;
     }
 
-    public LiveData<Boolean> getFavorite() {
-        return favorite;
-    }
-
     public void init() {
         recipes = new RecipeListLiveData(dbRef.child("users").child(FirebaseAuth.getInstance().getUid()).child("recipes"));
     }
 
     public void init2(String recipeId) {
-        recipe = new RecipeLiveData(dbRef.child("recipes").child(recipeId));
-        favorite = new MutableLiveData<>();
-
-        // TODO init favorite
-        if (dbRef.child("favorites").child(FirebaseAuth.getInstance().getUid()).child(recipeId) == null) {
-            favorite.setValue(false);
-        } else favorite.setValue(true);
+        recipe = new RecipeLiveData(dbRef, recipeId);
     }
 
     public void addRecipe(Recipe recipe) {
@@ -78,12 +67,10 @@ public class RecipeRepository {
     public void addFavorite() {
         String recipeId = getRecipe().getValue().getId();
         dbRef.child("favorites").child(FirebaseAuth.getInstance().getUid()).child(recipeId).setValue(true);
-        favorite.setValue(true);
     }
 
     public void removeFavorite() {
         String recipeId = getRecipe().getValue().getId();
         dbRef.child("favorites").child(FirebaseAuth.getInstance().getUid()).child(recipeId).removeValue();
-        favorite.setValue(false);
     }
 }

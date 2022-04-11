@@ -38,12 +38,8 @@ public class ViewRecipeViewModel extends ViewModel {
         return null;
     }
 
-    public LiveData<Boolean> isFavorite() {
-        return recipeRepository.getFavorite();
-    }
-
     public void changeFavorite() {
-        if (isFavorite().getValue()) {
+        if (recipeRepository.getRecipe().getValue().isFavorite()) {
             recipeRepository.removeFavorite();
         } else {
             recipeRepository.addFavorite();
