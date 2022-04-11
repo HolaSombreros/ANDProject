@@ -67,7 +67,7 @@
     <fragment
         android:id="@+id/fragment_my_followers"
         android:name="com.group2.foodie.view.fragment.MyFollowersFragment"
-        android:label="My followers"
+        android:label="Followers"
         tools:layout="@layout/fragment_my_followers" />
     <fragment
         android:id="@+id/fragment_view_recipe"
@@ -104,6 +104,9 @@
             android:id="@+id/action_fragment_logout_to_fragment_login"
             app:destination="@id/fragment_login" />
     </fragment>
+    <fragment
+        android:id="@+id/fragment_followingfollowers"
+        android:name="com.group2.foodie.view.fragment.FollowingFollowersFragment" />
 
 
 </navigation>
