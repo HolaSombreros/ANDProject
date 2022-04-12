@@ -92,4 +92,18 @@
         android:label="AddEditIngredient"
         tools:layout="@layout/fragment_addedit_ingredient"
         />
+    <fragment
+        android:id="@+id/fragment_shopping_list"
+        android:name="com.group2.foodie.view.fragment.ShoppingListFragment"
+        android:label="@string/shopping_list"
+        tools:layout="@layout/fragment_shopping_list">
+        <action
+        android:id="@+id/addShoppingListIngredient"
+        app:destination="@id/addShoppingListIngredient" />
+    </fragment>
+    <fragment
+        android:id="@+id/addShoppingListIngredient"
+        android:name="com.group2.foodie.view.fragment.AddShoppingListIngredientFragment"
+        android:label="Add Ingredients"
+        tools:layout="@layout/fragment_add_shopping_list_ingredient" />
 </navigation>

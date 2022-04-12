@@ -15,6 +15,11 @@ public class Ingredient {
     public Ingredient() {
 
     }
+    public Ingredient(String name, double quantity, Measurement measurement) {
+        this.name = name;
+        this.quantity = quantity;
+        this.measurement = measurement;
+    }
 
     public Ingredient(String name, double quantity, Measurement measurement, String expirationDate) {
         this.name = name;
