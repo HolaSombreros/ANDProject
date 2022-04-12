@@ -1,5 +1,7 @@
 package com.group2.foodie.viewmodel;
 
+import android.graphics.Bitmap;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -15,18 +17,26 @@ import com.group2.foodie.repository.RecipeRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddRecipeViewModel extends ViewModel {
+public class AddEditRecipeViewModel extends ViewModel {
     private MutableLiveData<List<Ingredient>> ingredients;
     private MutableLiveData<String> errorMessage;
     private TempRepository repository;
     private RecipeRepository recipeRepository;
 
-    public AddRecipeViewModel() {
+    public AddEditRecipeViewModel() {
         repository = TempRepository.getInstance();
         recipeRepository = RecipeRepository.getInstance();
         ingredients = new MutableLiveData<>();
         ingredients.setValue(new ArrayList<>());
         errorMessage = new MutableLiveData<>();
+    }
+
+    public void init(String recipeId) {
+        recipeRepository.init2(recipeId);
+    }
+
+    public LiveData<Recipe> getRecipe() {
+        return recipeRepository.getRecipe();
     }
 
     public String[] getRecipeCategories() {
@@ -49,7 +59,7 @@ public class AddRecipeViewModel extends ViewModel {
         if (isIngredientInputValid(name, quantity)) {
 
             Ingredient newIngredient = new Ingredient(name,
-                    (!quantity.isEmpty() ? Integer.parseInt(quantity) : 0),
+                    (!quantity.isEmpty() ? Double.parseDouble(quantity) : 0),
                     Measurement.fromString(measurement),
                     null);
 
@@ -71,10 +81,10 @@ public class AddRecipeViewModel extends ViewModel {
 
         if (quantity != null && !quantity.isEmpty()) {
             try {
-                int intQuantity = Integer.parseInt(quantity);
+                double intQuantity = Double.parseDouble(quantity);
 
-                if (intQuantity <= 0) {
-                    errorMessage.setValue("The ingredient quantity (if any) must be larger than 0");
+                if (intQuantity < 0) {
+                    errorMessage.setValue("The ingredient quantity (if any) must be larger or equal to 0");
                     return false;
                 }
             } catch (Exception e) {
@@ -92,7 +102,32 @@ public class AddRecipeViewModel extends ViewModel {
         ingredients.setValue(currentIngredients);
     }
 
-    public boolean addRecipe(String name, String category, String instructions) {
+    public boolean editRecipe(String name, String category, boolean isPublic, String instructions) {
+        if (!isValid(name, category, instructions))
+            return false;
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        Recipe recipe = new Recipe(name, 0, ingredients.getValue(), instructions, isPublic, category, currentUser.getUid(), currentUser.getDisplayName());
+        recipeRepository.editRecipe(recipe);
+        return true;
+    }
+
+    public void uploadRecipeImage(Bitmap bitmap, String path) {
+        recipeRepository.uploadRecipeImage(bitmap, path);
+    }
+
+    public String addRecipe(String name, String category, boolean isPublic, String instructions) {
+        if (!isValid(name, category, instructions)) {
+            return null;
+        }
+
+        // TODO - category should be an enum...? - display name also is null
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        Recipe recipe = new Recipe(name, 0, ingredients.getValue(), instructions, isPublic, category, currentUser.getUid(), currentUser.getDisplayName());
+        return recipeRepository.addRecipe(recipe);
+    }
+
+    public boolean isValid(String name, String category, String instructions) {
         if (name == null || name.isEmpty()) {
             errorMessage.setValue("Please specify the recipe title");
             return false;
@@ -113,10 +148,6 @@ public class AddRecipeViewModel extends ViewModel {
             return false;
         }
 
-        // TODO - category should be an enum...?
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        Recipe recipe = new Recipe(name, 0, ingredients.getValue(), instructions, false, category, currentUser.getUid(), currentUser.getDisplayName());
-        recipeRepository.addRecipe(recipe);
         return true;
     }
 

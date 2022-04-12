@@ -5,13 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.group2.foodie.R;
@@ -26,7 +27,8 @@ public class RegisterFragment extends Fragment {
     private TextInputEditText passwordInput;
     private TextInputEditText repeatPasswordInput;
     private Button registerButton;
-    private TextView signIn;
+    private Button signIn;
+    private NavController navController;
 
 
     @Override
@@ -41,34 +43,42 @@ public class RegisterFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(getActivity()).get(RegisterViewModel.class);
         initializeViews(view);
+        setUpViews();
     }
 
 
-    private void initializeViews(View view){
+    private void initializeViews(View view) {
         usernameInput = view.findViewById(R.id.inputUsernameRegister);
         emailInput = view.findViewById(R.id.inputEmailRegister);
         passwordInput = view.findViewById(R.id.inputPasswordRegister);
         repeatPasswordInput = view.findViewById(R.id.inputRepeatPasswordRegister);
         registerButton = view.findViewById(R.id.registerButton);
         signIn = view.findViewById(R.id.signIn);
+        navController = Navigation.findNavController(view);
     }
 
-    private void setUpViews(){
-        registerButton.setOnClickListener(v -> {
-            if(viewModel.validatePassword(passwordInput.getText().toString(), repeatPasswordInput.getText().toString()))
-                viewModel.register(usernameInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString());
-            else
-                Toast.makeText(getContext(), R.string.passwords_not_match, Toast.LENGTH_SHORT).show();
+    private void setUpViews() {
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (viewModel.validatePassword(passwordInput.getText().toString(), repeatPasswordInput.getText().toString())) {
+                    viewModel.register(usernameInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString());
+                    navController.navigate(R.id.fragment_app_intro);
+                } else
+                    Toast.makeText(getContext(), R.string.passwords_not_match, Toast.LENGTH_SHORT).show();
+            }
+
+        });
+        signIn.setOnClickListener(v -> {
+            navController.navigate(R.id.fragment_login);
         });
 
-        //TODO: change view to login when signIn is pressed
     }
 
 
     @Override
     public void onStop() {
         super.onStop();
-
         viewModel.reset();
     }
 }

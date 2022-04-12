@@ -9,16 +9,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.group2.foodie.R;
 import com.group2.foodie.model.Recipe;
+import com.group2.foodie.util.GlideApp;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder>{
-
     private List<Recipe> recipes;
-    private OnClickListenerRecipe listener;
+    private OnClickListener<Recipe> listener;
 
     public RecipeAdapter() {
         recipes = new ArrayList<>();
@@ -39,9 +41,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RecipeAdapter.ViewHolder viewHolder, int position) {
-        // TODO
-   //     if (ContextCompat.getDrawable(this, recipes.get(position).getImageId()) != null)
-  //      viewHolder.image.setImageResource(recipes.get(position).getImageId());
+        String id = recipes.get(position).getId();
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/" + id + ".jpg");
+        GlideApp.with(viewHolder.itemView).load(storageRef).into(viewHolder.image);
         viewHolder.recipeName.setText(recipes.get(position).getName());
     }
 
@@ -50,7 +52,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         return recipes.size();
     }
 
-    public void setOnClickListener(OnClickListenerRecipe listener) {
+    public void setOnClickListener(OnClickListener<Recipe> listener) {
         this.listener = listener;
     }
 

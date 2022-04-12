@@ -12,7 +12,6 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="password">Password</string>
     <string name="daily_recipe">Daily Recipe</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="step_by_step_instructions">Step by step instructions</string>
     <string name="recipe_ingredients">Recipe ingredients</string>
     <string name="daily_recipe_name">Name</string>
@@ -21,7 +20,7 @@
     <string name="profile_name">Profile name</string>
     <string name="account_email">Account email</string>
     <string name="email_address">Email address</string>
-    <string name="repeat_password">Repeat Password</string>
+    <string name="repeat_password">Confirm Password</string>
     <string name="sign_in">Sign in</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="passwords_not_match">Passwords do not match</string>
@@ -32,4 +31,9 @@
     <string name="preparation_time">Preparation time</string>
     <string name="servings">Servings</string>
     <string name="shopping_list">Shopping List</string>
+    <string name="log_out">Log Out</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

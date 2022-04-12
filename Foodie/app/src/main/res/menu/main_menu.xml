@@ -13,15 +13,27 @@
         android:title="@string/title_fridge" />
 
     <item
-        android:id="@+id/navbar_profile"
+        android:id="@+id/fragment_personal_profile"
         android:icon="@drawable/ic_profile"
         android:title="@string/title_profile" />
     <item
+
         android:id="@+id/fragment_daily_recipe"
         android:icon="@drawable/ic_recipes"
         android:title="@string/daily_recipe" />
+
     <item
         android:id="@+id/fragment_shopping_list"
         android:icon="@drawable/ic_shopping_list"
         android:title="@string/shopping_list" />
+
+    <item
+        android:id="@+id/fragment_followingfollowers"
+        android:icon="@drawable/ic_profile"
+        android:title="My Followers?????" />
+
+    <item
+        android:id="@+id/fragment_logout"
+        android:icon="@drawable/ic_logout"
+        android:title="@string/log_out"/>
 </menu>

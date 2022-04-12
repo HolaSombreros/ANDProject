@@ -1,6 +1,10 @@
 package com.group2.foodie.model;
 
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Recipe {
     private String id;
@@ -8,6 +12,7 @@ public class Recipe {
     private int imageId;
     private List<Ingredient> ingredients;
     private String instructions;
+    @Exclude private boolean isFavorite;
     private boolean isPublic;
     private String category;
     private String publisherId;
@@ -84,6 +89,14 @@ public class Recipe {
         this.category = category;
     }
 
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+
     @Override
     public String toString() {
         String output = String.format("%s (%s)", name, category);
@@ -110,5 +123,19 @@ public class Recipe {
 
     public void setPublisherUsername(String publisherUsername) {
         this.publisherUsername = publisherUsername;
+    }
+
+    @Exclude
+    public Map<String, Object> asMap() {
+        Map<String, Object> output = new HashMap<>();
+        output.put("name", name);
+        output.put("imageId", imageId);
+        output.put("ingredients", ingredients);
+        output.put("instructions", instructions);
+        output.put("public", isPublic);
+        output.put("category", category);
+        output.put("publisherId", publisherId);
+        output.put("publisherUsername", publisherUsername);
+        return output;
     }
 }

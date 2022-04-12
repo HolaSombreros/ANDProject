@@ -18,10 +18,11 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.group2.foodie.R;
 import com.group2.foodie.list.ViewIngredientsAdapter;
+import com.group2.foodie.util.GlideApp;
 import com.group2.foodie.viewmodel.ViewRecipeViewModel;
 
 public class ViewRecipeFragment extends Fragment {
@@ -69,31 +70,33 @@ public class ViewRecipeFragment extends Fragment {
         ingredients.hasFixedSize();
         ingredients.setLayoutManager(new LinearLayoutManager(getActivity()));
         ingredientsAdapter = new ViewIngredientsAdapter();
+        ingredientsAdapter.removeOnClickListener();
         ingredients.setAdapter(ingredientsAdapter);
 
         viewModel.getRecipe().observe(getViewLifecycleOwner(), recipe -> {
             title.setText(recipe.getName());
             category.setText(recipe.getCategory());
             publisher.setText(recipe.getPublisherUsername());
-//            foodImage.set
             instructions.setText(recipe.getInstructions());
             ingredientsAdapter.setIngredients(recipe.getIngredients());
-
- //           if (user.getFavoriteRecipes().contains(recipe))
-   //             favoriteImage.setImageResource(R.drawable.ic_full_heart);
-     //       else
-       //         favoriteImage.setImageResource(R.drawable.ic_empty_heart);
-
-            // TODO
-    //      if (ContextCompat.getDrawable(getActivity(), recipe.getImageId()) != null)
-    //      foodImage.setImageResource(recipe.getImageId());
+            // TODO favorite stuff
+            if (recipe.isFavorite())
+                favoriteImage.setImageResource(R.drawable.ic_full_heart);
+            else
+                favoriteImage.setImageResource(R.drawable.ic_empty_heart);
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/" + recipe.getId() + ".jpg");
+            GlideApp.with(this).load(storageRef).into(foodImage);
         });
 
 
-
+        favoriteImage.setOnClickListener(f -> {
+            viewModel.changeFavorite();
+        });
 
         editButton.setOnClickListener(r -> {
-            // navigate
+            Bundle bundle = new Bundle();
+            bundle.putString("recipe", getArguments().getString("recipe"));
+            navController.navigate(R.id.fragment_addedit_recipe, bundle);
         });
 
         AlertDialog.Builder deleteDialogBuilder = new AlertDialog.Builder(getActivity());

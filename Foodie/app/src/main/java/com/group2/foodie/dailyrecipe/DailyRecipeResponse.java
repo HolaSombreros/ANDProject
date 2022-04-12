@@ -5,11 +5,9 @@ import java.util.List;
 
 public class DailyRecipeResponse {
     private List<DailyRecipe> recipes;
-
     public DailyRecipeResponse() {
         recipes = new ArrayList<>();
     }
-
     public void setRecipes(List<DailyRecipe> recipes) {
         this.recipes = recipes;
     }
@@ -19,6 +17,4 @@ public class DailyRecipeResponse {
     public DailyRecipe getDailyRecipe() {
         return recipes.get(0);
     }
-
-
 }

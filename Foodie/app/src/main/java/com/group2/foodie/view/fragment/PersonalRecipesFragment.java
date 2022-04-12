@@ -89,7 +89,7 @@ public class PersonalRecipesFragment extends Fragment {
         });
 
         fab.setOnClickListener(v -> {
-            navController.navigate(R.id.fragment_add_recipe);
+            navController.navigate(R.id.fragment_addedit_recipe);
         });
     }
 

@@ -7,10 +7,10 @@
     app:startDestination="@id/fragment_login">
 
     <fragment
-        android:id="@+id/fragment_add_recipe"
-        android:name="com.group2.foodie.view.fragment.AddRecipeFragment"
+        android:id="@+id/fragment_addedit_recipe"
+        android:name="com.group2.foodie.view.fragment.AddEditRecipeFragment"
         android:label="@string/title_add_recipe"
-        tools:layout="@layout/fragment_add_recipe" />
+        tools:layout="@layout/fragment_addedit_recipe" />
 
     <fragment
         android:id="@+id/fragment_personal_recipes"
@@ -19,7 +19,7 @@
         tools:layout="@layout/fragment_personal_recipes" >
         <action
             android:id="@+id/action_fragment_personal_recipes_to_fragment_add_recipe"
-            app:destination="@id/fragment_add_recipe" />
+            app:destination="@id/fragment_addedit_recipe" />
         <action
             android:id="@+id/action_fragment_personal_recipes_to_fragment_view_recipe"
             app:destination="@id/fragment_view_recipe" />
@@ -41,7 +41,6 @@
         android:name="com.group2.foodie.view.fragment.RegisterFragment"
         android:label="RegisterFragment"
         tools:layout="@layout/fragment_register"/>
-
     <fragment
         android:id="@+id/fragment_app_intro"
         android:name="com.group2.foodie.view.fragment.AppIntroFragment"
@@ -56,6 +55,9 @@
         <action
             android:id="@+id/action_fragment_app_intro_to_fragment_fridge"
             app:destination="@id/fragment_fridge" />
+        <action
+            android:id="@+id/action_fragment_app_intro_to_fragment_personal_profile"
+            app:destination="@id/fragment_personal_profile" />
     </fragment>
     <fragment
         android:id="@+id/fragment_daily_recipe"
@@ -65,13 +67,14 @@
     <fragment
         android:id="@+id/fragment_my_followers"
         android:name="com.group2.foodie.view.fragment.MyFollowersFragment"
-        android:label="My followers"
+        android:label="Followers"
         tools:layout="@layout/fragment_my_followers" />
     <fragment
         android:id="@+id/fragment_view_recipe"
         android:name="com.group2.foodie.view.fragment.ViewRecipeFragment"
         android:label="@string/title_add_recipe"
         tools:layout="@layout/fragment_view_recipe" />
+
     <fragment
         android:id="@+id/fragment_personal_profile"
         android:name="com.group2.foodie.view.fragment.PersonalProfileFragment"
@@ -106,4 +109,16 @@
         android:name="com.group2.foodie.view.fragment.AddShoppingListIngredientFragment"
         android:label="Add Ingredients"
         tools:layout="@layout/fragment_add_shopping_list_ingredient" />
+    <fragment
+        android:id="@+id/fragment_logout"
+        android:name="com.group2.foodie.view.fragment.LogoutFragment"
+        android:label="Logout"
+        tools:layout="@layout/fragment_logout">
+        <action
+            android:id="@+id/action_fragment_logout_to_fragment_login"
+            app:destination="@id/fragment_login" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_followingfollowers"
+        android:name="com.group2.foodie.view.fragment.FollowingFollowersFragment" />
 </navigation>
