@@ -11,6 +11,7 @@
         android:id="@+id/personal_scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_anchor="@+id/personal_scrollView"
         app:layout_anchorGravity="center">
 
@@ -20,29 +21,12 @@
 
             <ImageView
                 android:id="@+id/userProfilePicture"
-                android:layout_width="101dp"
-                android:layout_height="105dp"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="28dp"
+                android:layout_width="133dp"
+                android:layout_height="152dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="40dp"
                 android:src="@mipmap/ic_app_launcher"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/usernameTextView"
-                android:layout_width="250dp"
-                android:layout_height="53dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="28dp"
-                android:gravity="center"
-                android:text="@string/username"
-                android:textAlignment="center"
-                android:textColor="#4a148c"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/userProfilePicture"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -50,70 +34,72 @@
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="156dp"
                 android:text="@string/followers"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/followersDisplay"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/userProfilePicture"
-                app:layout_constraintTop_toBottomOf="@+id/usernameTextView" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/followingTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="156dp"
+                android:layout_marginEnd="8dp"
                 android:text="@string/following"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/followingDisplay"
-                app:layout_constraintTop_toBottomOf="@+id/usernameTextView" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/followersDisplay"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="156dp"
                 android:layout_marginEnd="4dp"
                 android:padding="1dp"
                 android:paddingStart="5dp"
                 android:text="0"
                 android:textSize="16dp"
                 app:layout_constraintEnd_toStartOf="@+id/followingTxt"
-                app:layout_constraintTop_toBottomOf="@+id/usernameTextView" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/followingDisplay"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="156dp"
                 android:layout_marginEnd="52dp"
                 android:padding="1dp"
                 android:paddingStart="5dp"
                 android:text="0"
                 android:textSize="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/usernameTextView" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingActionButton"
+                android:id="@+id/editPersonalProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
+                android:layout_marginEnd="8dp"
                 android:clickable="true"
                 android:src="@android:drawable/ic_menu_edit"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="0.914" />
+
 
             <LinearLayout
                 android:id="@+id/recipes_personal_display"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="144dp"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="220dp"
                 android:orientation="horizontal"
                 android:padding="10dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -141,10 +127,10 @@
 
             <LinearLayout
                 android:id="@+id/fridge_personal_details"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="172dp"
-                android:layout_marginTop="144dp"
+                android:layout_width="95dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="220dp"
+                android:layout_marginTop="220dp"
                 android:orientation="horizontal"
                 android:padding="10dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -170,52 +156,90 @@
                     android:textSize="16dp" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/emailTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:layout_marginStart="48dp"
-                android:layout_marginTop="232dp"
-                android:text="@string/email_address"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/usernameTextView"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="252dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginEnd="8dp"
+                android:hint="@string/username"
+                android:textAlignment="center"
+                android:textColorHint="#4a148c"
                 android:textStyle="bold"
+                app:boxStrokeColor="#EAEAEE"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputUsernamePersonal"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:textColor="#4a148c"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtEmailPersonal"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="312dp"
+                android:layout_marginEnd="70dp"
+                android:hint="@string/email_address"
+                android:textColorHint="#A7A7A7"
+                app:boxStrokeColor="#EAEAEE"
+                app:layout_anchorGravity="center"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="76dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputEmailPersonal"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:textColor="#4a148c"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    tools:ignore="TouchTargetSizeCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtPasswordPersonal"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="412dp"
+                android:layout_marginEnd="70dp"
+                android:hint="@string/password"
+                android:textColorHint="#A7A7A7"
+                app:boxStrokeColor="#EAEAEE"
+                app:endIconMode="password_toggle"
+                app:passwordToggleTint="@color/purple_700"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/emailDisplay"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="232dp"
-                android:text="TextView"
-                app:layout_constraintStart_toEndOf="@+id/emailTxt"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/passwordTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_marginStart="48dp"
-                android:layout_marginTop="292dp"
-                android:text="@string/password"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/passwordDisplay"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="292dp"
-                android:inputType="textPassword"
-                android:text="TextView"
-                android:ellipsize="start"
-                app:layout_constraintStart_toEndOf="@+id/passwordTxt"
-                app:layout_constraintTop_toTopOf="parent" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputPasswordPersonal"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:textColor="#4a148c"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    tools:ignore="TouchTargetSizeCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
