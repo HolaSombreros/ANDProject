@@ -22,7 +22,7 @@
                 android:id="@+id/userProfilePicture"
                 android:layout_width="101dp"
                 android:layout_height="105dp"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="36dp"
                 android:layout_marginTop="28dp"
                 android:src="@mipmap/ic_app_launcher"
                 app:layout_constraintStart_toStartOf="parent"
@@ -44,14 +44,6 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/userProfilePicture"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="197dp"
-                android:layout_height="37dp"
-                android:text="TextView"
-                tools:layout_editor_absoluteX="94dp"
-                tools:layout_editor_absoluteY="324dp" />
 
             <TextView
                 android:id="@+id/followersTxt"
@@ -103,6 +95,126 @@
                 android:textSize="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/usernameTextView" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:clickable="true"
+                android:src="@android:drawable/ic_menu_edit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <LinearLayout
+                android:id="@+id/recipes_personal_display"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="144dp"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/recipeTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:text="Recipes"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    tools:layout_editor_absoluteX="37dp"
+                    tools:layout_editor_absoluteY="161dp" />
+
+                <TextView
+                    android:id="@+id/recipeDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:padding="1dp"
+                    android:paddingStart="5dp"
+                    android:text="0"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fridge_personal_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="172dp"
+                android:layout_marginTop="144dp"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/fridgeTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:text="Fridge"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    tools:layout_editor_absoluteX="37dp"
+                    tools:layout_editor_absoluteY="161dp" />
+
+                <TextView
+                    android:id="@+id/fridgeDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:padding="1dp"
+                    android:paddingStart="5dp"
+                    android:text="0"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/emailTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="232dp"
+                android:text="@string/email_address"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/emailDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="232dp"
+                android:text="TextView"
+                app:layout_constraintStart_toEndOf="@+id/emailTxt"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/passwordTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="292dp"
+                android:text="@string/password"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/passwordDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="292dp"
+                android:inputType="textPassword"
+                android:text="TextView"
+                android:ellipsize="start"
+                app:layout_constraintStart_toEndOf="@+id/passwordTxt"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

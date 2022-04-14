@@ -1,7 +1,9 @@
 package com.group2.foodie.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class User {
 
@@ -16,7 +18,7 @@ public class User {
     private Fridge fridge;
     private int profilePictureId;
 
-    public User() {
+        public User() {
         recipes = new ArrayList<>();
         favoriteRecipes = new ArrayList<>();
         followers = new ArrayList<>();

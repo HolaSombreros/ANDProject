@@ -9,7 +9,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.group2.foodie.model.Recipe;
 import com.group2.foodie.model.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserLiveData extends LiveData<User> {
     DatabaseReference dbRef;
@@ -23,7 +27,13 @@ public class UserLiveData extends LiveData<User> {
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
             Log.e("user data change", "it got here");
+            List<Recipe> recipeList = new ArrayList<>();
+            DataSnapshot recipes = snapshot.child("recipes");
+            for(DataSnapshot dataSnapshot: recipes.getChildren()){
+                recipeList.add(dataSnapshot.getValue(Recipe.class));
+            }
             User user = snapshot.getValue(User.class);
+            user.setRecipes(recipeList);
             setValue(user);
         }
 

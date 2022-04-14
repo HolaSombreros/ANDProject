@@ -19,6 +19,7 @@ public class UserRepository {
     private DatabaseReference dbRef;
     private FirebaseAuth auth;
     private UserLiveData user;
+    private UserLiveData visitUser;
     private static Object lock = new Object();
 
     private UserRepository() {
@@ -35,10 +36,14 @@ public class UserRepository {
         return instance;
     }
 
-    public void init(){
+    public void initCurrentUser(){
         Log.e("repo init", dbRef.child(auth.getUid()).getKey());
         user = new UserLiveData(dbRef.child("users").child(auth.getUid()));
 
+    }
+
+    public void initVisitUser(String userUid){
+        visitUser = new UserLiveData(dbRef.child("users").child(userUid));
     }
 
     //TODO: add user to database
@@ -60,9 +65,12 @@ public class UserRepository {
     }
 
 
-    //TODO: figure this out
-    public LiveData<User> getUser() {
-//        Log.e("get user repo", user.getValue().toString());
+    public LiveData<User> getCurrentUser() {
         return user;
     }
+
+    public LiveData<User> getVisitingUser(String uid){
+        return visitUser;
+    }
+
 }

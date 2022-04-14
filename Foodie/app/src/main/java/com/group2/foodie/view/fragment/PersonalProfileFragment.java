@@ -1,11 +1,12 @@
 package com.group2.foodie.view.fragment;
 
-import android.annotation.SuppressLint;
+
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,9 +17,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.group2.foodie.R;
-import com.group2.foodie.model.User;
+
 import com.group2.foodie.viewmodel.PersonalProfileViewModel;
-import com.group2.foodie.viewmodel.PersonalRecipesViewModel;
+
 
 public class PersonalProfileFragment extends Fragment {
     private NavController navController;
@@ -26,6 +27,12 @@ public class PersonalProfileFragment extends Fragment {
     private TextView username;
     private TextView followersTxt;
     private TextView followingTxt;
+    private LinearLayout recipeLayout;
+    private LinearLayout fridgeLayout;
+    private TextView recipeTxt;
+    private TextView fridgeTxt;
+    private TextView passwordTxt;
+    private TextView emailTxt;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,11 +50,20 @@ public class PersonalProfileFragment extends Fragment {
         username = view.findViewById(R.id.usernameTextView);
         followersTxt = view.findViewById(R.id.followersDisplay);
         followingTxt = view.findViewById(R.id.followingDisplay);
+        fridgeLayout = view.findViewById(R.id.fridge_personal_details);
+        recipeLayout = view.findViewById(R.id.recipes_personal_display);
+        fridgeTxt = view.findViewById(R.id.fridgeDisplay);
+        recipeTxt = view.findViewById(R.id.recipeDisplay);
+        passwordTxt = view.findViewById(R.id.passwordDisplay);
+        emailTxt = view.findViewById(R.id.emailDisplay);
     }
 
+    //TODO: find a way to deserialize recipes
     private void setupViews(){
         viewModel.getUser().observe(getViewLifecycleOwner(), user -> {
             username.setText(user.getUsername());
+            passwordTxt.setText(user.getPassword());
+            emailTxt.setText(user.getEmail());
         });
 
         viewModel.getMyFollowing().observe(getViewLifecycleOwner(), following -> {
@@ -56,6 +72,22 @@ public class PersonalProfileFragment extends Fragment {
 
         viewModel.getMyFollowers().observe(getViewLifecycleOwner(), followers -> {
             followersTxt.setText(String.valueOf(followers.size()));
+        });
+
+        viewModel.getFridge().observe(getViewLifecycleOwner(), fridge ->{
+            fridgeTxt.setText(String.valueOf(fridge.size()));
+        });
+
+        viewModel.getRecipes().observe(getViewLifecycleOwner(), recipes -> {
+            recipeTxt.setText(String.valueOf(recipes.size()));
+        });
+
+        recipeLayout.setOnClickListener(n->{
+            navController.navigate(R.id.fragment_personal_recipes);
+        });
+
+        fridgeLayout.setOnClickListener(n->{
+            navController.navigate(R.id.fragment_fridge);
         });
 
     }
