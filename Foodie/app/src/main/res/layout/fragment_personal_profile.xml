@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.group2.foodie.view.fragment.PersonalProfileFragment">
+
     <ScrollView
         android:id="@+id/personal_scrollView"
         android:layout_width="match_parent"
@@ -15,14 +16,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/pink_300">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/userProfilePicture"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginStart="16dp"
+                android:layout_width="101dp"
+                android:layout_height="105dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="28dp"
                 android:src="@mipmap/ic_app_launcher"
                 app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
                 android:layout_width="250dp"
                 android:layout_height="53dp"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="28dp"
                 android:gravity="center"
                 android:text="@string/username"
                 android:textAlignment="center"
@@ -45,6 +45,64 @@
                 app:layout_constraintStart_toEndOf="@+id/userProfilePicture"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="197dp"
+                android:layout_height="37dp"
+                android:text="TextView"
+                tools:layout_editor_absoluteX="94dp"
+                tools:layout_editor_absoluteY="324dp" />
+
+            <TextView
+                android:id="@+id/followersTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/followers"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/followersDisplay"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/userProfilePicture"
+                app:layout_constraintTop_toBottomOf="@+id/usernameTextView" />
+
+            <TextView
+                android:id="@+id/followingTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/following"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/followingDisplay"
+                app:layout_constraintTop_toBottomOf="@+id/usernameTextView" />
+
+            <TextView
+                android:id="@+id/followersDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="4dp"
+                android:padding="1dp"
+                android:paddingStart="5dp"
+                android:text="0"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/followingTxt"
+                app:layout_constraintTop_toBottomOf="@+id/usernameTextView" />
+
+            <TextView
+                android:id="@+id/followingDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="52dp"
+                android:padding="1dp"
+                android:paddingStart="5dp"
+                android:text="0"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/usernameTextView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

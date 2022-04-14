@@ -62,8 +62,13 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (viewModel.validatePassword(passwordInput.getText().toString(), repeatPasswordInput.getText().toString())) {
-                    viewModel.register(usernameInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString());
-                    navController.navigate(R.id.fragment_app_intro);
+                    try {
+                        viewModel.register(usernameInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString());
+                        navController.navigate(R.id.fragment_app_intro);
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 } else
                     Toast.makeText(getContext(), R.string.passwords_not_match, Toast.LENGTH_SHORT).show();
             }
