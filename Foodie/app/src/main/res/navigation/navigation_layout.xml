@@ -120,5 +120,6 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_followingfollowers"
-        android:name="com.group2.foodie.view.fragment.FollowingFollowersFragment" />
+        android:name="com.group2.foodie.view.fragment.FollowingFollowersFragment"
+        android:label="My Followers" />
 </navigation>

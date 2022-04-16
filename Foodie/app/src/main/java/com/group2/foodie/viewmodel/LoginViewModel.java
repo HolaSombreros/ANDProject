@@ -1,36 +1,30 @@
 package com.group2.foodie.viewmodel;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+import android.app.Application;
 
-import com.group2.foodie.model.User;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+
+import com.google.firebase.auth.FirebaseUser;
 import com.group2.foodie.repository.UserRepository;
 
-public class LoginViewModel extends ViewModel {
-    private MutableLiveData<String> errorMessage;
+public class LoginViewModel extends AndroidViewModel {
     private UserRepository repository;
 
-    public LoginViewModel() {
-        errorMessage = new MutableLiveData<>();
-        repository = UserRepository.getInstance();
+    public LoginViewModel(Application application) {
+        super(application);
+        repository = UserRepository.getInstance(application);
+    }
+
+    public LiveData<FirebaseUser> getCurrentFirebaseUser() {
+        return repository.getCurrentFirebaseUser();
     }
 
     public LiveData<String> getErrorMessage() {
-        return errorMessage;
+        return repository.getErrorMessage();
     }
 
-    public boolean login(String email, String password) {
-        if (email == null || email.isEmpty()) {
-            errorMessage.setValue("Please enter an email address");
-            return false;
-        }
-
-        if (password == null || password.isEmpty()) {
-            errorMessage.setValue("Please enter a password");
-            return false;
-        }
-
-        return true;
+    public void attemptLogin(String email, String password) {
+        repository.logIn(email, password);
     }
 }

@@ -43,11 +43,11 @@ public class MyFollowersLiveData extends LiveData<List<Follower>> {
                 followingRef.child(uid).get().addOnCompleteListener(followTask -> {
                     follower.setFollows(followTask.getResult().exists());
                     Log.d("foodiefollower", "Set follows " + follower.isFollowed());
-                });
 
-                List<Follower> followers = getValue();
-                followers.add(follower);
-                setValue(followers);
+                    List<Follower> followers = getValue();
+                    followers.add(follower);
+                    setValue(followers);
+                });
             });
         }
 

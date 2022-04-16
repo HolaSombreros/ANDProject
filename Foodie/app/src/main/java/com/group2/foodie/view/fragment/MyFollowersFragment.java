@@ -61,7 +61,8 @@ public class MyFollowersFragment extends Fragment {
         });
 
         adapter.setOnRemoveListener(user -> {
-            // TODO - remove user
+            // TODO - follow/unfollow depending on the user.isFollowed()
+            //  Just need to be toggled and updated.
         });
     }
 }

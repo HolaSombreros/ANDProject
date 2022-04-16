@@ -49,15 +49,14 @@ public class MyFollowersAdapter extends RecyclerView.Adapter<MyFollowersAdapter.
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         Follower follower = followers.get(position);
+        // TODO - Fetch user's profile picture using their id?
         viewHolder.image.setImageResource(R.drawable.ic_full_heart);
         viewHolder.username.setText(follower.getUsername());
         viewHolder.handle.setText(follower.getEmail());
 
-        Log.d("foodiefollower", "Follows? " + follower.isFollowed());
-
         if (follower.isFollowed()) {
             viewHolder.followBtn.setText("Following");
-            viewHolder.followBtn.setBackgroundColor(Color.parseColor("00FF00"));
+            viewHolder.followBtn.setBackgroundColor(Color.parseColor("#00BB00"));
         } else {
             viewHolder.followBtn.setText("Follow");
         }

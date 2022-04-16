@@ -17,18 +17,15 @@ import androidx.navigation.Navigation;
 
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.group2.foodie.R;
 import com.group2.foodie.viewmodel.LoginViewModel;
 
 public class LoginFragment extends Fragment {
     private LoginViewModel viewModel;
-    private TextInputEditText usernameInput;
+    private TextInputEditText emailInput;
     private TextInputEditText passwordInput;
     private Button loginButton;
-    private TextView registerRedirect;
-    private FirebaseAuth auth;
+    private TextView registerButton;
     private NavController navController;
 
     @Override
@@ -41,58 +38,37 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         viewModel = new ViewModelProvider(getActivity()).get(LoginViewModel.class);
-        auth = FirebaseAuth.getInstance();
         navController = Navigation.findNavController(view);
+
+        viewModel.getCurrentFirebaseUser().observe(getViewLifecycleOwner(), user -> {
+            if (user != null) {
+                navController.navigate(R.id.fragment_personal_recipes);
+            }
+        });
 
         initializeViews(view);
         setupViews();
     }
 
     private void initializeViews(View view) {
-       usernameInput = view.findViewById(R.id.inputUsername);
-       passwordInput = view.findViewById(R.id.inputPassword);
-       loginButton = view.findViewById(R.id.login);
-       registerRedirect = view.findViewById(R.id.registerRedirectTxt);
+       emailInput = view.findViewById(R.id.login_emailInput);
+       passwordInput = view.findViewById(R.id.login_passwordInput);
+       loginButton = view.findViewById(R.id.login_loginBtn);
+       registerButton = view.findViewById(R.id.login_registerBtn);
     }
 
     private void setupViews() {
         loginButton.setOnClickListener(v -> {
-            login();
+            viewModel.attemptLogin(emailInput.getText().toString(),
+                    passwordInput.getText().toString());
         });
 
         viewModel.getErrorMessage().observe(getViewLifecycleOwner(), error -> {
             Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
         });
 
-        registerRedirect.setOnClickListener(v ->{
+        registerButton.setOnClickListener(v ->{
             navController.navigate(R.id.fragment_register);
         });
-    }
-
-    //TODO: this should be done in the VIEW MODEL
-    private void login() {
-        if (viewModel.login(usernameInput.getText().toString(), passwordInput.getText().toString())) {
-            auth.signInWithEmailAndPassword(usernameInput.getText().toString(),
-                    passwordInput.getText().toString())
-                    .addOnCompleteListener(getActivity(), task -> {
-                        if (task.isSuccessful()) {
-                            navController.navigate(R.id.fragment_app_intro);
-                        } else {
-                            Toast.makeText(getActivity(),
-                                    "Invalid email/password combination",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        FirebaseUser current = auth.getCurrentUser();
-        if (current != null) {
-            navController.navigate(R.id.fragment_app_intro);
-        }
     }
 }

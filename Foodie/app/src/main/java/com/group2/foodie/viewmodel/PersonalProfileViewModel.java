@@ -1,7 +1,9 @@
 package com.group2.foodie.viewmodel;
 
+import android.app.Application;
 import android.util.Log;
 
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -16,14 +18,15 @@ import com.group2.foodie.repository.UserRepository;
 
 import java.util.List;
 
-public class PersonalProfileViewModel extends ViewModel {
+public class PersonalProfileViewModel extends AndroidViewModel {
     private UserRepository userRepository;
     private MyFollowersRepository followersRepository;
     private RecipeRepository recipeRepository;
     private FridgeRepository fridgeRepository;
 
-    public PersonalProfileViewModel() {
-        userRepository = UserRepository.getInstance();
+    public PersonalProfileViewModel(Application application) {
+        super(application);
+        userRepository = UserRepository.getInstance(application);
         followersRepository = MyFollowersRepository.getInstance();
         recipeRepository = RecipeRepository.getInstance();
         fridgeRepository = FridgeRepository.getInstance();

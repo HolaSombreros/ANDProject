@@ -1,14 +1,18 @@
 package com.group2.foodie.repository;
 
+import android.annotation.SuppressLint;
+import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.group2.foodie.livedata.FirebaseUserLiveData;
 import com.group2.foodie.livedata.UserLiveData;
 import com.group2.foodie.model.User;
 import com.group2.foodie.util.AwaitHelper;
@@ -20,19 +24,24 @@ public class UserRepository {
     private FirebaseAuth auth;
     private UserLiveData user;
     private UserLiveData visitUser;
-    private static Object lock = new Object();
+    private FirebaseUserLiveData currentFirebaseUser;
+    private Application application;
+    private MutableLiveData<String> errorMessage;
 
-    private UserRepository() {
+    private UserRepository(Application application) {
+        this.application = application;
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance(database.getApp());
         dbRef = database.getReference();
+        currentFirebaseUser = new FirebaseUserLiveData();
+        errorMessage = new MutableLiveData<>();
     }
 
-    public static UserRepository getInstance() {
-        if(instance ==null) {
-                if(instance == null)
-                    instance = new UserRepository();
+    public static UserRepository getInstance(Application application) {
+        if (instance == null) {
+            instance = new UserRepository(application);
         }
+
         return instance;
     }
 
@@ -60,10 +69,25 @@ public class UserRepository {
 
     }
 
+    // TODO - Ask Kasper about application.getMainExecutor(). I dunno how else to do it :<
+    //  Also had to suppress it for it to not error out...
+    @SuppressLint("NewApi")
+    public void logIn(String email, String password) {
+        if (email == null || email.isEmpty()) {
+            errorMessage.setValue("Please enter an email address");
+        } else if (password == null || password.isEmpty()) {
+            errorMessage.setValue("Please enter a password");
+        } else {
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                    .addOnFailureListener(application.getMainExecutor(), task -> {
+                        errorMessage.setValue("Invalid email/password combination");
+                    });
+        }
+    }
+
     public void logOut(){
         auth.signOut();
     }
-
 
     public LiveData<User> getCurrentUser() {
         return user;
@@ -73,4 +97,11 @@ public class UserRepository {
         return visitUser;
     }
 
+    public FirebaseUserLiveData getCurrentFirebaseUser() {
+        return currentFirebaseUser;
+    }
+
+    public LiveData<String> getErrorMessage() {
+        return errorMessage;
+    }
 }

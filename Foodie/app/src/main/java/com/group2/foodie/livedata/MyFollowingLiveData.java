@@ -31,6 +31,7 @@ public class MyFollowingLiveData extends LiveData<List<Follower>> {
             String uid = snapshot.getKey();
             usersRef.child(uid).get().addOnCompleteListener(task -> {
                 Follower user = task.getResult().getValue(Follower.class);
+                user.setFollows(true);
                 List<Follower> following = getValue();
                 following.add(user);
                 setValue(following);

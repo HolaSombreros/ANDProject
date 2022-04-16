@@ -52,14 +52,14 @@ public class MyFollowingFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         adapter.setOnClickListener(user -> {
-            Bundle bundle = new Bundle();
-            //            bundle.putString("user", user.getEmail());
-            // TODO - Navigate to user's profile?
-            //            navController.navigate(R.id.fragment_personal_profile);
+//            Bundle bundle = new Bundle();
+//                        bundle.putString("user", user.getEmail());
+//             TODO - Navigate to user's profile?
+//                        navController.navigate(R.id.fragment_personal_profile);
         });
 
         adapter.setOnRemoveListener(user -> {
-            // TODO - remove user
+//             TODO - Unfollow user
         });
     }
 }
