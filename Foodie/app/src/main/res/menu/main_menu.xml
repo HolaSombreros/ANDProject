@@ -31,6 +31,10 @@
         android:id="@+id/fragment_followingfollowers"
         android:icon="@drawable/ic_profile"
         android:title="My Followers?????" />
+    <item
+        android:id="@+id/fragment_map"
+        android:icon="@drawable/ic_baseline_location_on_24"
+        android:title="@string/map"/>
 
     <item
         android:id="@+id/fragment_logout"

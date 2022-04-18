@@ -25,7 +25,7 @@ public class ShoppingListRepository {
         return instance;
     }
 
-    public void init(String ingredientId) {
+    public void init() {
         shoppingListLiveData = new ShoppingListLiveData(databaseReference.child("shoppinglist").child(FirebaseAuth.getInstance().getUid()));
     }
 

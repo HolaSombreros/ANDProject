@@ -122,4 +122,8 @@
         android:id="@+id/fragment_followingfollowers"
         android:name="com.group2.foodie.view.fragment.FollowingFollowersFragment"
         android:label="My Followers" />
+    <fragment
+        android:id="@+id/fragment_map"
+        android:name="com.group2.foodie.view.fragment.MapsFragment"
+        android:label="Local stores" />
 </navigation>

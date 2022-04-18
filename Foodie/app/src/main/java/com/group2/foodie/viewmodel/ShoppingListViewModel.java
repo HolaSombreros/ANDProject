@@ -17,7 +17,7 @@ public class ShoppingListViewModel extends ViewModel {
         return repository.getShoppingListLiveData();
     }
     public void init(){
-        repository.init("-1");
+        repository.init();
     }
     public void removeIngredient(Ingredient ingredient) {
         repository.removeShoppingListIngredient(ingredient);
