@@ -1,101 +1,105 @@
 package com.group2.foodie.repository;
 
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.util.Log;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.group2.foodie.livedata.RecipeListLiveData;
-import com.group2.foodie.livedata.RecipeLiveData;
+import com.group2.foodie.livedata.PersonalRecipesLiveData;
+import com.group2.foodie.livedata.PublicRecipesLiveData;
+import com.group2.foodie.livedata.SpecificRecipeLiveData;
 import com.group2.foodie.model.Recipe;
 
 import java.io.ByteArrayOutputStream;
 
 public class RecipeRepository {
     private static RecipeRepository instance;
-    private FirebaseDatabase database;
     private DatabaseReference dbRef;
-    private RecipeListLiveData recipes;
-    private RecipeLiveData recipe;
-    private MutableLiveData<Boolean> isFavorite;
+
+    private PersonalRecipesLiveData personalRecipes;
+    private PublicRecipesLiveData publicRecipes;
+    private SpecificRecipeLiveData specificRecipe;
 
     private RecipeRepository() {
-        database = FirebaseDatabase.getInstance();
-        dbRef = database.getReference();
+        dbRef =  FirebaseDatabase.getInstance().getReference();
     }
 
     public static RecipeRepository getInstance() {
         if (instance == null) {
             instance = new RecipeRepository();
         }
+
         return instance;
     }
 
-    public RecipeListLiveData getRecipes() {
-        return recipes;
+    public PersonalRecipesLiveData getPersonalRecipes() {
+        return personalRecipes;
     }
 
-    public RecipeLiveData getRecipe() {
-        return recipe;
+    public PublicRecipesLiveData getPublicRecipes() {
+        return publicRecipes;
+    }
+
+    public SpecificRecipeLiveData getSpecificRecipe() {
+        return specificRecipe;
     }
 
     public void init() {
-        recipes = new RecipeListLiveData(dbRef.child("recipes").child(FirebaseAuth.getInstance().getUid()));
+        personalRecipes = new PersonalRecipesLiveData(dbRef);
+        publicRecipes = new PublicRecipesLiveData(dbRef);
     }
 
-    public void init2(String recipeId) {
-        recipe = new RecipeLiveData(dbRef, recipeId);
+    public void init(String publisherId, String recipeId) {
+        specificRecipe = new SpecificRecipeLiveData(dbRef, publisherId, recipeId);
     }
 
+    // TODO - It does not upload the image any more for some reason
+    //  even though the method is correct according to the documentation.
+    //  It's like it just never finishes the upload?
     public void uploadRecipeImage(Bitmap bitmap, String path) {
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/" + path + ".jpg");
-
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/recipes/" + path + ".jpg");
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
-
-        UploadTask uploadTask = storageRef.putBytes(data);
-        uploadTask.addOnSuccessListener(taskSnapshot -> {
-
-        });
+        storageRef.putBytes(data);
     }
 
     public String addRecipe(Recipe recipe) {
-        DatabaseReference reference = dbRef.child("recipes").child(FirebaseAuth.getInstance().getUid()).push();
-        String recipeUid = reference.getKey();
+        DatabaseReference reference = dbRef.child("personalrecipes").child(recipe.getPublisherId()).push();
+        String recipeId = reference.getKey();
         reference.setValue(recipe);
-//        dbRef.child("recipes").child(FirebaseAuth.getInstance().getUid()).child(recipeUid).setValue(recipe);
-        return recipeUid;
+
+        if (recipe.isPublic()) {
+            dbRef.child("publicrecipes").child(recipeId).setValue(recipe);
+        }
+
+        return recipeId;
     }
 
     public void editRecipe(Recipe recipe) {
-        String recipeId = getRecipe().getValue().getId();
-        dbRef.child("recipes").child(FirebaseAuth.getInstance().getUid()).child(recipeId).updateChildren(recipe.asMap());
-//        dbRef.child("recipes").child(recipeId).updateChildren(recipe.asMap());
+        String recipeId = getSpecificRecipe().getValue().getId();
+        dbRef.child("personalrecipes").child(recipe.getPublisherId()).child(recipeId).updateChildren(recipe.asMap());
+
+        if (recipe.isPublic()) {
+            dbRef.child("publicrecipes").child(recipeId).updateChildren(recipe.asMap());
+        }
     }
 
     public void removeRecipe() {
-        String recipeId = getRecipe().getValue().getId();
-        dbRef.child("recipes").child(FirebaseAuth.getInstance().getUid()).child(recipeId).removeValue();
-//        dbRef.child("recipes").child(recipeId).removeValue();
+        Recipe recipe = getSpecificRecipe().getValue();
+        dbRef.child("personalrecipes").child(recipe.getPublisherId()).child(recipe.getId()).removeValue();
+        dbRef.child("publicrecipes").child(recipe.getId()).removeValue();
     }
 
     public void addFavorite() {
-        String recipeId = getRecipe().getValue().getId();
+        String recipeId = getSpecificRecipe().getValue().getId();
         dbRef.child("favorites").child(FirebaseAuth.getInstance().getUid()).child(recipeId).setValue(true);
     }
 
     public void removeFavorite() {
-        String recipeId = getRecipe().getValue().getId();
+        String recipeId = getSpecificRecipe().getValue().getId();
         dbRef.child("favorites").child(FirebaseAuth.getInstance().getUid()).child(recipeId).removeValue();
     }
 }

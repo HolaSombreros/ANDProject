@@ -1,7 +1,5 @@
 package com.group2.foodie.livedata;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
@@ -12,17 +10,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.group2.foodie.model.Recipe;
 
-public class RecipeLiveData  extends LiveData<Recipe> {
-    private DatabaseReference dbRef;
-    private DatabaseReference dbRefFavorite;
+public class SpecificRecipeLiveData extends LiveData<Recipe> {
+    private final DatabaseReference dbRef;
+    private final DatabaseReference dbRefFavorite;
 
-    public RecipeLiveData(DatabaseReference dbRef, String id) {
-        this.dbRef = dbRef.child("recipes").child(id);
-        this.dbRefFavorite = dbRef.child("favorites").child(FirebaseAuth.getInstance().getUid()).child(id);
-        Log.e("recipecreated", "Instantiated RecipeLiveData!");
+    public SpecificRecipeLiveData(DatabaseReference dbRef, String publisherId, String recipeId) {
+        this.dbRef = dbRef.child("personalrecipes").child(publisherId).child(recipeId);
+        this.dbRefFavorite = dbRef.child("favorites").child(FirebaseAuth.getInstance().getUid()).child(recipeId);
     }
 
-    private ValueEventListener listener = new ValueEventListener() {
+    private final ValueEventListener listener = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
             Recipe recipe = snapshot.getValue(Recipe.class);

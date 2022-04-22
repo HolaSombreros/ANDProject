@@ -1,49 +1,32 @@
 package com.group2.foodie.viewmodel;
 
-import android.app.Application;
-
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.group2.foodie.model.Recipe;
-import com.group2.foodie.model.User;
 import com.group2.foodie.repository.RecipeRepository;
-import com.group2.foodie.repository.UserRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class ViewRecipeViewModel extends AndroidViewModel {
+public class ViewRecipeViewModel extends ViewModel {
     private RecipeRepository recipeRepository;
-    private UserRepository userRepository;
 
-    public ViewRecipeViewModel(Application application) {
-        super(application);
+    public ViewRecipeViewModel() {
         recipeRepository = recipeRepository.getInstance();
-        userRepository = userRepository.getInstance(application);
     }
 
-    public void init(String recipeId) {
-        recipeRepository.init2(recipeId);
+    public void init(String publisherId, String recipeId) {
+        recipeRepository.init(publisherId, recipeId);
     }
 
     public LiveData<Recipe> getRecipe() {
-        return recipeRepository.getRecipe();
+        return recipeRepository.getSpecificRecipe();
     }
 
     public void removeRecipe() {
         recipeRepository.removeRecipe();
     }
 
-    public LiveData<User> getCurrentUser() {
-        //return userRepository.getCurrentUser();
-        return null;
-    }
-
     public void changeFavorite() {
-        if (recipeRepository.getRecipe().getValue().isFavorite()) {
+        if (recipeRepository.getSpecificRecipe().getValue().isFavorite()) {
             recipeRepository.removeFavorite();
         } else {
             recipeRepository.addFavorite();

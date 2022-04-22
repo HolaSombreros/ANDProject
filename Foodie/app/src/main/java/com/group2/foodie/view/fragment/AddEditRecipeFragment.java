@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,8 @@ public class AddEditRecipeFragment extends Fragment {
 
         viewModel = new ViewModelProvider(getActivity()).get(AddEditRecipeViewModel.class);
         if (getArguments() != null) {
-            viewModel.init(getArguments().getString("recipe"));
+            viewModel.init(getArguments().getString("publisherId"),
+                    getArguments().getString("recipeId"));
         }
 
         initializeViews(view);
@@ -183,7 +185,7 @@ public class AddEditRecipeFragment extends Fragment {
                         publicSwitch.isChecked(),
                         recipeInstructionsInput.getText().toString());
 
-                if (recipeId != null) {
+                if (image.getDrawable() != null) {
                     Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
                     viewModel.uploadRecipeImage(bitmap, recipeId);
                 }

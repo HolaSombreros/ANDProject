@@ -31,12 +31,12 @@ public class AddEditRecipeViewModel extends ViewModel {
         errorMessage = new MutableLiveData<>();
     }
 
-    public void init(String recipeId) {
-        recipeRepository.init2(recipeId);
+    public void init(String publisherId, String recipeId) {
+        recipeRepository.init(publisherId, recipeId);
     }
 
     public LiveData<Recipe> getRecipe() {
-        return recipeRepository.getRecipe();
+        return recipeRepository.getSpecificRecipe();
     }
 
     public String[] getRecipeCategories() {

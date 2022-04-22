@@ -48,7 +48,8 @@ public class ViewRecipeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(getActivity()).get(ViewRecipeViewModel.class);
-        viewModel.init(getArguments().getString("recipe"));
+        viewModel.init(getArguments().getString("publisherId"),
+                getArguments().getString("recipeId"));
         initializeViews(view);
         setupViews();
     }
@@ -84,7 +85,7 @@ public class ViewRecipeFragment extends Fragment {
                 favoriteImage.setImageResource(R.drawable.ic_full_heart);
             else
                 favoriteImage.setImageResource(R.drawable.ic_empty_heart);
-            StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/" + recipe.getId() + ".jpg");
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/recipes/" + recipe.getId() + ".jpg");
             GlideApp.with(this).load(storageRef).into(foodImage);
         });
 
