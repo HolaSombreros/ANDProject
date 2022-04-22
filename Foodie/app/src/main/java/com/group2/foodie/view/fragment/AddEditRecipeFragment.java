@@ -41,7 +41,7 @@ public class AddEditRecipeFragment extends Fragment {
     private ImageView image;
     private Button uploadBtn;
     private Spinner recipeCategoryInput;
-    private Spinner ingredientNameInput;
+    private EditText ingredientNameInput;
     private EditText ingredientQuantityInput;
     private Spinner ingredientMeasurementInput;
     private Button addIngredientBtn;
@@ -63,7 +63,8 @@ public class AddEditRecipeFragment extends Fragment {
         viewModel = new ViewModelProvider(getActivity()).get(AddEditRecipeViewModel.class);
         if (getArguments() != null) {
             viewModel.init(getArguments().getString("recipe"));
-        }
+        } else
+            viewModel.init();
 
         initializeViews(view);
         setupViews();
@@ -91,13 +92,30 @@ public class AddEditRecipeFragment extends Fragment {
         ingredientsAdapter = new EditableIngredientsAdapter(viewModel.getIngredients().getValue());
         ingredientsRecyclerView.setAdapter(ingredientsAdapter);
 
+        viewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
+        });
+
+        viewModel.getRecipeCategories().observe(getViewLifecycleOwner(), categoryList -> {
+            ArrayAdapter<String> recipeCategoryAdapter = new ArrayAdapter<>(getActivity(),
+                    android.R.layout.simple_spinner_item,
+                    categoryList);
+            recipeCategoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            recipeCategoryInput.setAdapter(recipeCategoryAdapter);
+        });
+
+        ArrayAdapter<String> recipeCategoryAdapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_spinner_item,
+                viewModel.getRecipeCategories().getValue());
+        recipeCategoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        recipeCategoryInput.setAdapter(recipeCategoryAdapter);
+
         if (getArguments() != null) {
             viewModel.getRecipe().observe(getViewLifecycleOwner(), recipe -> {
                 recipeNameInput.setText(recipe.getName());
                 publicSwitch.setChecked(recipe.isPublic());
-                // TODO recipeCategoryInput.setSelection(recipe.getCategory());
+                recipeCategoryInput.setSelection(viewModel.getRecipeCategories().getValue().indexOf(recipe.getCategory()));
                 recipeInstructionsInput.setText(recipe.getInstructions());
-                for(Ingredient ingredient: recipe.getIngredients()) {
+                for (Ingredient ingredient : recipe.getIngredients()) {
                     viewModel.addNewIngredient(ingredient.getName(),
                             String.valueOf(ingredient.getQuantity()),
                             ingredient.getMeasurement().toString());
@@ -109,15 +127,9 @@ public class AddEditRecipeFragment extends Fragment {
             viewModel.removeIngredient(ingredient);
         });
 
-        ArrayAdapter<String> recipeCategoryAdapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_spinner_item,
-                viewModel.getRecipeCategories());
-        recipeCategoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        recipeCategoryInput.setAdapter(recipeCategoryAdapter);
-
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getData() != null) {
-                Uri image  = result.getData().getData();
+                Uri image = result.getData().getData();
                 this.image.setImageURI(image);
             }
         });
@@ -131,12 +143,6 @@ public class AddEditRecipeFragment extends Fragment {
             activityResultLauncher.launch(intent);
         });
 
-        ArrayAdapter<String> ingredientNameAdapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_spinner_item,
-                viewModel.getIngredientNames());
-        ingredientNameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ingredientNameInput.setAdapter(ingredientNameAdapter);
-
         ArrayAdapter<String> ingredientMeasurementAdapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_spinner_item,
                 Util.getMeasurements());
@@ -144,10 +150,10 @@ public class AddEditRecipeFragment extends Fragment {
         ingredientMeasurementInput.setAdapter(ingredientMeasurementAdapter);
 
         addIngredientBtn.setOnClickListener(v -> {
-            if (viewModel.addNewIngredient(ingredientNameInput.getSelectedItem().toString(),
+            if (viewModel.addNewIngredient(ingredientNameInput.getText().toString(),
                     ingredientQuantityInput.getText().toString(),
                     ingredientMeasurementInput.getSelectedItem().toString())) {
-                ingredientNameInput.setSelection(0);
+                ingredientNameInput.setText("");
                 ingredientQuantityInput.setText("");
                 ingredientMeasurementInput.setSelection(0);
             }
@@ -173,15 +179,15 @@ public class AddEditRecipeFragment extends Fragment {
                             "\" saved!", Toast.LENGTH_SHORT).show();
                     navController.popBackStack();
                 }
-            }
-            else if (viewModel.isValid(recipeNameInput.getText().toString(),
+            } else if (viewModel.isValid(recipeNameInput.getText().toString(),
                     recipeCategoryInput.getSelectedItem().toString(),
-                    recipeInstructionsInput.getText().toString()))
-            {
+                    recipeInstructionsInput.getText().toString())) {
+
                 String recipeId = viewModel.addRecipe(recipeNameInput.getText().toString(),
                         recipeCategoryInput.getSelectedItem().toString(),
                         publicSwitch.isChecked(),
-                        recipeInstructionsInput.getText().toString());
+                        recipeInstructionsInput.getText().toString()
+                );
 
                 if (recipeId != null) {
                     Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();

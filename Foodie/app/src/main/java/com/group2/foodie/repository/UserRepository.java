@@ -21,7 +21,6 @@ public class UserRepository {
     private static UserRepository instance;
     private FirebaseDatabase database;
     private DatabaseReference dbRef;
-    private FirebaseAuth auth;
     private UserLiveData user;
     private UserLiveData visitUser;
     private FirebaseUserLiveData currentFirebaseUser;
@@ -31,7 +30,6 @@ public class UserRepository {
     private UserRepository(Application application) {
         this.application = application;
         database = FirebaseDatabase.getInstance();
-        auth = FirebaseAuth.getInstance(database.getApp());
         dbRef = database.getReference();
         currentFirebaseUser = new FirebaseUserLiveData();
         errorMessage = new MutableLiveData<>();
@@ -45,19 +43,18 @@ public class UserRepository {
         return instance;
     }
 
-    public void initCurrentUser(){
-        Log.e("repo init", dbRef.child(auth.getUid()).getKey());
-        user = new UserLiveData(dbRef.child("users").child(auth.getUid()));
+    public void initCurrentUser() {
+        user = new UserLiveData(dbRef.child("users").child(FirebaseAuth.getInstance().getUid()));
 
     }
 
-    public void initVisitUser(String userUid){
+    public void initVisitUser(String userUid) {
         visitUser = new UserLiveData(dbRef.child("users").child(userUid));
     }
 
     //TODO: add user to database
     public void addUser(User user) throws Exception {
-        AuthResult result = AwaitHelper.await(auth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword()));
+        AuthResult result = AwaitHelper.await(FirebaseAuth.getInstance().createUserWithEmailAndPassword(user.getEmail(), user.getPassword()));
         UserProfileChangeRequest request = new UserProfileChangeRequest.Builder().setDisplayName(user.getUsername()).build();
         DatabaseReference reference = dbRef.child("users").push();
         dbRef.child("users").child(result.getUser().getUid()).setValue(user);
@@ -65,7 +62,7 @@ public class UserRepository {
     }
 
     //TODO: update method
-    public void updateUser(User user){
+    public void updateUser(User user) {
 
     }
 
@@ -85,15 +82,15 @@ public class UserRepository {
         }
     }
 
-    public void logOut(){
-        auth.signOut();
+    public void logOut() {
+        FirebaseAuth.getInstance().signOut();
     }
 
     public LiveData<User> getCurrentUser() {
         return user;
     }
 
-    public LiveData<User> getVisitingUser(String uid){
+    public LiveData<User> getVisitingUser(String uid) {
         return visitUser;
     }
 

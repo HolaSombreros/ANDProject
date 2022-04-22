@@ -26,14 +26,7 @@ public class UserLiveData extends LiveData<User> {
     private ValueEventListener listener = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
-            Log.e("user data change", "it got here");
-            List<Recipe> recipeList = new ArrayList<>();
-            DataSnapshot recipes = snapshot.child("recipes");
-            for(DataSnapshot dataSnapshot: recipes.getChildren()){
-                recipeList.add(dataSnapshot.getValue(Recipe.class));
-            }
             User user = snapshot.getValue(User.class);
-            user.setRecipes(recipeList);
             setValue(user);
         }
 

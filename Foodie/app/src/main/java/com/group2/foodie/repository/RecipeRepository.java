@@ -1,12 +1,6 @@
 package com.group2.foodie.repository;
 
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.util.Log;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -14,6 +8,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.group2.foodie.livedata.CategoriesLiveData;
 import com.group2.foodie.livedata.RecipeListLiveData;
 import com.group2.foodie.livedata.RecipeLiveData;
 import com.group2.foodie.model.Recipe;
@@ -26,7 +21,7 @@ public class RecipeRepository {
     private DatabaseReference dbRef;
     private RecipeListLiveData recipes;
     private RecipeLiveData recipe;
-    private MutableLiveData<Boolean> isFavorite;
+    private CategoriesLiveData categories;
 
     private RecipeRepository() {
         database = FirebaseDatabase.getInstance();
@@ -48,12 +43,18 @@ public class RecipeRepository {
         return recipe;
     }
 
+    public CategoriesLiveData getRecipeCategories() {
+        return categories;
+    }
+
     public void init() {
         recipes = new RecipeListLiveData(dbRef.child("recipes").child(FirebaseAuth.getInstance().getUid()));
+        categories = new CategoriesLiveData(dbRef.child("categories"));
     }
 
     public void init2(String recipeId) {
         recipe = new RecipeLiveData(dbRef, recipeId);
+        categories = new CategoriesLiveData(dbRef.child("categories"));
     }
 
     public void uploadRecipeImage(Bitmap bitmap, String path) {

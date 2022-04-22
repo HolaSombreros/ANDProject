@@ -82,12 +82,15 @@
             app:layout_constraintStart_toStartOf="@id/addedit_recipe_recipeNameLabel"
             app:layout_constraintTop_toBottomOf="@+id/addedit_recipe_uploadButton" />
 
-        <Spinner
+        <EditText
             android:id="@+id/addedit_recipe_ingredientNameInput"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:minHeight="48dp"
+            android:hint="Ingredient name"
+            android:gravity="center|left"
+            android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@id/addedit_recipe_ingredientQuantityInput"
             app:layout_constraintHorizontal_weight="4"
             app:layout_constraintStart_toStartOf="@id/addedit_recipe_addNewIngredientLabel"

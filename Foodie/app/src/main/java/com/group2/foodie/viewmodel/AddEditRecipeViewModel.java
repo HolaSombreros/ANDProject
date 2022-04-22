@@ -1,50 +1,59 @@
 package com.group2.foodie.viewmodel;
 
+import android.app.Application;
 import android.graphics.Bitmap;
 
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.group2.foodie.model.Ingredient;
 import com.group2.foodie.model.Measurement;
 import com.group2.foodie.model.Recipe;
-import com.group2.foodie.repositorx.TempRepository;
+import com.group2.foodie.model.User;
 import com.group2.foodie.repository.RecipeRepository;
+import com.group2.foodie.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddEditRecipeViewModel extends ViewModel {
+public class AddEditRecipeViewModel extends AndroidViewModel {
     private MutableLiveData<List<Ingredient>> ingredients;
     private MutableLiveData<String> errorMessage;
-    private TempRepository repository;
     private RecipeRepository recipeRepository;
+    private UserRepository userRepository;
 
-    public AddEditRecipeViewModel() {
-        repository = TempRepository.getInstance();
+    public AddEditRecipeViewModel(Application application) {
+        super(application);
         recipeRepository = RecipeRepository.getInstance();
+        userRepository = UserRepository.getInstance(application);
         ingredients = new MutableLiveData<>();
         ingredients.setValue(new ArrayList<>());
         errorMessage = new MutableLiveData<>();
     }
 
+    public void init() {
+        recipeRepository.init();
+        userRepository.initCurrentUser();
+    }
+
     public void init(String recipeId) {
         recipeRepository.init2(recipeId);
+        userRepository.initCurrentUser();
+    }
+
+    public LiveData<User> getCurrentUser() {
+        return userRepository.getCurrentUser();
     }
 
     public LiveData<Recipe> getRecipe() {
         return recipeRepository.getRecipe();
     }
 
-    public String[] getRecipeCategories() {
-        return repository.getDummyRecipeCategories();
-    }
-
-    public String[] getIngredientNames() {
-        return repository.getDummyIngredientNames();
+    public LiveData<List<String>> getRecipeCategories() {
+        return recipeRepository.getRecipeCategories();
     }
 
     public LiveData<List<Ingredient>> getIngredients() {
@@ -121,9 +130,8 @@ public class AddEditRecipeViewModel extends ViewModel {
             return null;
         }
 
-        // TODO - category should be an enum...? - display name also is null
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        Recipe recipe = new Recipe(name, 0, ingredients.getValue(), instructions, isPublic, category, currentUser.getUid(), currentUser.getDisplayName());
+        // TODO - display name also is null
+        Recipe recipe = new Recipe(name, 0, ingredients.getValue(), instructions, isPublic, category, FirebaseAuth.getInstance().getUid(), getCurrentUser().getValue().getUsername());
         return recipeRepository.addRecipe(recipe);
     }
 
