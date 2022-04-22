@@ -5,7 +5,6 @@ import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.group2.foodie.model.Follower;
 import com.group2.foodie.model.Ingredient;
@@ -53,7 +52,7 @@ public class PersonalProfileViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Recipe>> getRecipes(){
-        return recipeRepository.getRecipes();
+        return recipeRepository.getPersonalRecipes();
     }
 
     public LiveData<List<Ingredient>> getFridge(){

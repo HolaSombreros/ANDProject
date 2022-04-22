@@ -71,7 +71,8 @@ public class PersonalRecipesFragment extends Fragment {
 
         recipeAdapter.setOnClickListener(recipe -> {
             Bundle bundle = new Bundle();
-            bundle.putString("recipe", recipe.getId());
+            bundle.putString("recipeId", recipe.getId());
+            bundle.putString("publisherId", recipe.getPublisherId());
             navController.navigate(R.id.fragment_view_recipe, bundle);
         });
 
@@ -92,6 +93,4 @@ public class PersonalRecipesFragment extends Fragment {
             navController.navigate(R.id.fragment_addedit_recipe);
         });
     }
-
-
 }

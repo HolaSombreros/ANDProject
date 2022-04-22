@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel;
 import com.group2.foodie.model.Recipe;
 import com.group2.foodie.repository.RecipeRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PersonalRecipesViewModel extends ViewModel {
@@ -20,7 +19,7 @@ public class PersonalRecipesViewModel extends ViewModel {
     }
 
     public LiveData<List<Recipe>> getPersonalRecipes() {
-        return repository.getRecipes();
+        return repository.getPersonalRecipes();
     }
 
     public void filterByName(String text) {

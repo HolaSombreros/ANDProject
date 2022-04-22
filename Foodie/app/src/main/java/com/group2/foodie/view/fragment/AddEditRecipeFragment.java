@@ -62,7 +62,8 @@ public class AddEditRecipeFragment extends Fragment {
 
         viewModel = new ViewModelProvider(getActivity()).get(AddEditRecipeViewModel.class);
         if (getArguments() != null) {
-            viewModel.init(getArguments().getString("recipe"));
+            viewModel.init(getArguments().getString("publisherId"),
+                    getArguments().getString("recipeId"));
         } else
             viewModel.init();
 
@@ -189,7 +190,7 @@ public class AddEditRecipeFragment extends Fragment {
                         recipeInstructionsInput.getText().toString()
                 );
 
-                if (recipeId != null) {
+                if (image.getDrawable() != null) {
                     Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
                     viewModel.uploadRecipeImage(bitmap, recipeId);
                 }

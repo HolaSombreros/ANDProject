@@ -39,8 +39,8 @@ public class AddEditRecipeViewModel extends AndroidViewModel {
         userRepository.initCurrentUser();
     }
 
-    public void init(String recipeId) {
-        recipeRepository.init2(recipeId);
+    public void init(String publisherId, String recipeId) {
+        recipeRepository.init(publisherId, recipeId);
         userRepository.initCurrentUser();
     }
 
@@ -49,7 +49,7 @@ public class AddEditRecipeViewModel extends AndroidViewModel {
     }
 
     public LiveData<Recipe> getRecipe() {
-        return recipeRepository.getRecipe();
+        return recipeRepository.getSpecificRecipe();
     }
 
     public LiveData<List<String>> getRecipeCategories() {
