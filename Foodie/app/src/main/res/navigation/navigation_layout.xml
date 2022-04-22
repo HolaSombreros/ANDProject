@@ -13,10 +13,10 @@
         tools:layout="@layout/fragment_addedit_recipe" />
 
     <fragment
-        android:id="@+id/fragment_personal_recipes"
-        android:name="com.group2.foodie.view.fragment.PersonalRecipesFragment"
+        android:id="@+id/fragment_recipes"
+        android:name="com.group2.foodie.view.fragment.RecipesFragment"
         android:label="Personal Recipes"
-        tools:layout="@layout/fragment_personal_recipes" >
+        tools:layout="@layout/fragment_recipes" >
         <action
             android:id="@+id/action_fragment_personal_recipes_to_fragment_add_recipe"
             app:destination="@id/fragment_addedit_recipe" />
@@ -24,6 +24,14 @@
             android:id="@+id/action_fragment_personal_recipes_to_fragment_view_recipe"
             app:destination="@id/fragment_view_recipe" />
     </fragment>
+
+    <fragment
+        android:id="@+id/fragment_public_recipes"
+        android:name="com.group2.foodie.view.fragment.RecipesFragment"
+        android:label="Public Recipes"
+        tools:layout="@layout/fragment_recipes" >
+    </fragment>
+
     <fragment
         android:id="@+id/fragment_login"
         android:name="com.group2.foodie.view.fragment.LoginFragment"
@@ -48,7 +56,7 @@
         tools:layout="@layout/fragment_app_intro" >
         <action
             android:id="@+id/action_fragment_app_intro_to_fragment_personal_recipes"
-            app:destination="@id/fragment_personal_recipes" />
+            app:destination="@id/fragment_recipes" />
         <action
             android:id="@+id/action_fragment_app_intro_to_fragment_daily_recipe"
             app:destination="@id/fragment_daily_recipe" />

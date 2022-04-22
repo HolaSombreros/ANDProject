@@ -1,5 +1,6 @@
 package com.group2.foodie;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -11,6 +12,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.group2.foodie.viewmodel.MainViewModel;
@@ -46,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
         navController = Navigation.findNavController(this, R.id.main_activity_fragment);
         setSupportActionBar(toolbar);
         appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.fragment_personal_recipes,
+                R.id.fragment_recipes,
+                R.id.fragment_public_recipes,
                 R.id.fragment_fridge,
                 R.id.fragment_personal_profile,
                 R.id.fragment_daily_recipe,
@@ -56,6 +59,21 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navigationDrawer, navController);
+        navigationDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Bundle bundle = new Bundle();
+                if (item.getItemId() == R.id.fragment_recipes) {
+                    bundle.putString("recipeType", "personal");
+                }
+                if (item.getItemId() == R.id.fragment_public_recipes) {
+                    bundle.putString("recipeType", "public");
+                }
+                navController.navigate(item.getItemId(), bundle);
+                drawerLayout.closeDrawers();
+                return true;
+            }
+        });
     }
 
     private void setupAuthentication() {

@@ -130,7 +130,6 @@ public class AddEditRecipeViewModel extends AndroidViewModel {
             return null;
         }
 
-        // TODO - display name also is null
         Recipe recipe = new Recipe(name, 0, ingredients.getValue(), instructions, isPublic, category, FirebaseAuth.getInstance().getUid(), getCurrentUser().getValue().getUsername());
         return recipeRepository.addRecipe(recipe);
     }

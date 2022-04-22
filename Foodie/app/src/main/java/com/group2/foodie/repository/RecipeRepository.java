@@ -7,10 +7,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.group2.foodie.livedata.CategoriesLiveData;
-import com.group2.foodie.livedata.RecipeListLiveData;
-import com.group2.foodie.livedata.RecipeLiveData;
+import com.group2.foodie.livedata.FavoriteLiveData;
 import com.group2.foodie.livedata.PersonalRecipesLiveData;
 import com.group2.foodie.livedata.PublicRecipesLiveData;
 import com.group2.foodie.livedata.SpecificRecipeLiveData;
@@ -25,9 +23,10 @@ public class RecipeRepository {
     private PersonalRecipesLiveData personalRecipes;
     private PublicRecipesLiveData publicRecipes;
     private SpecificRecipeLiveData specificRecipe;
+    private FavoriteLiveData favorite;
 
     private RecipeRepository() {
-        dbRef =  FirebaseDatabase.getInstance().getReference();
+        dbRef = FirebaseDatabase.getInstance().getReference();
     }
 
     public static RecipeRepository getInstance() {
@@ -46,6 +45,10 @@ public class RecipeRepository {
         return publicRecipes;
     }
 
+    public FavoriteLiveData getFavorite() {
+        return favorite;
+    }
+
     public SpecificRecipeLiveData getSpecificRecipe() {
         return specificRecipe;
     }
@@ -57,12 +60,13 @@ public class RecipeRepository {
     public void init() {
         personalRecipes = new PersonalRecipesLiveData(dbRef);
         publicRecipes = new PublicRecipesLiveData(dbRef);
-        categories = new CategoriesLiveData(dbRef.child("categories"));
+        categories = new CategoriesLiveData(dbRef);
     }
 
     public void init(String publisherId, String recipeId) {
         specificRecipe = new SpecificRecipeLiveData(dbRef, publisherId, recipeId);
-        categories = new CategoriesLiveData(dbRef.child("categories"));
+        categories = new CategoriesLiveData(dbRef);
+        favorite = new FavoriteLiveData(dbRef, recipeId);
     }
 
     // TODO - It does not upload the image any more for some reason
@@ -103,13 +107,12 @@ public class RecipeRepository {
         dbRef.child("publicrecipes").child(recipe.getId()).removeValue();
     }
 
-    public void addFavorite() {
+    public void changeFavorite() {
         String recipeId = getSpecificRecipe().getValue().getId();
-        dbRef.child("favorites").child(FirebaseAuth.getInstance().getUid()).child(recipeId).setValue(true);
-    }
-
-    public void removeFavorite() {
-        String recipeId = getSpecificRecipe().getValue().getId();
-        dbRef.child("favorites").child(FirebaseAuth.getInstance().getUid()).child(recipeId).removeValue();
+        if (favorite.getValue()) {
+            dbRef.child("favorites").child(FirebaseAuth.getInstance().getUid()).child(recipeId).removeValue();
+        } else {
+            dbRef.child("favorites").child(FirebaseAuth.getInstance().getUid()).child(recipeId).setValue(true);
+        }
     }
 }

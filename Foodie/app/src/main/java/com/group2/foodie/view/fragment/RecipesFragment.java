@@ -21,26 +21,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.group2.foodie.R;
 import com.group2.foodie.list.RecipeAdapter;
-import com.group2.foodie.viewmodel.PersonalRecipesViewModel;
+import com.group2.foodie.viewmodel.RecipesViewModel;
 
-public class PersonalRecipesFragment extends Fragment {
+public class RecipesFragment extends Fragment {
 
     private RecyclerView recipesRecycler;
     private RecipeAdapter recipeAdapter;
     private FloatingActionButton fab;
-    private PersonalRecipesViewModel viewModel;
+    private RecipesViewModel viewModel;
     private NavController navController;
     private EditText searchBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_personal_recipes, container, false);
+        return inflater.inflate(R.layout.fragment_recipes, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(getActivity()).get(PersonalRecipesViewModel.class);
+        viewModel = new ViewModelProvider(getActivity()).get(RecipesViewModel.class);
         viewModel.init();
         initializeViews(view);
         setupViews();
@@ -63,9 +63,15 @@ public class PersonalRecipesFragment extends Fragment {
 
         recipeAdapter = new RecipeAdapter();
 
-        viewModel.getPersonalRecipes().observe(getViewLifecycleOwner(), recipes -> {
-            recipeAdapter.setRecipes(recipes);
-        });
+        if (getArguments().getString("recipeType").equals("personal"))
+            viewModel.getPersonalRecipes().observe(getViewLifecycleOwner(), recipes -> {
+                recipeAdapter.setRecipes(recipes);
+            });
+
+        else
+            viewModel.getPublicRecipes().observe(getViewLifecycleOwner(), recipes -> {
+                recipeAdapter.setRecipes(recipes);
+            });
 
         recipesRecycler.setAdapter(recipeAdapter);
 
@@ -78,10 +84,12 @@ public class PersonalRecipesFragment extends Fragment {
 
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {

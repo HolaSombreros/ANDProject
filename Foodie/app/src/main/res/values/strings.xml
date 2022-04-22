@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Foodie</string>
-    <string name="title_recipes">Recipes</string>
+    <string name="title_personal_recipes">My Recipes</string>
+    <string name="title_public_recipes">Public Recipes</string>
     <string name="title_fridge">Fridge</string>
     <string name="title_profile">Profile</string>
     <string name="register_now">Register</string>

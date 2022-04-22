@@ -16,13 +16,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
 
             <TextView
                 android:id="@+id/login_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="160dp"
                 android:text="@string/welcome_to_foodie"
                 android:textColor="#4a148c"
                 android:textSize="30sp"
@@ -48,6 +48,7 @@
                     android:id="@+id/login_emailInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
                     android:textStyle="bold"
                     app:boxStrokeColor="#EAEAEE" />
             </com.google.android.material.textfield.TextInputLayout>

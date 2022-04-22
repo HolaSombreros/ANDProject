@@ -84,7 +84,7 @@ public class PersonalProfileFragment extends Fragment {
         });
 
         recipeLayout.setOnClickListener(n->{
-            navController.navigate(R.id.fragment_personal_recipes);
+            navController.navigate(R.id.fragment_recipes);
         });
 
         fridgeLayout.setOnClickListener(n->{

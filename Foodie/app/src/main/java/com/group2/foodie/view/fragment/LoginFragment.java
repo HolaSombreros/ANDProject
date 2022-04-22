@@ -42,7 +42,9 @@ public class LoginFragment extends Fragment {
 
         viewModel.getCurrentFirebaseUser().observe(getViewLifecycleOwner(), user -> {
             if (user != null) {
-                navController.navigate(R.id.fragment_personal_recipes);
+                Bundle bundle = new Bundle();
+                bundle.putString("recipeType", "personal");
+                navController.navigate(R.id.fragment_recipes, bundle);
             }
         });
 

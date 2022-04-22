@@ -9,11 +9,11 @@ import com.group2.foodie.repository.RecipeRepository;
 
 import java.util.List;
 
-public class PersonalRecipesViewModel extends ViewModel {
+public class RecipesViewModel extends ViewModel {
     private RecipeRepository repository;
     private MutableLiveData<List<Recipe>> filteredList;
 
-    public PersonalRecipesViewModel() {
+    public RecipesViewModel() {
         repository = RecipeRepository.getInstance();
         filteredList = new MutableLiveData<>();
     }
@@ -22,6 +22,7 @@ public class PersonalRecipesViewModel extends ViewModel {
         return repository.getPersonalRecipes();
     }
 
+    // TODO search for recipe
     public void filterByName(String text) {
 //        List<Recipe> filteredRecipes = new ArrayList<>();
 //        for (Recipe recipe : repository.getRecipe().getValue())
@@ -32,5 +33,9 @@ public class PersonalRecipesViewModel extends ViewModel {
 
     public void init() {
         repository.init();
+    }
+
+    public LiveData<List<Recipe>> getPublicRecipes() {
+        return repository.getPublicRecipes();
     }
 }

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,7 +18,7 @@ public class CategoriesLiveData extends LiveData<List<String>> {
     private DatabaseReference dbRef;
 
     public CategoriesLiveData(DatabaseReference dbRef) {
-        this.dbRef = dbRef;
+        this.dbRef = dbRef.child("categories");
         setValue(new ArrayList<>());
     }
 

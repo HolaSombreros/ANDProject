@@ -112,7 +112,8 @@ public class AddEditIngredientFragment extends Fragment {
                             "\" saved!", Toast.LENGTH_SHORT).show();
                     navController.popBackStack();
                 }
-            } else if (viewModel.addIngredient(name.getText().toString(), quantity.getText().toString(),
+            }
+            else if (viewModel.addIngredient(name.getText().toString(), quantity.getText().toString(),
                     Measurement.fromString(measurement.getSelectedItem().toString()), viewModel.getDate())) {
                 Toast.makeText(getActivity(), "Ingredient \"" + name.getText().toString() +
                         "\" added!", Toast.LENGTH_SHORT).show();

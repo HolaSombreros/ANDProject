@@ -74,21 +74,28 @@ public class ViewRecipeFragment extends Fragment {
         ingredientsAdapter.removeOnClickListener();
         ingredients.setAdapter(ingredientsAdapter);
 
+        viewModel.getCurrentUser().observe(getViewLifecycleOwner(), user ->{});
+
         viewModel.getRecipe().observe(getViewLifecycleOwner(), recipe -> {
             title.setText(recipe.getName());
             category.setText(recipe.getCategory());
             publisher.setText(recipe.getPublisherUsername());
             instructions.setText(recipe.getInstructions());
             ingredientsAdapter.setIngredients(recipe.getIngredients());
-            // TODO favorite stuff
-            if (recipe.isFavorite())
-                favoriteImage.setImageResource(R.drawable.ic_full_heart);
-            else
-                favoriteImage.setImageResource(R.drawable.ic_empty_heart);
+            viewModel.getFavorite().observe(getViewLifecycleOwner(), favorite -> {
+                if (favorite)
+                    favoriteImage.setImageResource(R.drawable.ic_full_heart);
+                else
+                    favoriteImage.setImageResource(R.drawable.ic_empty_heart);
+            });
             StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/recipes/" + recipe.getId() + ".jpg");
             GlideApp.with(this).load(storageRef).into(foodImage);
-        });
 
+            if (!recipe.getPublisherId().equals(viewModel.getCurrentUser().getValue().getUid())) {
+                editButton.setVisibility(View.INVISIBLE);
+                removeButton.setVisibility(View.INVISIBLE);
+            }
+        });
 
         favoriteImage.setOnClickListener(f -> {
             viewModel.changeFavorite();
@@ -96,7 +103,8 @@ public class ViewRecipeFragment extends Fragment {
 
         editButton.setOnClickListener(r -> {
             Bundle bundle = new Bundle();
-            bundle.putString("recipe", getArguments().getString("recipe"));
+            bundle.putString("recipeId", getArguments().getString("recipeId"));
+            bundle.putString("publisherId", getArguments().getString("publisherId"));
             navController.navigate(R.id.fragment_addedit_recipe, bundle);
         });
 
@@ -104,7 +112,7 @@ public class ViewRecipeFragment extends Fragment {
         deleteDialogBuilder.setMessage("Are you sure you want to delete this recipe?");
         deleteDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> {
             viewModel.removeRecipe();
-            navController.navigate(R.id.fragment_personal_recipes);
+            navController.popBackStack();
         });
         deleteDialogBuilder.setNegativeButton("No", ((dialogInterface, i) -> {
         }));
