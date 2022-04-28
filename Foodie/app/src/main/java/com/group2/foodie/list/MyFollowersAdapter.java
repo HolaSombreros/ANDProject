@@ -1,7 +1,6 @@
 package com.group2.foodie.list;
 
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +10,11 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.group2.foodie.R;
 import com.group2.foodie.model.Follower;
+import com.group2.foodie.util.GlideApp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,18 @@ public class MyFollowersAdapter extends RecyclerView.Adapter<MyFollowersAdapter.
 
     public MyFollowersAdapter() {
         this.followers = new ArrayList<>();
+    }
+
+    public void updateAndRefresh(Follower follower) {
+        List<Follower> followers = this.followers;
+        for (int i = 0; i < followers.size(); i++) {
+            if (followers.get(i).getId().equals(follower.getId())) {
+                followers.get(i).setFollows(!follower.isFollowed());
+                break;
+            }
+        }
+
+        setFollowers(followers);
     }
 
     public void setFollowers(List<Follower> followers) {
@@ -49,8 +63,9 @@ public class MyFollowersAdapter extends RecyclerView.Adapter<MyFollowersAdapter.
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         Follower follower = followers.get(position);
-        // TODO - Fetch user's profile picture using their id?
-        viewHolder.image.setImageResource(R.drawable.ic_full_heart);
+
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/users/" + follower.getId() + ".jpg");
+        GlideApp.with(viewHolder.itemView).load(storageRef).into(viewHolder.image);
         viewHolder.username.setText(follower.getUsername());
         viewHolder.handle.setText(follower.getEmail());
 
@@ -59,6 +74,7 @@ public class MyFollowersAdapter extends RecyclerView.Adapter<MyFollowersAdapter.
             viewHolder.followBtn.setBackgroundColor(Color.parseColor("#00BB00"));
         } else {
             viewHolder.followBtn.setText("Follow");
+            viewHolder.followBtn.setBackgroundColor(Color.parseColor("#03A9F4"));
         }
     }
 

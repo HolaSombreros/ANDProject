@@ -1,13 +1,21 @@
 package com.group2.foodie.model;
 
 public class Follower {
+    private String id;
     private String username;
     private String email;
-    // TODO - picture
     private boolean isFollowed;
 
     public Follower() {
 
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUsername() {

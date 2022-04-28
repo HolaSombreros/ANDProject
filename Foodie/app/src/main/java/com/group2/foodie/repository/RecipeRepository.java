@@ -7,6 +7,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.group2.foodie.livedata.CategoriesLiveData;
 import com.group2.foodie.livedata.FavoriteLiveData;
 import com.group2.foodie.livedata.PersonalRecipesLiveData;
@@ -69,15 +70,12 @@ public class RecipeRepository {
         favorite = new FavoriteLiveData(dbRef, recipeId);
     }
 
-    // TODO - It does not upload the image any more for some reason
-    //  even though the method is correct according to the documentation.
-    //  It's like it just never finishes the upload?
-    public void uploadRecipeImage(Bitmap bitmap, String path) {
+    public UploadTask uploadRecipeImage(Bitmap bitmap, String path) {
         StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/recipes/" + path + ".jpg");
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
-        storageRef.putBytes(data);
+        return storageRef.putBytes(data);
     }
 
     public String addRecipe(Recipe recipe) {

@@ -74,20 +74,21 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navigationDrawer, navController);
-        navigationDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Bundle bundle = new Bundle();
-                if (item.getItemId() == R.id.fragment_recipes) {
-                    bundle.putString("recipeType", "personal");
-                }
-                if (item.getItemId() == R.id.fragment_public_recipes) {
-                    bundle.putString("recipeType", "public");
-                }
-                navController.navigate(item.getItemId(), bundle);
-                drawerLayout.closeDrawers();
-                return true;
+        navigationDrawer.setNavigationItemSelectedListener(item -> {
+            Bundle bundle = new Bundle();
+            if (item.getItemId() == R.id.fragment_recipes) {
+                bundle.putString("recipeType", "personal");
             }
+            if (item.getItemId() == R.id.fragment_public_recipes) {
+                bundle.putString("recipeType", "public");
+            }
+            if (item.getItemId() == R.id.fragment_personal_profile) {
+                bundle.putString("profileId", null);
+            }
+
+            navController.navigate(item.getItemId(), bundle);
+            drawerLayout.closeDrawers();
+            return true;
         });
     }
 

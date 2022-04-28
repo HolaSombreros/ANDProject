@@ -22,4 +22,8 @@ public class MyFollowingViewModel extends ViewModel {
     public LiveData<List<Follower>> getMyFollowing() {
         return repository.getMyFollowing();
     }
+
+    public void unfollowUser(Follower user) {
+        repository.unfollowUser(user.getId());
+    }
 }

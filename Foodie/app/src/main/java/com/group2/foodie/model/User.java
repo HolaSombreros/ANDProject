@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class User {
-
+    private String id;
     private String username;
     private String email;
     private String password;
@@ -18,7 +18,7 @@ public class User {
     private Fridge fridge;
     private int profilePictureId;
 
-        public User() {
+    public User() {
         recipes = new ArrayList<>();
         favoriteRecipes = new ArrayList<>();
         followers = new ArrayList<>();
@@ -62,6 +62,15 @@ public class User {
         this.fridge = new Fridge(ingredients);
         profilePictureId = 0;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getUsername() {
         return username;
     }

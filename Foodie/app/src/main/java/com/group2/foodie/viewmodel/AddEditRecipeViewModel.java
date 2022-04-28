@@ -1,14 +1,14 @@
 package com.group2.foodie.viewmodel;
 
-import android.app.Application;
 import android.graphics.Bitmap;
 
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.UploadTask;
 import com.group2.foodie.model.Ingredient;
 import com.group2.foodie.model.Measurement;
 import com.group2.foodie.model.Recipe;
@@ -19,16 +19,15 @@ import com.group2.foodie.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddEditRecipeViewModel extends AndroidViewModel {
+public class AddEditRecipeViewModel extends ViewModel {
     private MutableLiveData<List<Ingredient>> ingredients;
     private MutableLiveData<String> errorMessage;
     private RecipeRepository recipeRepository;
     private UserRepository userRepository;
 
-    public AddEditRecipeViewModel(Application application) {
-        super(application);
+    public AddEditRecipeViewModel() {
         recipeRepository = RecipeRepository.getInstance();
-        userRepository = UserRepository.getInstance(application);
+        userRepository = UserRepository.getInstance();
         ingredients = new MutableLiveData<>();
         ingredients.setValue(new ArrayList<>());
         errorMessage = new MutableLiveData<>();
@@ -121,8 +120,8 @@ public class AddEditRecipeViewModel extends AndroidViewModel {
         return true;
     }
 
-    public void uploadRecipeImage(Bitmap bitmap, String path) {
-        recipeRepository.uploadRecipeImage(bitmap, path);
+    public UploadTask uploadRecipeImage(Bitmap bitmap, String path) {
+        return recipeRepository.uploadRecipeImage(bitmap, path);
     }
 
     public String addRecipe(String name, String category, boolean isPublic, String instructions) {
