@@ -1,8 +1,5 @@
 package com.group2.foodie.viewmodel;
 
-import android.app.Application;
-
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -12,14 +9,13 @@ import com.group2.foodie.model.Recipe;
 import com.group2.foodie.repository.RecipeRepository;
 import com.group2.foodie.repository.UserRepository;
 
-public class ViewRecipeViewModel extends AndroidViewModel {
+public class ViewRecipeViewModel extends ViewModel {
     private RecipeRepository recipeRepository;
     private UserRepository userRepository;
 
-    public ViewRecipeViewModel(Application application) {
-        super(application);
+    public ViewRecipeViewModel() {
         recipeRepository = RecipeRepository.getInstance();
-        userRepository = UserRepository.getInstance(application);
+        userRepository = UserRepository.getInstance();
     }
 
     public void init(String publisherId, String recipeId) {

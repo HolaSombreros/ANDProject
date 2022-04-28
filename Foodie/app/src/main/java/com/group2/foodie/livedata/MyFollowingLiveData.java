@@ -31,6 +31,7 @@ public class MyFollowingLiveData extends LiveData<List<Follower>> {
             String uid = snapshot.getKey();
             usersRef.child(uid).get().addOnCompleteListener(task -> {
                 Follower user = task.getResult().getValue(Follower.class);
+                user.setId(uid);
                 user.setFollows(true);
                 List<Follower> following = getValue();
                 following.add(user);
@@ -44,6 +45,19 @@ public class MyFollowingLiveData extends LiveData<List<Follower>> {
 
         @Override
         public void onChildRemoved(DataSnapshot snapshot) {
+            String uid = snapshot.getKey();
+            usersRef.child(uid).get().addOnCompleteListener(task -> {
+                Follower user = task.getResult().getValue(Follower.class);
+                user.setId(uid);
+                List<Follower> following = getValue();
+                for (int i = 0; i < following.size(); i++) {
+                    if (following.get(i).getId().equals(uid)) {
+                        following.remove(i);
+                        break;
+                    }
+                }
+                setValue(following);
+            });
         }
 
         @Override

@@ -16,7 +16,10 @@ import android.view.ViewGroup;
 
 import com.group2.foodie.R;
 import com.group2.foodie.list.MyFollowersAdapter;
+import com.group2.foodie.model.Follower;
 import com.group2.foodie.viewmodel.MyFollowersViewModel;
+
+import java.util.List;
 
 public class MyFollowersFragment extends Fragment {
     private MyFollowersViewModel viewModel;
@@ -54,15 +57,15 @@ public class MyFollowersFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         adapter.setOnClickListener(user -> {
-            Bundle bundle = new Bundle();
-//            bundle.putString("user", user.getEmail());
-            // TODO - Navigate to user's profile?
-//            navController.navigate(R.id.fragment_personal_profile);
+//            TODO - Navigate to user's profile
+//            Bundle bundle = new Bundle();
+//            bundle.putString("profileId", user.getId());
+//            navController.navigate(R.id.fragment_personal_profile, bundle);
         });
 
         adapter.setOnRemoveListener(user -> {
-            // TODO - follow/unfollow depending on the user.isFollowed()
-            //  Just need to be toggled and updated.
+            viewModel.toggleFollowUser(user);
+            adapter.updateAndRefresh(user);
         });
     }
 }

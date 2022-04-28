@@ -1,6 +1,5 @@
 package com.group2.foodie.list;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageException;
 import com.google.firebase.storage.StorageReference;
 import com.group2.foodie.R;
 import com.group2.foodie.model.Recipe;
@@ -44,7 +42,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecipeAdapter.ViewHolder viewHolder, int position) {
         String id = recipes.get(position).getId();
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/" + id + ".jpg");
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/recipes/" + id + ".jpg");
         GlideApp.with(viewHolder.itemView).load(storageRef).into(viewHolder.image);
         viewHolder.recipeName.setText(recipes.get(position).getName());
     }
