@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -48,12 +49,24 @@ public class RecipesFragment extends Fragment {
 
     private void initializeViews(View view) {
         navController = Navigation.findNavController(view);
-        recipesRecycler = view.findViewById(R.id.personalRecipes_recycleView);
-        searchBar = view.findViewById(R.id.personalRecipes_searchText);
+        recipesRecycler = view.findViewById(R.id.recipes_recycleView);
+        searchBar = view.findViewById(R.id.recipes_searchText);
         fab = view.findViewById(R.id.personalRecipes_fab);
     }
 
     private void setupViews() {
+        boolean isPublic = !getArguments().getString("recipeType").equals("personal");
+        if (isPublic) {
+            viewModel.getPublicRecipes().observe(getViewLifecycleOwner(), recipes -> {
+                viewModel.setRecipes(true,"");
+            });
+        }
+        else {
+            viewModel.getPersonalRecipes().observe(getViewLifecycleOwner(), recipes -> {
+                viewModel.setRecipes(false,"");
+            });
+        }
+
         recipesRecycler.hasFixedSize();
         if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             recipesRecycler.setLayoutManager(new GridLayoutManager(getActivity(), 2));
@@ -62,17 +75,9 @@ public class RecipesFragment extends Fragment {
         }
 
         recipeAdapter = new RecipeAdapter();
-
-        if (getArguments().getString("recipeType").equals("personal"))
-            viewModel.getPersonalRecipes().observe(getViewLifecycleOwner(), recipes -> {
-                recipeAdapter.setRecipes(recipes);
-            });
-
-        else
-            viewModel.getPublicRecipes().observe(getViewLifecycleOwner(), recipes -> {
-                recipeAdapter.setRecipes(recipes);
-            });
-
+        viewModel.getRecipes().observe(getViewLifecycleOwner(), recipes -> {
+            recipeAdapter.setRecipes(recipes);
+        });
         recipesRecycler.setAdapter(recipeAdapter);
 
         recipeAdapter.setOnClickListener(recipe -> {
@@ -93,7 +98,7 @@ public class RecipesFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                viewModel.filterByName(searchBar.getText().toString());
+                viewModel.setRecipes(isPublic, searchBar.getText().toString());
             }
         });
 
