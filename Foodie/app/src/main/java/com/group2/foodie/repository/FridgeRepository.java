@@ -1,6 +1,7 @@
 package com.group2.foodie.repository;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -9,6 +10,7 @@ import com.group2.foodie.livedata.FridgeIngredientLiveData;
 import com.group2.foodie.livedata.FridgeIngredientsLiveData;
 import com.group2.foodie.model.Ingredient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FridgeRepository {
@@ -58,5 +60,9 @@ public class FridgeRepository {
         String userId = FirebaseAuth.getInstance().getUid();
         Ingredient ingredient = fridgeIngredientLiveData.getValue();
         dbRef.child("fridge").child(userId).child(ingredient.getId()).removeValue();
+    }
+
+    public LiveData<List<Ingredient>> getExpiredIngredients() {
+        return new FridgeIngredientsLiveData(dbRef.child("fridge").child(FirebaseAuth.getInstance().getUid()));
     }
 }

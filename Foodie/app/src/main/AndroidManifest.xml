@@ -30,5 +30,7 @@
 <!--        <service android:name="MainActivity"-->
 <!--            android:foregroundServiceType="location">-->
 <!--        </service>-->
+        <receiver android:name=".util.NotificationPublisher"
+            android:enabled="true"/>
     </application>
 </manifest>
