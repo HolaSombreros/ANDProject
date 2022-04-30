@@ -1,7 +1,5 @@
 package com.group2.foodie.livedata;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,11 +37,10 @@ public class MyFollowersLiveData extends LiveData<List<Follower>> {
             String uid = snapshot.getKey();
             usersRef.child(uid).get().addOnCompleteListener(task -> {
                 Follower follower = task.getResult().getValue(Follower.class);
+                follower.setId(uid);
 
                 followingRef.child(uid).get().addOnCompleteListener(followTask -> {
                     follower.setFollows(followTask.getResult().exists());
-                    Log.d("foodiefollower", "Set follows " + follower.isFollowed());
-
                     List<Follower> followers = getValue();
                     followers.add(follower);
                     setValue(followers);
@@ -53,10 +50,39 @@ public class MyFollowersLiveData extends LiveData<List<Follower>> {
 
         @Override
         public void onChildChanged(DataSnapshot snapshot, String previousChildName) {
+            String uid = snapshot.getKey();
+            usersRef.child(uid).get().addOnCompleteListener(task -> {
+                Follower follower = task.getResult().getValue(Follower.class);
+                List<Follower> followers = getValue();
+                follower.setId(uid);
+
+                for (int i = 0; i < followers.size(); i++) {
+                    if (followers.get(i).getId().equals(uid)) {
+                        followers.set(i, follower);
+                        break;
+                    }
+                }
+
+                setValue(followers);
+            });
         }
 
         @Override
         public void onChildRemoved(DataSnapshot snapshot) {
+            String uid = snapshot.getKey();
+            usersRef.child(uid).get().addOnCompleteListener(task -> {
+                Follower follower = task.getResult().getValue(Follower.class);
+                follower.setId(uid);
+                List<Follower> followers = getValue();
+                for (int i = 0; i < followers.size(); i++) {
+                    if (followers.get(i).getId().equals(uid)) {
+                        followers.remove(i);
+                        break;
+                    }
+                }
+
+                setValue(followers);
+            });
         }
 
         @Override

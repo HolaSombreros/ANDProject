@@ -174,9 +174,17 @@ public class AddEditRecipeFragment extends Fragment {
                         recipeCategoryInput.getSelectedItem().toString(),
                         publicSwitch.isChecked(),
                         recipeInstructionsInput.getText().toString())) {
-                    Toast.makeText(getActivity(), "Recipe \"" + recipeNameInput.getText().toString() +
-                            "\" saved!", Toast.LENGTH_SHORT).show();
-                    navController.popBackStack();
+
+                    if (image.getDrawable() != null) {
+                        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
+                        viewModel.uploadRecipeImage(bitmap, viewModel.getRecipe().getValue().getId()).addOnCompleteListener(listener -> {
+                            Toast.makeText(getActivity(), "Recipe \"" + recipeNameInput.getText().toString() + "\" saved!", Toast.LENGTH_SHORT).show();
+                            navController.popBackStack();
+                        });
+                    } else {
+                        Toast.makeText(getActivity(), "Recipe \"" + recipeNameInput.getText().toString() + "\" saved!", Toast.LENGTH_SHORT).show();
+                        navController.popBackStack();
+                    }
                 }
             } else if (viewModel.isValid(recipeNameInput.getText().toString(),
                     recipeCategoryInput.getSelectedItem().toString(),

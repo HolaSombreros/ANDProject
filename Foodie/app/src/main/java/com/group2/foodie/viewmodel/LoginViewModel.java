@@ -1,19 +1,16 @@
 package com.group2.foodie.viewmodel;
 
-import android.app.Application;
-
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.group2.foodie.repository.UserRepository;
 
-public class LoginViewModel extends AndroidViewModel {
+public class LoginViewModel extends ViewModel {
     private UserRepository repository;
 
-    public LoginViewModel(Application application) {
-        super(application);
-        repository = UserRepository.getInstance(application);
+    public LoginViewModel() {
+        repository = UserRepository.getInstance();
     }
 
     public LiveData<FirebaseUser> getCurrentFirebaseUser() {

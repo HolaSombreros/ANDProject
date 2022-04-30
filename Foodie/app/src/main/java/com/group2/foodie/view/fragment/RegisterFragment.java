@@ -32,9 +32,7 @@ public class RegisterFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_register, container, false);
     }
 
@@ -58,28 +56,23 @@ public class RegisterFragment extends Fragment {
     }
 
     private void setUpViews() {
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (viewModel.validatePassword(passwordInput.getText().toString(), repeatPasswordInput.getText().toString())) {
-                    try {
-                        viewModel.register(usernameInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString());
-                        navController.navigate(R.id.fragment_app_intro);
-                    }
-                    catch (Exception e){
-                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                } else
-                    Toast.makeText(getContext(), R.string.passwords_not_match, Toast.LENGTH_SHORT).show();
-            }
-
+        registerButton.setOnClickListener(view -> {
+            if (viewModel.validatePassword(passwordInput.getText().toString(), repeatPasswordInput.getText().toString())) {
+                try {
+                    viewModel.register(usernameInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString());
+                    navController.navigate(R.id.fragment_login);
+                }
+                catch (Exception e){
+                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            } else
+                Toast.makeText(getContext(), R.string.passwords_not_match, Toast.LENGTH_SHORT).show();
         });
         signIn.setOnClickListener(v -> {
             navController.navigate(R.id.fragment_login);
         });
 
     }
-
 
     @Override
     public void onStop() {

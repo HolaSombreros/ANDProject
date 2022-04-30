@@ -2,7 +2,6 @@ package com.group2.foodie.view.fragment;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +21,12 @@ import androidx.navigation.Navigation;
 
 import com.google.gson.Gson;
 import com.group2.foodie.R;
-import com.group2.foodie.model.Ingredient;
 import com.group2.foodie.model.Measurement;
 import com.group2.foodie.util.Util;
 import com.group2.foodie.viewmodel.AddEditIngredientViewModel;
 
 import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.Date;
 
 public class AddEditIngredientFragment extends Fragment {
     private AddEditIngredientViewModel viewModel;
