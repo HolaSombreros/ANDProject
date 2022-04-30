@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.group2.foodie.R;
+import com.group2.foodie.model.Follower;
 import com.group2.foodie.model.Ingredient;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.List;
 public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapter.ViewHolder> {
     private List<Ingredient> list;
     private OnClickListener<Ingredient> listener;
+    private OnBoughtListener onBoughtListener;
 
     public ShoppingListAdapter() {
         this.list = new ArrayList<>();
@@ -27,6 +29,10 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     public void setIngredients(List<Ingredient> ingredients) {
         this.list = ingredients;
         notifyDataSetChanged();
+    }
+
+    public void setOnBoughtListener(ShoppingListAdapter.OnBoughtListener onBoughtListener) {
+        this.onBoughtListener = onBoughtListener;
     }
     @NonNull
     @Override
@@ -61,7 +67,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
           super(itemView);
           ingredientName = itemView.findViewById(R.id.shoppingList_item_name);
           quantity = itemView.findViewById(R.id.shoppingList_item_quantity);
-          addToFridge = itemView.findViewById(R.id.shopping_add_virtual_fridge);
+          addToFridge = itemView.findViewById(R.id.shopping_add_virtual_fridge_button);
 
           itemView.setOnLongClickListener(v ->{
               listener.onClick(list.get(getBindingAdapterPosition()));
@@ -69,6 +75,11 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
               notifyDataSetChanged();
               return true;
               });
+
+          addToFridge.setOnClickListener(v -> onBoughtListener.onBought(list.get(getBindingAdapterPosition())));
       }
    }
+    public interface OnBoughtListener {
+        void onBought(Ingredient ingredient);
+    }
 }

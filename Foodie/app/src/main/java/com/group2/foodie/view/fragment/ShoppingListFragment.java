@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -13,9 +15,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.group2.foodie.R;
 import com.group2.foodie.list.ShoppingListAdapter;
+import com.group2.foodie.util.Util;
 import com.group2.foodie.viewmodel.ShoppingListViewModel;
+
+import java.time.LocalDate;
 
 public class ShoppingListFragment extends Fragment {
 
@@ -55,9 +62,24 @@ public class ShoppingListFragment extends Fragment {
             shoppingListAdapter.setIngredients(ingredients);
         });
         recyclerView.setAdapter(shoppingListAdapter);
-        shoppingListAdapter.setOnClickListener(ingredient -> {
-            viewModel.removeIngredient(ingredient);
-            navController.navigate(R.id.fragment_shopping_list);
+        viewModel.getErrorMessage().observe(getViewLifecycleOwner(), error -> {
+            Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+
         });
+        viewModel.checkEmptyList();
+        shoppingListAdapter.setOnBoughtListener(ingredient -> {
+            ingredient.setExpirationDate(Util.getCurrentLocalDate(LocalDate.now()));
+            Bundle bundle = new Bundle();
+            Gson gson = new Gson();
+            bundle.putString("shoppingIngredient",gson.toJson(ingredient));
+            navController.navigate(R.id.fragment_addedit_ingredient, bundle);
+        });
+
+
+        shoppingListAdapter.setOnClickListener(ingredient -> {
+              viewModel.removeIngredient(ingredient.getId());
+              navController.navigate(R.id.fragment_shopping_list);
+        });
+
     }
 }

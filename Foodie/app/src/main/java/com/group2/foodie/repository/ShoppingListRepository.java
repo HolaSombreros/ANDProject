@@ -37,8 +37,9 @@ public class ShoppingListRepository {
         String userId = FirebaseAuth.getInstance().getUid();
         databaseReference.child("shoppinglist").child(userId).push().setValue(ingredient);
     }
-    public void removeShoppingListIngredient(Ingredient ingredient) {
+
+    public void removeShoppingListIngredient(String id) {
         String userId = FirebaseAuth.getInstance().getUid();
-        databaseReference.child("shoppinglist").child(userId).child(ingredient.getId()).removeValue();
+        databaseReference.child("shoppinglist").child(userId).child(id).removeValue();
     }
 }

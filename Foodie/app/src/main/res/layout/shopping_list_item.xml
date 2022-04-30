@@ -30,10 +30,10 @@
         android:textColor="?attr/colorPrimary"
         android:textSize="16sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/shoppingList_item_name"
-        app:layout_constraintEnd_toStartOf="@+id/shopping_add_virtual_fridge" />
+        app:layout_constraintEnd_toStartOf="@+id/shopping_add_virtual_fridge_button" />
 
     <Button
-        android:id="@+id/shopping_add_virtual_fridge"
+        android:id="@+id/shopping_add_virtual_fridge_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bought"

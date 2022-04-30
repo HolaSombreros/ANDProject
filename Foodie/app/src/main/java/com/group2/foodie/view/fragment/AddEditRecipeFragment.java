@@ -34,7 +34,6 @@ import com.group2.foodie.viewmodel.AddEditRecipeViewModel;
 
 public class AddEditRecipeFragment extends Fragment {
     private AddEditRecipeViewModel viewModel;
-
     private NavController navController;
     private EditText recipeNameInput;
     private SwitchCompat publicSwitch;
@@ -48,7 +47,6 @@ public class AddEditRecipeFragment extends Fragment {
     private RecyclerView ingredientsRecyclerView;
     private EditText recipeInstructionsInput;
     private Button saveBtn;
-
     private EditableIngredientsAdapter ingredientsAdapter;
 
     @Override
