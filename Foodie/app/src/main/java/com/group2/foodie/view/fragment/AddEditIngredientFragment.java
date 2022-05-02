@@ -21,6 +21,7 @@ import androidx.navigation.Navigation;
 
 import com.google.gson.Gson;
 import com.group2.foodie.R;
+import com.group2.foodie.model.Ingredient;
 import com.group2.foodie.model.Measurement;
 import com.group2.foodie.util.Util;
 import com.group2.foodie.viewmodel.AddEditIngredientViewModel;
