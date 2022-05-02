@@ -25,6 +25,7 @@ import com.google.firebase.storage.StorageReference;
 import com.group2.foodie.util.GlideApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.group2.foodie.model.Ingredient;
+import com.group2.foodie.util.NotificationPublisher;
 import com.group2.foodie.util.Util;
 import com.group2.foodie.viewmodel.MainViewModel;
 
