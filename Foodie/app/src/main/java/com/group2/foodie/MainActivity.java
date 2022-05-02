@@ -3,6 +3,7 @@ package com.group2.foodie;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
@@ -12,12 +13,23 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.group2.foodie.util.GlideApp;
 import com.group2.foodie.viewmodel.MainViewModel;
 
 public class MainActivity extends AppCompatActivity {
+    private ImageView image;
+    private TextView username;
+    private TextView email;
+
     private NavController navController;
     private AppBarConfiguration appBarConfiguration;
     private DrawerLayout drawerLayout;
@@ -42,6 +54,11 @@ public class MainActivity extends AppCompatActivity {
         navigationDrawer = findViewById(R.id.navigation_view);
         drawerLayout = findViewById(R.id.drawer_layout);
         toolbar = findViewById(R.id.toolbar);
+
+        View header = navigationDrawer.getHeaderView(0);
+        image = header.findViewById(R.id.drawer_header_image);
+        username = header.findViewById(R.id.drawer_header_username);
+        email = header.findViewById(R.id.drawer_header_email);
     }
 
     private void setupNavigation() {
@@ -81,6 +98,11 @@ public class MainActivity extends AppCompatActivity {
         viewModel.getCurrentFirebaseUser().observe(this, user -> {
             if (user == null) {
                 navController.navigate(R.id.fragment_login);
+            } else {
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/users/" + user.getUid() + ".jpg");
+                GlideApp.with(this).load(storageRef).into(image);
+                username.setText(user.getDisplayName());
+                email.setText(user.getEmail());
             }
         });
     }

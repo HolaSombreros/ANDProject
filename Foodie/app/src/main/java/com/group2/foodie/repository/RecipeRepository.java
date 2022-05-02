@@ -71,7 +71,7 @@ public class RecipeRepository {
     }
 
     public UploadTask uploadRecipeImage(Bitmap bitmap, String path) {
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/recipes/" + path + ".jpg");
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/recipes/" + path);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
