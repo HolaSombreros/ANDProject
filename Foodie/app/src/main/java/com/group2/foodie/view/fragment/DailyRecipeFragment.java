@@ -28,6 +28,7 @@ import com.group2.foodie.adapter.ViewPagerAdapter;
 import com.group2.foodie.dailyrecipe.DailyRecipe;
 import com.group2.foodie.dailyrecipe.ExtendedIngredientsAdapter;
 import com.group2.foodie.list.ViewIngredientsAdapter;
+import com.group2.foodie.model.Recipe;
 import com.group2.foodie.viewmodel.DailyRecipeViewModel;
 
 public class DailyRecipeFragment extends Fragment {
@@ -65,7 +66,7 @@ public class DailyRecipeFragment extends Fragment {
         ingredientsList.setLayoutManager(new LinearLayoutManager(getActivity()));
         dailyRecipeViewModel.searchDailyRecipe();
         dailyRecipeViewModel.getDailyRecipe().observe(getViewLifecycleOwner(), recipe-> {
-             instructions.setText(recipe.getInstructions());
+                instructions.setText(recipe.getInstructions());
                 recipeName.setText(recipe.getTitle());
                 ingredientsAdapter = new ExtendedIngredientsAdapter(recipe.getExtendedIngredients());
                 ingredientsList.setAdapter(ingredientsAdapter);

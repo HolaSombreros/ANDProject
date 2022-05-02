@@ -32,9 +32,7 @@ public class PersonalProfileFragment extends Fragment {
     private TextInputEditText username;
     private ImageView profilePicture;
     private TextView followersTextLabel;
-    private TextView followersTxt;
     private TextView followingTextLabel;
-    private TextView followingTxt;
     private LinearLayout recipeLayout;
     private LinearLayout fridgeLayout;
     private TextView recipeTxt;
@@ -60,13 +58,11 @@ public class PersonalProfileFragment extends Fragment {
         username = view.findViewById(R.id.inputUsernamePersonal);
         profilePicture = view.findViewById(R.id.userProfilePicture);
         followersTextLabel = view.findViewById(R.id.followersTxt);
-        followersTxt = view.findViewById(R.id.followersDisplay);
         followingTextLabel = view.findViewById(R.id.followingTxt);
-        followingTxt = view.findViewById(R.id.followingDisplay);
         fridgeLayout = view.findViewById(R.id.fridge_personal_details);
         recipeLayout = view.findViewById(R.id.recipes_personal_display);
-        fridgeTxt = view.findViewById(R.id.fridgeDisplay);
-        recipeTxt = view.findViewById(R.id.recipeDisplay);
+        fridgeTxt = view.findViewById(R.id.fridgeTxt);
+        recipeTxt = view.findViewById(R.id.recipeTxt);
         password = view.findViewById(R.id.inputPasswordPersonal);
         email = view.findViewById(R.id.inputEmailPersonal);
     }
@@ -83,19 +79,19 @@ public class PersonalProfileFragment extends Fragment {
         });
 
         viewModel.getMyFollowing().observe(getViewLifecycleOwner(), following -> {
-                followingTxt.setText(String.valueOf(following.size()));
+            followingTextLabel.setText(new StringBuilder().append("Following: ").append(following.size()));
         });
 
         viewModel.getMyFollowers().observe(getViewLifecycleOwner(), followers -> {
-            followersTxt.setText(String.valueOf(followers.size()));
+            followersTextLabel.setText(new StringBuilder().append("Followers: ").append(followers.size()));
         });
 
         viewModel.getFridge().observe(getViewLifecycleOwner(), fridge ->{
-            fridgeTxt.setText(String.valueOf(fridge.size()));
+            fridgeTxt.setText(new StringBuilder().append("Fridge: ").append(fridge.size()));
         });
 
         viewModel.getRecipes().observe(getViewLifecycleOwner(), recipes -> {
-            recipeTxt.setText(String.valueOf(recipes.size()));
+            recipeTxt.setText(new StringBuilder().append("Recipes: ").append(recipes.size()));
         });
 
         recipeLayout.setOnClickListener(n->{
@@ -110,7 +106,7 @@ public class PersonalProfileFragment extends Fragment {
             navController.navigate(R.id.fragment_followingfollowers);
         });
 
-        followersTxt.setOnClickListener(listener -> {
+        followersTextLabel.setOnClickListener(listener -> {
             navController.navigate(R.id.fragment_followingfollowers);
         });
 
@@ -118,7 +114,7 @@ public class PersonalProfileFragment extends Fragment {
             navController.navigate(R.id.fragment_followingfollowers);
         });
 
-        followingTxt.setOnClickListener(listener -> {
+        followingTextLabel.setOnClickListener(listener -> {
             navController.navigate(R.id.fragment_followingfollowers);
         });
     }

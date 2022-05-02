@@ -7,14 +7,17 @@ import androidx.lifecycle.ViewModel;
 import com.group2.foodie.model.Ingredient;
 import com.group2.foodie.model.Measurement;
 import com.group2.foodie.repository.FridgeRepository;
+import com.group2.foodie.repository.ShoppingListRepository;
 
 public class AddEditIngredientViewModel extends ViewModel {
     private FridgeRepository repository;
+    private ShoppingListRepository shoppingListRepository;
     private MutableLiveData<String> errorMessage;
     private String date;
 
     public AddEditIngredientViewModel() {
         repository = FridgeRepository.getInstance();
+        shoppingListRepository = ShoppingListRepository.getInstance();
         errorMessage = new MutableLiveData<>();
     }
 
@@ -37,6 +40,10 @@ public class AddEditIngredientViewModel extends ViewModel {
 
     public void removeIngredient() {
         repository.removeFridgeIngredient();
+    }
+
+    public void removeFromShoppingList(String id) {
+            shoppingListRepository.removeShoppingListIngredient(id);
     }
 
     public boolean addIngredient(String name, String quantity, Measurement measurement, String expirationDate) {

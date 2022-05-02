@@ -2,16 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:padding="24dp"
-    android:layout_height="match_parent" >
+    android:layout_gravity="center"
+    android:layout_height="wrap_content" >
 
     <EditText
         android:id="@+id/shopping_add_ingredient"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="240dp"
         android:hint="Name"
         android:inputType="textPersonName"
         android:minHeight="48dp"
@@ -28,18 +27,16 @@
         android:inputType="numberDecimal"
         android:minHeight="48dp"
         app:layout_constraintEnd_toStartOf="@+id/shopping_ingredient_measurement"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/shopping_add_ingredient" />
 
     <Spinner
         android:id="@+id/shopping_ingredient_measurement"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_height="0dp"
         android:layout_marginLeft="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/shopping_ingredient_quantity"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/shopping_ingredient_quantity"
         app:layout_constraintTop_toTopOf="@+id/shopping_ingredient_quantity" />
 
@@ -50,7 +47,6 @@
         android:layout_marginTop="36dp"
         android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/shopping_ingredient_quantity" />
 

@@ -22,4 +22,8 @@ public class Util {
     public static LocalDate getLocalDateFromString(String string) {
         return LocalDate.parse(string, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
+
+    public static String getCurrentLocalDate(LocalDate localDate) {
+        return localDate.format(DateTimeFormatter.ofPattern("yyy-MM-dd"));
+    }
 }

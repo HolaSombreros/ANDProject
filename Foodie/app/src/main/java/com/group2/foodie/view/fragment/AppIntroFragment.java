@@ -14,9 +14,9 @@ import com.group2.foodie.R;
 import com.group2.foodie.adapter.ViewPagerAdapter;
 
 public class AppIntroFragment extends Fragment {
-    ViewPager2 viewPager2;
-    TabLayout tabLayout;
-    ViewPagerAdapter adapter;
+    private ViewPager2 viewPager2;
+    private TabLayout tabLayout;
+    private ViewPagerAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

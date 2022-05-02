@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.group2.foodie.R;
 import com.group2.foodie.model.Measurement;
@@ -57,9 +58,18 @@ public class AddShoppingListIngredientFragment extends Fragment {
                 Util.getMeasurements());
         ingredientMeasurementAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(ingredientMeasurementAdapter);
-        saveIngredient.setOnClickListener(v ->{
-            viewModel.addIngredient(ingredientName.getText().toString(),Double.parseDouble(ingredientQuantity.getText().toString()), Measurement.fromString(spinner.getSelectedItem().toString()));
-            navController.navigate(R.id.fragment_shopping_list);
+        saveIngredient.setOnClickListener(v -> {
+            if(viewModel.addIngredient(ingredientName.getText().toString(),
+                    ingredientQuantity.getText().toString(),
+                    Measurement.fromString(spinner.getSelectedItem().toString()))) {
+                navController.navigate(R.id.fragment_shopping_list);
+            }
+        });
+
+        viewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMessage -> {
+            if (errorMessage != null) {
+                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+            }
         });
 
     }

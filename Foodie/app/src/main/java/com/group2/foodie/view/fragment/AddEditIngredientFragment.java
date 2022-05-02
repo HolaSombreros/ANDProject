@@ -2,7 +2,6 @@ package com.group2.foodie.view.fragment;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.google.gson.Gson;
 import com.group2.foodie.R;
 import com.group2.foodie.model.Ingredient;
 import com.group2.foodie.model.Measurement;
@@ -28,10 +28,8 @@ import com.group2.foodie.viewmodel.AddEditIngredientViewModel;
 
 import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.Date;
 
 public class AddEditIngredientFragment extends Fragment {
-
     private AddEditIngredientViewModel viewModel;
     private NavController navController;
     private EditText name;
@@ -49,13 +47,20 @@ public class AddEditIngredientFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initializeViews(view);
         viewModel = new ViewModelProvider(getActivity()).get(AddEditIngredientViewModel.class);
         if (getArguments() != null) {
-            viewModel.init(getArguments().getString("ingredient"));
+            if (getArguments().getString("ingredient") != null) {
+                viewModel.init(getArguments().getString("ingredient"));
+            } else {
+                Gson gson = new Gson();
+                Ingredient ingredient = gson.fromJson(getArguments().getString("shoppingIngredient"), Ingredient.class);
+                setUpIngredientDetails(ingredient);
+            }
+
         } else {
             viewModel.init("");
         }
-        initializeViews(view);
         setupViews();
     }
 
@@ -69,31 +74,33 @@ public class AddEditIngredientFragment extends Fragment {
         remove = view.findViewById(R.id.addedit_ingredient_remove);
     }
 
+    private void setUpIngredientDetails(Ingredient ingredient) {
+        viewModel.setDate(LocalDate.now().toString());
+        name.setText(ingredient.getName());
+        quantity.setText(String.valueOf(ingredient.getQuantity()));
+        measurement.setSelection(ingredient.getMeasurement().ordinal());
+        LocalDate localDate = Util.getLocalDateFromString(ingredient.getExpirationDate());
+        Calendar calendarDate = Calendar.getInstance();
+        calendarDate.set(localDate.getYear(), localDate.getMonth().getValue() - 1, localDate.getDayOfMonth());
+        expirationDate.setDate(calendarDate.getTimeInMillis());
+        viewModel.setDate(localDate.toString());
+    }
+
     private void setupViews() {
         expirationDate.setOnDateChangeListener((calendarView, year, month, day) -> {
             viewModel.setDate(String.format("%d-%02d-%02d", year, (month + 1), day));
         });
-
-        viewModel.setDate(LocalDate.now().toString());
 
         ArrayAdapter<String> ingredientMeasurementAdapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_spinner_item,
                 Util.getMeasurements());
         ingredientMeasurementAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         measurement.setAdapter(ingredientMeasurementAdapter);
-
         remove.setVisibility(View.INVISIBLE);
 
-        if (getArguments() != null) {
+        if (getArguments() != null && getArguments().get("ingredient") != null) {
             viewModel.getIngredient().observe(getViewLifecycleOwner(), ingredient -> {
-                name.setText(ingredient.getName());
-                quantity.setText(String.valueOf(ingredient.getQuantity()));
-                measurement.setSelection(ingredient.getMeasurement().ordinal());
-                LocalDate localDate = Util.getLocalDateFromString(ingredient.getExpirationDate());
-                Calendar calendarDate = Calendar.getInstance();
-                calendarDate.set(localDate.getYear(), localDate.getMonth().getValue() - 1, localDate.getDayOfMonth());
-                expirationDate.setDate(calendarDate.getTimeInMillis());
-                viewModel.setDate(localDate.toString());
+                setUpIngredientDetails(ingredient);
                 remove.setVisibility(View.VISIBLE);
             });
         }
@@ -105,13 +112,21 @@ public class AddEditIngredientFragment extends Fragment {
         });
 
         save.setOnClickListener(v -> {
-            if (getArguments() != null) {
+            if (getArguments() != null && getArguments().getString("ingredient") != null) {
                 if (viewModel.saveIngredient(name.getText().toString(), quantity.getText().toString(),
                         Measurement.fromString(measurement.getSelectedItem().toString()), viewModel.getDate())) {
                     Toast.makeText(getActivity(), "Ingredient \"" + name.getText().toString() +
                             "\" saved!", Toast.LENGTH_SHORT).show();
                     navController.popBackStack();
                 }
+            }
+            else if(getArguments() != null && getArguments().getString("shoppingIngredient") != null) {
+                Gson gson = new Gson();
+                Ingredient ingredient = gson.fromJson(getArguments().getString("shoppingIngredient"), Ingredient.class);
+                viewModel.removeFromShoppingList(ingredient.getId());
+                viewModel.addIngredient(name.getText().toString(), quantity.getText().toString(),
+                        Measurement.fromString(measurement.getSelectedItem().toString()), viewModel.getDate());
+                navController.navigate(R.id.fragment_shopping_list);
             }
             else if (viewModel.addIngredient(name.getText().toString(), quantity.getText().toString(),
                     Measurement.fromString(measurement.getSelectedItem().toString()), viewModel.getDate())) {
