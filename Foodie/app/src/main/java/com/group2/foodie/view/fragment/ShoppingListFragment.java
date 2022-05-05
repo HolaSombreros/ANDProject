@@ -52,21 +52,25 @@ public class ShoppingListFragment extends Fragment {
         viewModel = new ViewModelProvider(getActivity()).get(ShoppingListViewModel.class);
         viewModel.init();
         initViews(view);
+
         fab.setOnClickListener(v -> {
             navController.navigate(R.id.addShoppingListIngredient);
         });
+
         shoppingListAdapter = new ShoppingListAdapter();
         recyclerView.hasFixedSize();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         viewModel.getShoppingListIngredients().observe(getViewLifecycleOwner(),ingredients -> {
             shoppingListAdapter.setIngredients(ingredients);
         });
+
         recyclerView.setAdapter(shoppingListAdapter);
         viewModel.getErrorMessage().observe(getViewLifecycleOwner(), error -> {
             Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
 
         });
-        viewModel.checkEmptyList();
+
         shoppingListAdapter.setOnBoughtListener(ingredient -> {
             ingredient.setExpirationDate(Util.getCurrentLocalDate(LocalDate.now()));
             Bundle bundle = new Bundle();
@@ -75,11 +79,8 @@ public class ShoppingListFragment extends Fragment {
             navController.navigate(R.id.fragment_addedit_ingredient, bundle);
         });
 
-
         shoppingListAdapter.setOnClickListener(ingredient -> {
               viewModel.removeIngredient(ingredient.getId());
-              navController.navigate(R.id.fragment_shopping_list);
         });
-
     }
 }

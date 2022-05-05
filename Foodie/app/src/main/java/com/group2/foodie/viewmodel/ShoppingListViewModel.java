@@ -17,25 +17,20 @@ public class ShoppingListViewModel extends ViewModel {
         repository = ShoppingListRepository.getInstance();
         errorMessage = new MutableLiveData<>();
     }
+
     public LiveData<String> getErrorMessage(){
         return errorMessage;
-    }
-    public boolean checkEmptyList() {
-        if(repository.getShoppingListLiveData().getValue() == null || repository.getShoppingListLiveData().getValue().isEmpty()){
-            errorMessage.setValue("Empty list");
-            return true;
-        }
-        return false;
     }
 
     public ShoppingListLiveData getShoppingListIngredients(){
         return repository.getShoppingListLiveData();
     }
+
     public void init(){
         repository.init();
     }
+
     public void removeIngredient(String id) {
         repository.removeShoppingListIngredient(id);
     }
-
 }

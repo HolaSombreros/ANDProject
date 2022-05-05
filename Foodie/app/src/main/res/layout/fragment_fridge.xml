@@ -17,19 +17,9 @@
             android:hint="Search"
             android:inputType="text"
             android:minHeight="48dp"
-            app:layout_constraintEnd_toStartOf="@id/fridge_filterBtn"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <Switch
-            android:id="@+id/fridge_filterBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:text="Show expired"
-            app:layout_constraintStart_toEndOf="@id/fridge_searchBar"
-            app:layout_constraintBaseline_toBaselineOf="@id/fridge_searchBar"
-            app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fridge_recyclerView"
@@ -46,7 +36,6 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fridge_fab"
         android:layout_width="wrap_content"
-        android:layout_margin="8dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:src="@android:drawable/ic_input_add" />

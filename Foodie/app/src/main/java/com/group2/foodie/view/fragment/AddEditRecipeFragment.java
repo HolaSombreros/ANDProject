@@ -26,9 +26,12 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.group2.foodie.R;
 import com.group2.foodie.list.EditableIngredientsAdapter;
 import com.group2.foodie.model.Ingredient;
+import com.group2.foodie.util.GlideApp;
 import com.group2.foodie.util.Util;
 import com.group2.foodie.viewmodel.AddEditRecipeViewModel;
 
@@ -114,6 +117,9 @@ public class AddEditRecipeFragment extends Fragment {
                 publicSwitch.setChecked(recipe.isPublic());
                 recipeCategoryInput.setSelection(viewModel.getRecipeCategories().getValue().indexOf(recipe.getCategory()));
                 recipeInstructionsInput.setText(recipe.getInstructions());
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/recipes/" + recipe.getId());
+                GlideApp.with(this).load(storageRef).into(image);
+
                 for (Ingredient ingredient : recipe.getIngredients()) {
                     viewModel.addNewIngredient(ingredient.getName(),
                             String.valueOf(ingredient.getQuantity()),

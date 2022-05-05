@@ -1,7 +1,5 @@
 package com.group2.foodie.livedata;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
@@ -32,8 +30,6 @@ public class FridgeIngredientsLiveData extends LiveData<List<Ingredient>> {
             List<Ingredient> current = getValue();
             current.add(ingredient);
             setValue(current);
-
-            Log.d("fridgeingredient", ingredient.toString());
         }
 
         @Override
@@ -64,7 +60,7 @@ public class FridgeIngredientsLiveData extends LiveData<List<Ingredient>> {
     @Override
     protected void onActive() {
         super.onActive();
-        dbRef.addChildEventListener(listener);
+        dbRef.orderByChild("expirationDate").addChildEventListener(listener);
     }
 
     @Override

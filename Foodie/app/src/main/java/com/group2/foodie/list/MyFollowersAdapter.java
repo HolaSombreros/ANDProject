@@ -64,7 +64,7 @@ public class MyFollowersAdapter extends RecyclerView.Adapter<MyFollowersAdapter.
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         Follower follower = followers.get(position);
 
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/users/" + follower.getId() + ".jpg");
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/users/" + follower.getId());
         GlideApp.with(viewHolder.itemView).load(storageRef).into(viewHolder.image);
         viewHolder.username.setText(follower.getUsername());
         viewHolder.handle.setText(follower.getEmail());

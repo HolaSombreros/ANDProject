@@ -15,6 +15,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -80,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
                 R.id.fragment_personal_profile,
                 R.id.fragment_daily_recipe,
                 R.id.fragment_shopping_list,
-                R.id.fragment_followingfollowers
+                R.id.fragment_followingfollowers,
+                R.id.fragment_map
         ).setOpenableLayout(drawerLayout).build();
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -141,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        PendingIntent pending = PendingIntent.getBroadcast(this, 42, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pending = PendingIntent.getBroadcast(this, 42, intent, PendingIntent.FLAG_MUTABLE);
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 8);

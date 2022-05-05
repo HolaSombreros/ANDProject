@@ -21,8 +21,8 @@
         android:id="@+id/fragment_personal_profile"
         android:icon="@drawable/ic_profile"
         android:title="@string/title_profile" />
-    <item
 
+    <item
         android:id="@+id/fragment_daily_recipe"
         android:icon="@drawable/ic_recipes"
         android:title="@string/daily_recipe" />
@@ -35,7 +35,8 @@
     <item
         android:id="@+id/fragment_followingfollowers"
         android:icon="@drawable/ic_profile"
-        android:title="My Followers?????" />
+        android:title="@string/title_my_followers" />
+
     <item
         android:id="@+id/fragment_map"
         android:icon="@drawable/ic_baseline_location_on_24"

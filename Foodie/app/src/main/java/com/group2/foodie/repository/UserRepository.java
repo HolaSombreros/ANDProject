@@ -1,7 +1,5 @@
 package com.group2.foodie.repository;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -54,6 +52,8 @@ public class UserRepository {
                         UserProfileChangeRequest request = new UserProfileChangeRequest.Builder()
                                 .setDisplayName(user.getUsername())
                                 .build();
+
+                        currentFirebaseUser.getValue().updateProfile(request);
                     }
                 });
     }

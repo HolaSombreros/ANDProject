@@ -88,7 +88,7 @@ public class ViewRecipeFragment extends Fragment {
                 else
                     favoriteImage.setImageResource(R.drawable.ic_empty_heart);
             });
-            StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/recipes/" + recipe.getId() + ".jpg");
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/recipes/" + recipe.getId());
             GlideApp.with(this).load(storageRef).into(foodImage);
 
             if (!recipe.getPublisherId().equals(viewModel.getCurrentUser().getValue().getUid())) {

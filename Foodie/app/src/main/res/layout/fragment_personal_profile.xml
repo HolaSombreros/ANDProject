@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:padding="8dp"
     tools:context="com.group2.foodie.view.fragment.PersonalProfileFragment">
 
     <ScrollView
@@ -59,7 +59,6 @@
                 android:id="@+id/editPersonalProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:clickable="true"
                 android:src="@android:drawable/ic_menu_edit"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -188,13 +187,9 @@
                     android:textColor="#4a148c"
                     android:textSize="15sp"
                     android:textStyle="bold"
+                    android:inputType="textPassword"
                     tools:ignore="TouchTargetSizeCheck" />
             </com.google.android.material.textfield.TextInputLayout>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </ScrollView>
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

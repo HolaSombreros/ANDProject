@@ -42,7 +42,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecipeAdapter.ViewHolder viewHolder, int position) {
         String id = recipes.get(position).getId();
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/recipes/" + id + ".jpg");
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/recipes/" + id);
         GlideApp.with(viewHolder.itemView).load(storageRef).into(viewHolder.image);
         viewHolder.recipeName.setText(recipes.get(position).getName());
     }

@@ -74,7 +74,7 @@ public class PersonalProfileFragment extends Fragment {
             password.setText(user.getPassword());
             email.setText(user.getEmail());
 
-            StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/users/" + user.getId() + ".jpg");
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/users/" + user.getId());
             GlideApp.with(view).load(storageRef).into(profilePicture);
         });
 
@@ -95,7 +95,10 @@ public class PersonalProfileFragment extends Fragment {
         });
 
         recipeLayout.setOnClickListener(n->{
-            navController.navigate(R.id.fragment_recipes);
+            Bundle bundle = new Bundle();
+            bundle.putString("recipeType", "personal");
+
+            navController.navigate(R.id.fragment_recipes, bundle);
         });
 
         fridgeLayout.setOnClickListener(n->{
@@ -103,14 +106,6 @@ public class PersonalProfileFragment extends Fragment {
         });
 
         followersTextLabel.setOnClickListener(listener -> {
-            navController.navigate(R.id.fragment_followingfollowers);
-        });
-
-        followersTextLabel.setOnClickListener(listener -> {
-            navController.navigate(R.id.fragment_followingfollowers);
-        });
-
-        followingTextLabel.setOnClickListener(listener -> {
             navController.navigate(R.id.fragment_followingfollowers);
         });
 

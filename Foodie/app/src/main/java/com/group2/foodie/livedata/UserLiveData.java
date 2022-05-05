@@ -1,6 +1,5 @@
 package com.group2.foodie.livedata;
 
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -9,18 +8,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.group2.foodie.model.Recipe;
 import com.group2.foodie.model.User;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserLiveData extends LiveData<User> {
     DatabaseReference dbRef;
 
     public UserLiveData(DatabaseReference dbRef) {
         this.dbRef = dbRef;
-        Log.e("user retrieved", "Instantiated UserLiveData!");
     }
 
     private ValueEventListener listener = new ValueEventListener() {
@@ -32,7 +26,7 @@ public class UserLiveData extends LiveData<User> {
 
         @Override
         public void onCancelled(@NonNull DatabaseError error) {
-            Log.d("user live data", error.getMessage());
+
         }
     };
 

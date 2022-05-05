@@ -1,5 +1,7 @@
 package com.group2.foodie.livedata;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
@@ -36,9 +38,17 @@ public class ShoppingListLiveData extends LiveData<List<Ingredient>> {
         @Override
         public void onChildRemoved(@NonNull DataSnapshot snapshot) {
             Ingredient ingredient = snapshot.getValue(Ingredient.class);
+            ingredient.setId(snapshot.getKey());
 
             List<Ingredient> current = getValue();
-            current.remove(ingredient);
+
+            for (int i = 0; i < current.size(); i++) {
+                if (current.get(i).getId().equals(ingredient.getId())) {
+                    current.remove(i);
+                    break;
+                }
+            }
+
             setValue(current);
         }
 
