@@ -34,15 +34,31 @@ public class FridgeIngredientsLiveData extends LiveData<List<Ingredient>> {
 
         @Override
         public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            Ingredient ingredient = snapshot.getValue(Ingredient.class);
+            ingredient.setId(snapshot.getKey());
+            List<Ingredient> current = getValue();
 
+            for (int i = 0; i < current.size(); i++) {
+                if (current.get(i).getId().equals(ingredient.getId())) {
+                    current.set(i, ingredient);
+                    break;
+                }
+            }
+
+            setValue(current);
         }
 
         @Override
         public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-            Ingredient ingredient = snapshot.getValue(Ingredient.class);
-
             List<Ingredient> current = getValue();
-            current.remove(ingredient);
+
+            for (int i = 0; i < current.size(); i++) {
+                if (current.get(i).getId().equals(snapshot.getKey())) {
+                    current.remove(i);
+                    break;
+                }
+            }
+
             setValue(current);
         }
 

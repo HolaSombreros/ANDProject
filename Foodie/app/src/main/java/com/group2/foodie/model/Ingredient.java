@@ -2,11 +2,10 @@ package com.group2.foodie.model;
 
 import com.google.firebase.database.Exclude;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Ingredient implements Serializable {
+public class Ingredient {
     private String id;
     private String name;
     private double quantity;
@@ -16,6 +15,7 @@ public class Ingredient implements Serializable {
     public Ingredient() {
 
     }
+
     public Ingredient(String name, double quantity, Measurement measurement) {
         this.name = name;
         this.quantity = quantity;
@@ -87,6 +87,7 @@ public class Ingredient implements Serializable {
         output.put("quantity", quantity);
         output.put("measurement", measurement);
         output.put("expirationDate", expirationDate);
+        output.put("name", name);
         return output;
     }
 }

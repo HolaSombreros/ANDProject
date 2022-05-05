@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,7 +28,6 @@ public class FridgeFragment extends Fragment {
     private FridgeViewModel viewModel;
     private NavController navController;
     private EditText searchBar;
-    private Switch filterBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,7 +48,6 @@ public class FridgeFragment extends Fragment {
         ingredientsRecycler = view.findViewById(R.id.fridge_recyclerView);
         fab = view.findViewById(R.id.fridge_fab);
         searchBar = view.findViewById(R.id.fridge_searchBar);
-        filterBtn = view.findViewById(R.id.fridge_filterBtn);
     }
 
     private void setupViews() {

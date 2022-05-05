@@ -40,3 +40,4 @@
 - [ ] 26. As a user, I want to mark a recipe as done, so that its ingredients will be automatically removed from my virtual fridge
 - [ ] 9. As a user, I want to view the location of nearby grocery stores, so that I can get an overview of the closest local shops
 - [ ] 27. As a user, I want to receive a notification when users I follow publish a new public recipes, so that I can easily track new recipes
+- [ ] 31. As a user, I want to search for a an ingredient in my virtual fridge, so that I can easily find it
