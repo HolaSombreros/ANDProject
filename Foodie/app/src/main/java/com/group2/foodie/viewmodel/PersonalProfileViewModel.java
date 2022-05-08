@@ -1,8 +1,12 @@
 package com.group2.foodie.viewmodel;
 
+import android.graphics.Bitmap;
+
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.google.firebase.storage.UploadTask;
 import com.group2.foodie.model.Follower;
 import com.group2.foodie.model.Ingredient;
 import com.group2.foodie.model.Recipe;
@@ -19,12 +23,15 @@ public class PersonalProfileViewModel extends ViewModel {
     private MyFollowersRepository followersRepository;
     private RecipeRepository recipeRepository;
     private FridgeRepository fridgeRepository;
+    private MutableLiveData<String> errorMessage;
 
     public PersonalProfileViewModel() {
         userRepository = UserRepository.getInstance();
         followersRepository = MyFollowersRepository.getInstance();
         recipeRepository = RecipeRepository.getInstance();
         fridgeRepository = FridgeRepository.getInstance();
+        errorMessage = new MutableLiveData<>();
+
     }
 
     public void init(){
@@ -52,5 +59,33 @@ public class PersonalProfileViewModel extends ViewModel {
 
     public LiveData<List<Ingredient>> getFridge(){
         return fridgeRepository.getFridgeIngredients();
+    }
+    public LiveData<String> getErrorMessage() {
+        return errorMessage;
+    }
+
+
+    public boolean editUser(String username,String email, String password ){
+        if(!isValid(username, email, password))
+            return false;
+        userRepository.updateUser(new User(username, email, password));
+        return true;
+    }
+
+    public UploadTask uploadUserImage(Bitmap bitmap, String path){
+        return userRepository.uploadUserImage(bitmap, path);
+    }
+
+    public boolean isValid(String username, String email, String password){
+        if (username == null || username.isEmpty()) {
+            return false;
+        }
+        if(email == null || email.isEmpty()) {
+            return false;
+        }
+        if(password == null || password.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 }

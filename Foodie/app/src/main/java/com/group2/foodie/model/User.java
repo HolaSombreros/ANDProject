@@ -48,7 +48,7 @@ public class User {
         this.following = new ArrayList<>();
         this.ingredients = new ArrayList<>();
         this.fridge = new Fridge(ingredients);
-        this.profilePictureId = 0;
+        this.profilePictureId = profilePictureId;
     }
     public User(String username, String email, String password) {
         this.username = username;

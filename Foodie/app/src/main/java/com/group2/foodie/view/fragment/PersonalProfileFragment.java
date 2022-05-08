@@ -1,15 +1,23 @@
 package com.group2.foodie.view.fragment;
 
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -17,6 +25,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -39,6 +48,7 @@ public class PersonalProfileFragment extends Fragment {
     private TextView fridgeTxt;
     private TextInputEditText password;
     private TextInputEditText email;
+    private FloatingActionButton editBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,6 +75,7 @@ public class PersonalProfileFragment extends Fragment {
         recipeTxt = view.findViewById(R.id.recipeTxt);
         password = view.findViewById(R.id.inputPasswordPersonal);
         email = view.findViewById(R.id.inputEmailPersonal);
+        editBtn = view.findViewById(R.id.editPersonalProfile);
     }
 
     //TODO: edit profile
@@ -111,6 +122,49 @@ public class PersonalProfileFragment extends Fragment {
 
         followingTextLabel.setOnClickListener(listener -> {
             navController.navigate(R.id.fragment_followingfollowers);
+        });
+
+        //edit profile picture
+        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getData() != null) {
+                Uri image = result.getData().getData();
+                this.profilePicture.setImageURI(image);
+            }
+        });
+
+        profilePicture.setDrawingCacheEnabled(true);
+        profilePicture.buildDrawingCache();
+
+        profilePicture.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+            intent.setType("image/*");
+            activityResultLauncher.launch(intent);
+        });
+
+        //editing personal profile details
+        editBtn.setOnClickListener(v ->{
+            if(getArguments() != null){
+                if(viewModel.editUser(username.getText().toString(), email.getText().toString(),
+                        password.getText().toString())){
+                    if(profilePicture.getDrawable() != null){
+                        Bitmap bitmap = ((BitmapDrawable)profilePicture.getDrawable()).getBitmap();
+                        viewModel.uploadUserImage(bitmap,viewModel.getUser().getValue().getId()).addOnCompleteListener(listener ->{
+                            Toast.makeText(getActivity(), "Details Saved successfully", Toast.LENGTH_SHORT).show();
+                            navController.popBackStack();
+                        });
+                    }
+                    else{
+                        Toast.makeText(getActivity(), "Details Saved successfully", Toast.LENGTH_SHORT).show();
+                        navController.popBackStack();
+                    }
+                }
+            }
+        });
+
+        viewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMessage -> {
+            if (errorMessage != null) {
+                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }

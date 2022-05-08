@@ -68,7 +68,14 @@
         android:id="@+id/fragment_personal_profile"
         android:name="com.group2.foodie.view.fragment.PersonalProfileFragment"
         android:label="Personal Profile"
-        tools:layout="@layout/fragment_personal_profile" />
+        tools:layout="@layout/fragment_personal_profile" >
+        <action
+            android:id="@+id/action_fragment_personal_profile_to_fragment_fridge"
+            app:destination="@id/fragment_fridge" />
+        <action
+            android:id="@+id/action_fragment_personal_profile_to_fragment_followingfollowers"
+            app:destination="@id/fragment_followingfollowers" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_fridge"
         android:name="com.group2.foodie.view.fragment.FridgeFragment"
