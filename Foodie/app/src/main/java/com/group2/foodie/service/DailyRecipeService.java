@@ -60,7 +60,7 @@ public class DailyRecipeService {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 DailyRecipe dailyRecipe = snapshot.getValue(DailyRecipe.class);
-                if(dailyRecipe != null && Integer.parseInt(dailyRecipe.getDate()) < Integer.parseInt(formatDate())) {
+                if(dailyRecipe == null || Integer.parseInt(dailyRecipe.getDate()) < Integer.parseInt(formatDate())) {
                     Call<DailyRecipeResponse> call = spoonacularApi.getDailyRecipe();
                     call.enqueue(new Callback<DailyRecipeResponse>() {
                         @EverythingIsNonNull

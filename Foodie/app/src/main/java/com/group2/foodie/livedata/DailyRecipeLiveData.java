@@ -20,7 +20,9 @@ public class DailyRecipeLiveData extends LiveData<DailyRecipe> {
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
             DailyRecipe dailyRecipe = snapshot.getValue(DailyRecipe.class);
-            setValue(dailyRecipe);
+            if (dailyRecipe != null) {
+                setValue(dailyRecipe);
+            }
         }
 
         @Override
