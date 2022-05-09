@@ -4,6 +4,7 @@ import com.google.firebase.database.Exclude;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Ingredient {
     private String id;
@@ -89,5 +90,13 @@ public class Ingredient {
         output.put("expirationDate", expirationDate);
         output.put("name", name);
         return output;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ingredient that = (Ingredient) o;
+        return that.id.equals(this.id);
     }
 }

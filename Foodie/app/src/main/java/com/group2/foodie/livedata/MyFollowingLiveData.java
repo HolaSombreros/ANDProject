@@ -34,7 +34,8 @@ public class MyFollowingLiveData extends LiveData<List<Follower>> {
                 user.setId(uid);
                 user.setFollows(true);
                 List<Follower> following = getValue();
-                following.add(user);
+                if(!following.contains(user))
+                    following.add(user);
                 setValue(following);
             });
         }

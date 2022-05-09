@@ -96,6 +96,10 @@ public class ViewRecipeFragment extends Fragment {
                 removeButton.setVisibility(View.INVISIBLE);
             }
         });
+        publisher.setOnClickListener(v ->
+                //TODO: VIEW SB ELSE PROFILE
+                navController.navigate(R.id.fragment_personal_profile)
+        );
 
         favoriteImage.setOnClickListener(f -> {
             viewModel.changeFavorite();

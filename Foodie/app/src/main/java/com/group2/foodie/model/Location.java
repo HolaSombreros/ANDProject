@@ -1,5 +1,7 @@
 package com.group2.foodie.model;
 
+import java.util.Objects;
+
 public class Location {
 
     private String name;
@@ -57,4 +59,13 @@ public class Location {
                 ", longitude=" + longitude +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Location location = (Location) o;
+        return location.id.equals(this.id);
+    }
+
 }

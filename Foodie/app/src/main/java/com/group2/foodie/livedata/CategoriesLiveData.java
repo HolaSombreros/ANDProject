@@ -27,7 +27,8 @@ public class CategoriesLiveData extends LiveData<List<String>> {
         public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
             String category = snapshot.getValue(String.class);
             List<String> categories = getValue();
-            categories.add(category);
+            if(!categories.contains(category))
+                categories.add(category);
             setValue(categories);
         }
 

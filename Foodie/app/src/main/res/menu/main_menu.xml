@@ -33,6 +33,12 @@
         android:title="@string/shopping_list" />
 
     <item
+        android:id="@+id/fragment_favouriteRecipes"
+        android:icon="@drawable/ic_full_heart"
+        android:title="@string/favourite_recipes"
+        />
+
+    <item
         android:id="@+id/fragment_followingfollowers"
         android:icon="@drawable/ic_profile"
         android:title="@string/title_my_followers" />

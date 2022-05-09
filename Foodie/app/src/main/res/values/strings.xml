@@ -37,4 +37,5 @@
     <string name="following">Following</string>
     <string name="map">Map</string>
     <string name="title_my_followers">My Followers</string>
+    <string name="favourite_recipes">Favourite Recipes</string>
 </resources>

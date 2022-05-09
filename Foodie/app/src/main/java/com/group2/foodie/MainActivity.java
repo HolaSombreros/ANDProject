@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.fragment_recipes,
                 R.id.fragment_public_recipes,
+                R.id.fragment_favouriteRecipes,
                 R.id.fragment_fridge,
                 R.id.fragment_personal_profile,
                 R.id.fragment_daily_recipe,

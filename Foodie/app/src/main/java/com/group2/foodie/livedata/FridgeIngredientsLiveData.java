@@ -28,7 +28,8 @@ public class FridgeIngredientsLiveData extends LiveData<List<Ingredient>> {
             ingredient.setId(snapshot.getKey());
 
             List<Ingredient> current = getValue();
-            current.add(ingredient);
+            if(!current.contains(ingredient))
+                current.add(ingredient);
             setValue(current);
         }
 

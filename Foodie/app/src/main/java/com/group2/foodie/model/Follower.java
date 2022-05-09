@@ -1,5 +1,7 @@
 package com.group2.foodie.model;
 
+import java.util.Objects;
+
 public class Follower {
     private String id;
     private String username;
@@ -41,4 +43,13 @@ public class Follower {
     public void setFollows(boolean follows) {
         isFollowed = follows;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Follower follower = (Follower) o;
+        return this.id.equals(follower.id);
+    }
+
 }

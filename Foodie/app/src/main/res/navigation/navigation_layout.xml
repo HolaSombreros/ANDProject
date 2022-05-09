@@ -61,7 +61,7 @@
     <fragment
         android:id="@+id/fragment_view_recipe"
         android:name="com.group2.foodie.view.fragment.ViewRecipeFragment"
-        android:label="@string/title_add_recipe"
+        android:label="Recipe Details"
         tools:layout="@layout/fragment_view_recipe" />
 
     <fragment
@@ -122,4 +122,9 @@
         android:id="@+id/fragment_map"
         android:name="com.group2.foodie.view.fragment.MapsFragment"
         android:label="Local stores" />
+    <fragment
+        android:id="@+id/fragment_favouriteRecipes"
+        android:name="com.group2.foodie.view.fragment.FavouriteRecipeFragment"
+        android:label="Favourite Recipes"
+        tools:layout="@layout/fragment_favourite_recipe" />
 </navigation>

@@ -27,7 +27,8 @@ public class PublicRecipesLiveData extends LiveData<List<Recipe>> {
             Recipe recipe = snapshot.getValue(Recipe.class);
             recipe.setId(snapshot.getKey());
             List<Recipe> allRecipes = getValue();
-            allRecipes.add(recipe);
+            if(!allRecipes.contains(recipe))
+                allRecipes.add(recipe);
             setValue(allRecipes);
         }
 

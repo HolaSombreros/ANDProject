@@ -67,7 +67,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
             quantity = itemView.findViewById(R.id.shoppingList_item_quantity);
             addToFridge = itemView.findViewById(R.id.shopping_add_virtual_fridge_button);
 
-            itemView.setOnLongClickListener(v ->{
+            itemView.setOnLongClickListener(v -> {
                 listener.onClick(list.get(getBindingAdapterPosition()));
                 return true;
             });

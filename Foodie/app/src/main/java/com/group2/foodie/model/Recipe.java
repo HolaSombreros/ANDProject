@@ -5,6 +5,7 @@ import com.google.firebase.database.Exclude;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Recipe {
     private String id;
@@ -138,4 +139,13 @@ public class Recipe {
         output.put("publisherUsername", publisherUsername);
         return output;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Recipe recipe = (Recipe) o;
+        return recipe.id.equals(this.id);
+    }
+
 }
