@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.group2.foodie.model.Ingredient;
 import com.group2.foodie.model.Measurement;
-import com.group2.foodie.repository.FridgeRepository;
 import com.group2.foodie.repository.ShoppingListRepository;
 
 public class AddShoppingListIngredientViewModel extends ViewModel {
@@ -34,10 +33,12 @@ public class AddShoppingListIngredientViewModel extends ViewModel {
     public boolean validateIngredient(String name, String quantity) {
         if(name == null || name.trim().isEmpty()) {
             errorMessage.setValue("Please specify the ingredient's name");
+            errorMessage.setValue(null);
             return false;
         }
         if (quantity == null || quantity.isEmpty()) {
-            errorMessage.setValue("Please specify the quantity name");
+            errorMessage.setValue("Please specify the quantity");
+            errorMessage.setValue(null);
             return false;
         }
 
@@ -46,10 +47,12 @@ public class AddShoppingListIngredientViewModel extends ViewModel {
 
             if (doubleQuantity < 0) {
                 errorMessage.setValue("The ingredient quantity (if any) must be larger or equal to 0");
+                errorMessage.setValue(null);
                 return false;
             }
         } catch (Exception e) {
             errorMessage.setValue("The ingredient quantity (if any) must be numeric");
+            errorMessage.setValue(null);
             return false;
         }
         return true;

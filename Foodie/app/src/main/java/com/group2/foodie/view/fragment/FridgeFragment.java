@@ -1,6 +1,8 @@
 package com.group2.foodie.view.fragment;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,10 +56,10 @@ public class FridgeFragment extends Fragment {
         ingredientsRecycler.hasFixedSize();
         ingredientsRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        // TODO - List looks empty on first load; have to access the searchbar first
         ingredientsAdapter = new ViewIngredientsAdapter();
-
         viewModel.getFridgeIngredients().observe(getViewLifecycleOwner(), ingredients -> {
-            ingredientsAdapter.setIngredients(ingredients);
+            viewModel.filterByIngredientName("");
         });
         ingredientsRecycler.setAdapter(ingredientsAdapter);
 
@@ -69,6 +71,25 @@ public class FridgeFragment extends Fragment {
 
         fab.setOnClickListener(v -> {
             navController.navigate(R.id.fragment_addedit_ingredient);
+        });
+
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                viewModel.setFilter(searchBar.getText().toString());
+            }
+        });
+
+        viewModel.getFilteredFridgeIngredients().observe(getViewLifecycleOwner(), ingredients -> {
+            ingredientsAdapter.setIngredients(ingredients);
         });
     }
 }
