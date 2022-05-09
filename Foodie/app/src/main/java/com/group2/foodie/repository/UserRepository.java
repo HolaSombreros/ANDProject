@@ -73,13 +73,16 @@ public class UserRepository {
     public void logIn(String email, String password) {
         if (email == null || email.isEmpty()) {
             errorMessage.setValue("Please enter an email address");
+            errorMessage.setValue(null);
         } else if (password == null || password.isEmpty()) {
             errorMessage.setValue("Please enter a password");
+            errorMessage.setValue(null);
         } else {
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(result -> {
                         if (!result.isSuccessful()) {
                             errorMessage.setValue("Invalid email/password combination");
+                            errorMessage.setValue(null);
                         }
                     });
         }

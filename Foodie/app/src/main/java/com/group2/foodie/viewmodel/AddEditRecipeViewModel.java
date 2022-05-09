@@ -84,6 +84,7 @@ public class AddEditRecipeViewModel extends ViewModel {
     private boolean isIngredientInputValid(String name, String quantity) {
         if (name == null || name.isEmpty()) {
             errorMessage.setValue("Please specify the ingredient name");
+            errorMessage.setValue(null);
             return false;
         }
 
@@ -93,10 +94,12 @@ public class AddEditRecipeViewModel extends ViewModel {
 
                 if (intQuantity < 0) {
                     errorMessage.setValue("The ingredient quantity (if any) must be larger or equal to 0");
+                    errorMessage.setValue(null);
                     return false;
                 }
             } catch (Exception e) {
                 errorMessage.setValue("The ingredient quantity (if any) must be numeric");
+                errorMessage.setValue(null);
                 return false;
             }
         }
@@ -136,21 +139,25 @@ public class AddEditRecipeViewModel extends ViewModel {
     public boolean isValid(String name, String category, String instructions) {
         if (name == null || name.isEmpty()) {
             errorMessage.setValue("Please specify the recipe title");
+            errorMessage.setValue(null);
             return false;
         }
 
         if (category == null || category.isEmpty()) {
             errorMessage.setValue("Please specify the recipe category");
+            errorMessage.setValue(null);
             return false;
         }
 
         if (ingredients.getValue().size() < 1) {
             errorMessage.setValue("Please specify the recipe ingredients");
+            errorMessage.setValue(null);
             return false;
         }
 
         if (instructions == null || instructions.isEmpty()) {
             errorMessage.setValue("Please specify the recipe instructions");
+            errorMessage.setValue(null);
             return false;
         }
 

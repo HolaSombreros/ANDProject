@@ -43,7 +43,7 @@ public class AddEditIngredientViewModel extends ViewModel {
     }
 
     public void removeFromShoppingList(String id) {
-            shoppingListRepository.removeShoppingListIngredient(id);
+        shoppingListRepository.removeShoppingListIngredient(id);
     }
 
     public boolean addIngredient(String name, String quantity, Measurement measurement, String expirationDate) {
@@ -62,11 +62,13 @@ public class AddEditIngredientViewModel extends ViewModel {
     private boolean validate(String name, String quantity) {
         if (name == null || name.isEmpty()) {
             errorMessage.setValue("Please specify the ingredient name");
+            errorMessage.setValue(null);
             return false;
         }
 
         if (quantity == null || quantity.isEmpty()) {
-            errorMessage.setValue("Please specify the quantity name");
+            errorMessage.setValue("Please specify the quantity");
+            errorMessage.setValue(null);
             return false;
         }
 
@@ -75,10 +77,12 @@ public class AddEditIngredientViewModel extends ViewModel {
 
             if (doubleQuantity < 0) {
                 errorMessage.setValue("The ingredient quantity (if any) must be larger or equal to 0");
+                errorMessage.setValue(null);
                 return false;
             }
         } catch (Exception e) {
             errorMessage.setValue("The ingredient quantity (if any) must be numeric");
+            errorMessage.setValue(null);
             return false;
         }
         return true;
