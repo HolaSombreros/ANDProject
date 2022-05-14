@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="recipe_name"
+        android:text="@string/recipe_name"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/personal_recipe_item_picture"
         app:layout_constraintStart_toStartOf="@+id/personal_recipe_item_picture"

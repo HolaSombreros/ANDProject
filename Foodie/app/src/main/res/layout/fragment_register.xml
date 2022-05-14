@@ -16,7 +16,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center">
 
             <TextView
@@ -29,6 +29,7 @@
                 android:textColor="#4a148c"
                 android:textSize="24sp"
                 android:textStyle="bold"
+                android:fontFamily="sans-serif-smallcaps"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.501"
                 app:layout_constraintStart_toStartOf="parent"
@@ -155,6 +156,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/already_have_an_account"
                 android:textColor="#b388ff"
+                android:fontFamily="sans-serif-smallcaps"
                 android:layout_marginTop="20dp"
                 app:layout_constraintStart_toStartOf="@+id/registerButton"
                 app:layout_constraintTop_toBottomOf="@id/registerButton"

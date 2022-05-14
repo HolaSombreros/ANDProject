@@ -44,12 +44,13 @@ public class EditableIngredientsAdapter extends RecyclerView.Adapter<EditableIng
         holder.name.setText(ingredient.getName());
 
         if (ingredient.getQuantity() > 0) {
-            holder.quantity.setText(String.valueOf(ingredient.getQuantity()));
+            holder.quantity.setText(new StringBuilder().append(ingredient.getQuantity())
+                    .append(" ")
+                    .append(ingredient.getMeasurement().toString()));
         } else {
             holder.quantity.setText("");
         }
 
-        holder.measurement.setText(ingredient.getMeasurement().toString());
     }
 
     @Override
@@ -60,7 +61,6 @@ public class EditableIngredientsAdapter extends RecyclerView.Adapter<EditableIng
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView name;
         private TextView quantity;
-        private TextView measurement;
         private Button removeBtn;
 
         public ViewHolder(View itemView) {
@@ -68,7 +68,6 @@ public class EditableIngredientsAdapter extends RecyclerView.Adapter<EditableIng
 
             name = itemView.findViewById(R.id.recipe_ingredient_name);
             quantity = itemView.findViewById(R.id.recipe_ingredient_quantity);
-            measurement = itemView.findViewById(R.id.recipe_ingredient_measurement);
             removeBtn = itemView.findViewById(R.id.recipe_ingredient_removeBtn);
 
             removeBtn.setOnClickListener(v -> {

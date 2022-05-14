@@ -65,9 +65,6 @@ public class LoginFragment extends Fragment {
                     passwordInput.getText().toString());
         });
 
-        // TODO - Ask Kasper:
-        //  Error is set, but it of course is never set back to nothing and it also shows on every page load.
-        //  Find alternate way of doing this. Applies to multiple views!
         viewModel.getErrorMessage().observe(getViewLifecycleOwner(), error -> {
             Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
         });

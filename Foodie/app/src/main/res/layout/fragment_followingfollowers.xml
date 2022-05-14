@@ -16,7 +16,7 @@
 
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/followingFollwers_viewPager"
+        android:id="@+id/followingFollowers_viewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"

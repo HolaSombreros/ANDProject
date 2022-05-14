@@ -15,7 +15,8 @@
             android:id="@+id/addedit_recipe_recipeNameLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Recipe name:"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/recipe_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,7 +24,8 @@
             android:id="@+id/addedit_recipe_publicSwitch"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:text="Public"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/publicRecipe"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,10 +34,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Enter recipe title"
+            android:hint="@string/enter_recipe_title"
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:text=""
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/addedit_recipe_recipeNameLabel"
             app:layout_constraintTop_toBottomOf="@+id/addedit_recipe_publicSwitch" />
@@ -44,8 +45,9 @@
             android:id="@+id/addedit_recipe_categoryLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-smallcaps"
             android:layout_marginTop="24dp"
-            android:text="Recipe category:"
+            android:text="@string/recipe_category"
             app:layout_constraintStart_toStartOf="@id/addedit_recipe_recipeNameLabel"
             app:layout_constraintTop_toBottomOf="@id/addedit_recipeNameInput" />
 
@@ -69,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Upload"
+            android:text="@string/upload"
             app:layout_constraintEnd_toEndOf="@+id/addedit_recipe_image"
             app:layout_constraintStart_toStartOf="@+id/addedit_recipe_image"
             app:layout_constraintTop_toBottomOf="@+id/addedit_recipe_image" />
@@ -78,7 +80,8 @@
             android:id="@+id/addedit_recipe_addNewIngredientLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add a new recipe ingredient:"
+            android:text="@string/add_a_new_recipe_ingredient"
+            android:fontFamily="sans-serif-smallcaps"
             app:layout_constraintStart_toStartOf="@id/addedit_recipe_recipeNameLabel"
             app:layout_constraintTop_toBottomOf="@+id/addedit_recipe_uploadButton" />
 
@@ -88,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:minHeight="48dp"
-            android:hint="Ingredient name"
+            android:hint="@string/ingredient_name"
             android:gravity="center|left"
             android:inputType="text"
             android:textSize="16sp"
@@ -102,7 +105,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:hint="Qty"
+            android:hint="@string/qty"
             android:inputType="numberDecimal"
             android:minHeight="48dp"
             app:layout_constraintEnd_toStartOf="@id/addedit_recipe_ingredientMeasurementInput"
@@ -125,7 +128,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Add Ingredient"
+            android:text="@string/add_ingredient"
             app:layout_constraintStart_toStartOf="@id/addedit_recipe_ingredientsLabel"
             app:layout_constraintTop_toBottomOf="@id/addedit_recipe_ingredientNameInput" />
 
@@ -133,8 +136,9 @@
             android:id="@+id/addedit_recipe_ingredientsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-smallcaps"
             android:layout_marginTop="16dp"
-            android:text="Recipe ingredients:"
+            android:text="@string/recipe_ingredients"
             app:layout_constraintStart_toStartOf="@id/addedit_recipe_recipeNameLabel"
             app:layout_constraintTop_toBottomOf="@id/addedit_recipe_addIngredientButton" />
 
@@ -152,7 +156,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Step-by-step instructions:"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/step_by_step_instructions"
             app:layout_constraintStart_toStartOf="@id/addedit_recipe_recipeNameLabel"
             app:layout_constraintTop_toBottomOf="@id/addedit_recipe_ingredientsRecyclerView" />
 
@@ -161,7 +166,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Enter step-by-step instructions"
+            android:hint="@string/enter_step_by_step_instructions"
             android:inputType="textMultiLine"
             android:minHeight="48dp"
             android:text=""
@@ -173,12 +178,10 @@
             android:id="@+id/addedit_recipe_saveButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Save"
+            android:text="@string/save"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/addedit_recipe_instructionsInput" />
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
