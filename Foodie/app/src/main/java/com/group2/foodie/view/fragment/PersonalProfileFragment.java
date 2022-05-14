@@ -65,7 +65,7 @@ public class PersonalProfileFragment extends Fragment {
         viewModel = new ViewModelProvider(getActivity()).get(PersonalProfileViewModel.class);
         viewModel.init();
         initializeViews(view);
-        setupViews(view);
+        setupViews();
     }
 
     private void initializeViews(View view) {
@@ -83,7 +83,7 @@ public class PersonalProfileFragment extends Fragment {
         editBtn = view.findViewById(R.id.editPersonalProfile);
     }
 
-    private void setupViews(View view) {
+    private void setupViews() {
             viewModel.getUser().observe(getViewLifecycleOwner(), user -> {
                 username.setText(user.getUsername());
                 password.setText(user.getPassword());
