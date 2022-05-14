@@ -13,7 +13,7 @@
         android:padding="8dp">
 
         <EditText
-            android:id="@+id/recipes_searchText"
+            android:id="@+id/recipes_searchText_user"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:ems="10"
@@ -25,14 +25,14 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recipes_recycleView"
+            android:id="@+id/recipes_recycleView_user"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recipes_searchText" />
+            app:layout_constraintTop_toBottomOf="@+id/recipes_searchText_user" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

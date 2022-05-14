@@ -19,10 +19,9 @@ import java.util.List;
 public class PersonalRecipesLiveData extends LiveData<List<Recipe>> {
     private final DatabaseReference dbRef;
 
-    public PersonalRecipesLiveData(DatabaseReference dbRef) {
+    public PersonalRecipesLiveData(DatabaseReference dbRef, String uid) {
         setValue(new ArrayList<>());
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        this.dbRef = dbRef.child("personalrecipes").child(userId);
+        this.dbRef = dbRef.child("personalrecipes").child(uid);
     }
 
     private final ChildEventListener childEventListener = new ChildEventListener() {

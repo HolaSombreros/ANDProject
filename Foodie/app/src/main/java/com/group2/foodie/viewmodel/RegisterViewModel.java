@@ -16,7 +16,6 @@ public class RegisterViewModel extends ViewModel {
         repository.addUser(new User(username, email, password));
     }
 
-    //TODO: validate all fields
     public boolean validatePassword(String password, String repeatedPassword){
         return password.trim().equals(repeatedPassword.trim());
     }

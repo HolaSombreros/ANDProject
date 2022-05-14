@@ -59,7 +59,7 @@ public class RecipeRepository {
     }
 
     public void init() {
-        personalRecipes = new PersonalRecipesLiveData(dbRef);
+        personalRecipes = new PersonalRecipesLiveData(dbRef, FirebaseAuth.getInstance().getUid());
         publicRecipes = new PublicRecipesLiveData(dbRef);
         categories = new CategoriesLiveData(dbRef);
     }
@@ -112,5 +112,9 @@ public class RecipeRepository {
         } else {
             dbRef.child("favorites").child(FirebaseAuth.getInstance().getUid()).child(recipeId).setValue(true);
         }
+    }
+
+    public PersonalRecipesLiveData getPersonalRecipesByUserId(String uid){
+        return new PersonalRecipesLiveData(dbRef, uid);
     }
 }

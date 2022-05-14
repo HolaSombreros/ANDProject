@@ -48,8 +48,8 @@ public class RecipesFragment extends Fragment {
 
     private void initializeViews(View view) {
         navController = Navigation.findNavController(view);
-        recipesRecycler = view.findViewById(R.id.recipes_recycleView);
-        searchBar = view.findViewById(R.id.recipes_searchText);
+        recipesRecycler = view.findViewById(R.id.recipes_recycleView_user);
+        searchBar = view.findViewById(R.id.recipes_searchText_user);
         fab = view.findViewById(R.id.personalRecipes_fab);
     }
 

@@ -58,9 +58,9 @@ public class MyFollowersFragment extends Fragment {
 
         adapter.setOnClickListener(user -> {
 //            TODO - Navigate to user's profile
-//            Bundle bundle = new Bundle();
-//            bundle.putString("profileId", user.getId());
-//            navController.navigate(R.id.fragment_personal_profile, bundle);
+            Bundle bundle = new Bundle();
+            bundle.putString("profileId", user.getId());
+            navController.navigate(R.id.fragment_user_profile, bundle);
         });
 
         adapter.setOnRemoveListener(user -> {

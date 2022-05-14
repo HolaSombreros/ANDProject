@@ -17,7 +17,6 @@ public class User {
     private List<User> following;
     private List<Ingredient> ingredients;
     private Fridge fridge;
-    private int profilePictureId;
 
     public User() {
         recipes = new ArrayList<>();
@@ -39,18 +38,6 @@ public class User {
         this.fridge = fridge;
     }
 
-    public User(String username, String email, String password, int profilePictureId) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.recipes = new ArrayList<>();
-        this.favoriteRecipes = new ArrayList<>();
-        this.followers = new ArrayList<>();
-        this.following = new ArrayList<>();
-        this.ingredients = new ArrayList<>();
-        this.fridge = new Fridge(ingredients);
-        this.profilePictureId = profilePictureId;
-    }
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
@@ -61,7 +48,6 @@ public class User {
         this.following = new ArrayList<>();
         this.ingredients = new ArrayList<>();
         this.fridge = new Fridge(ingredients);
-        profilePictureId = 0;
     }
 
     public String getId() {
@@ -144,14 +130,6 @@ public class User {
         this.fridge = fridge;
     }
 
-    public int getProfilePictureId() {
-        return profilePictureId;
-    }
-
-    public void setProfilePictureId(int profilePictureId) {
-        this.profilePictureId = profilePictureId;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -164,7 +142,6 @@ public class User {
                 ", following=" + following +
                 ", ingredients=" + ingredients +
                 ", fridge=" + fridge +
-                ", profilePictureId=" + profilePictureId +
                 '}';
     }
 

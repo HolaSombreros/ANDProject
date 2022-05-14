@@ -1,6 +1,7 @@
 package com.group2.foodie.repository;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -89,7 +90,9 @@ public class UserRepository {
     }
 
     public UploadTask uploadUserImage(Bitmap bitmap, String path){
+        Log.e("profile picture", "Before the storage ref");
         StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/users/" + path);
+        Log.e("profile picture", "After storage ref");
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();

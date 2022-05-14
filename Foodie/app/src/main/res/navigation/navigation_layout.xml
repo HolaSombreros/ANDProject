@@ -123,6 +123,10 @@
         android:name="com.group2.foodie.view.fragment.MapsFragment"
         android:label="Local stores" />
     <fragment
+        android:id="@+id/fragment_user_profile"
+        android:name="com.group2.foodie.view.fragment.UserProfileFragment"
+        tools:layout="@layout/fragment_user_profile"/>
+    <fragment
         android:id="@+id/fragment_favouriteRecipes"
         android:name="com.group2.foodie.view.fragment.FavouriteRecipeFragment"
         android:label="Favourite Recipes"

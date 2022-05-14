@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,14 +26,18 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.group2.foodie.R;
 
 import com.group2.foodie.util.GlideApp;
 import com.group2.foodie.viewmodel.PersonalProfileViewModel;
+import com.squareup.picasso.Picasso;
 
 
 public class PersonalProfileFragment extends Fragment {
@@ -78,17 +83,14 @@ public class PersonalProfileFragment extends Fragment {
         editBtn = view.findViewById(R.id.editPersonalProfile);
     }
 
-    //TODO: edit profile
     private void setupViews(View view) {
-        viewModel.getUser().observe(getViewLifecycleOwner(), user -> {
-            username.setText(user.getUsername());
-            password.setText(user.getPassword());
-            email.setText(user.getEmail());
-
-            StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/users/" + user.getId());
-            GlideApp.with(view).load(storageRef).into(profilePicture);
-        });
-
+            viewModel.getUser().observe(getViewLifecycleOwner(), user -> {
+                username.setText(user.getUsername());
+                password.setText(user.getPassword());
+                email.setText(user.getEmail());
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/users/" + user.getEmail());
+                GlideApp.with(this).load(storageRef).diskCacheStrategy(DiskCacheStrategy.NONE).into(profilePicture);
+            });
         viewModel.getMyFollowing().observe(getViewLifecycleOwner(), following -> {
             followingTextLabel.setText(new StringBuilder().append("Following: ").append(following.size()));
         });
@@ -108,7 +110,6 @@ public class PersonalProfileFragment extends Fragment {
         recipeLayout.setOnClickListener(n->{
             Bundle bundle = new Bundle();
             bundle.putString("recipeType", "personal");
-
             navController.navigate(R.id.fragment_recipes, bundle);
         });
 
@@ -128,7 +129,7 @@ public class PersonalProfileFragment extends Fragment {
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getData() != null) {
                 Uri image = result.getData().getData();
-                this.profilePicture.setImageURI(image);
+                Picasso.get().load(image).into(profilePicture);
             }
         });
 
@@ -143,22 +144,15 @@ public class PersonalProfileFragment extends Fragment {
 
         //editing personal profile details
         editBtn.setOnClickListener(v ->{
-            if(getArguments() != null){
-                if(viewModel.editUser(username.getText().toString(), email.getText().toString(),
-                        password.getText().toString())){
-                    if(profilePicture.getDrawable() != null){
-                        Bitmap bitmap = ((BitmapDrawable)profilePicture.getDrawable()).getBitmap();
-                        viewModel.uploadUserImage(bitmap,viewModel.getUser().getValue().getId()).addOnCompleteListener(listener ->{
-                            Toast.makeText(getActivity(), "Details Saved successfully", Toast.LENGTH_SHORT).show();
-                            navController.popBackStack();
-                        });
-                    }
-                    else{
-                        Toast.makeText(getActivity(), "Details Saved successfully", Toast.LENGTH_SHORT).show();
-                        navController.popBackStack();
-                    }
-                }
+            viewModel.editUser(username.getText().toString(), email.getText().toString(), password.getText().toString());
+            if(profilePicture.getDrawable()!= null) {
+                Bitmap bitmap = ((BitmapDrawable) profilePicture.getDrawable()).getBitmap();
+                viewModel.uploadUserImage(bitmap, viewModel.getUser().getValue().getEmail()).addOnCompleteListener(listener -> {
+                    Toast.makeText(getActivity(), "Details Saved successfully", Toast.LENGTH_SHORT).show();
+                });
             }
+            else
+                Toast.makeText(getActivity(), "Details Saved successfully without picture", Toast.LENGTH_SHORT).show();
         });
 
         viewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMessage -> {

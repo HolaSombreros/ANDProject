@@ -1,6 +1,7 @@
 package com.group2.foodie.viewmodel;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -73,6 +74,7 @@ public class PersonalProfileViewModel extends ViewModel {
     }
 
     public UploadTask uploadUserImage(Bitmap bitmap, String path){
+        Log.e("profile pic", "view model");
         return userRepository.uploadUserImage(bitmap, path);
     }
 
