@@ -1,12 +1,22 @@
 package com.group2.foodie.view.fragment;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -17,6 +27,7 @@ import androidx.navigation.Navigation;
 import com.google.android.material.textfield.TextInputEditText;
 import com.group2.foodie.R;
 import com.group2.foodie.viewmodel.RegisterViewModel;
+import com.squareup.picasso.Picasso;
 
 public class RegisterFragment extends Fragment {
 
@@ -56,10 +67,13 @@ public class RegisterFragment extends Fragment {
     }
 
     private void setUpViews() {
+
         registerButton.setOnClickListener(view -> {
             if (viewModel.validatePassword(passwordInput.getText().toString(), repeatPasswordInput.getText().toString())) {
                 try {
                     viewModel.register(usernameInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString());
+                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_app_launcher);
+                    viewModel.uploadUserImage(bitmap, emailInput.getText().toString());
                     navController.navigate(R.id.fragment_login);
                 }
                 catch (Exception e){
@@ -71,7 +85,6 @@ public class RegisterFragment extends Fragment {
         signIn.setOnClickListener(v -> {
             navController.navigate(R.id.fragment_login);
         });
-
     }
 
     @Override

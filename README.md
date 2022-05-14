@@ -24,17 +24,18 @@
 - [x] 15. As a user, I want to remove ingredients from my shopping list, so that I can keep my shopping list up-to-date
 - [x] 17. As a user, I want to view the recipe of the day, so that I can get inspired
 - [x] 28. As a user, I want to view my account's details, so that I can keep track of the information displayed
-- [ ] 29. As a user, I want to edit the details of my account, so that the information stored is up to date
+- [x] 29. As a user, I want to edit the details of my account, so that the information stored is up to date
 - [ ] 30. As a user, I want to view another users's profile, so that I can have an overview of their public account
+- [x] 32. As a user, I want to view a list of my favourite recipes, so that I can easily find what to cook
 
 #### **Low**
-- [ ] 16. As a user, I want to specify which ingredients I purchased, so that the ingredients will be automatically added to my virtual fridge
+- [x] 16. As a user, I want to specify which ingredients I purchased, so that the ingredients will be automatically added to my virtual fridge
 - [x] 18. As a user, I want to add ingredients to my virtual fridge, so that I can keep track of the ingredients I own
 - [x] 19. As a user, I want to edit ingredients from my virtual fridge, so that I can keep track of the ingredients I own
 - [x] 20. As a user, I want to remove ingredients from my virtual fridge, so that I can update the ingredients based on my usage
 - [ ] 21. As a user, I want to receive a notification when an ingredient in my virtual fridge is about to expire, so that I can prioritise the food that I am about to eat
-- [ ] 22. As a user, I want to favourite a recipe, so that I can find preferred recipes faster and more easily
-- [ ] 23. As a user, I want to unfavourite a recipe, so that I can keep track of my beloved recipes
+- [x] 22. As a user, I want to favourite a recipe, so that I can find preferred recipes faster and more easily
+- [x] 23. As a user, I want to unfavourite a recipe, so that I can keep track of my beloved recipes
 - [ ] 24. As a user, I want to filter recipes based on category, so that I can easily find what I am looking for
 - [ ] 25. As a user, I want to be able to filter recipes based on what I have in my virtual fridge, so that I can see only the recipes that I am able to make
 - [ ] 26. As a user, I want to mark a recipe as done, so that its ingredients will be automatically removed from my virtual fridge
