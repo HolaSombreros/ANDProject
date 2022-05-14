@@ -12,6 +12,13 @@ public class Follower {
 
     }
 
+    public Follower(String id, String username, String email, boolean isFollowed) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.isFollowed = isFollowed;
+    }
+
     public String getId() {
         return id;
     }

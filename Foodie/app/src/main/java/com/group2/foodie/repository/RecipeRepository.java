@@ -11,6 +11,7 @@ import com.google.firebase.storage.UploadTask;
 import com.group2.foodie.livedata.CategoriesLiveData;
 import com.group2.foodie.livedata.FavoriteLiveData;
 import com.group2.foodie.livedata.PersonalRecipesLiveData;
+import com.group2.foodie.livedata.PublicPersonalRecipesLiveData;
 import com.group2.foodie.livedata.PublicRecipesLiveData;
 import com.group2.foodie.livedata.SpecificRecipeLiveData;
 import com.group2.foodie.model.Recipe;
@@ -25,6 +26,7 @@ public class RecipeRepository {
     private PublicRecipesLiveData publicRecipes;
     private SpecificRecipeLiveData specificRecipe;
     private FavoriteLiveData favorite;
+    private PublicPersonalRecipesLiveData publicPersonalRecipes;
 
     private RecipeRepository() {
         dbRef = FirebaseDatabase.getInstance().getReference();
@@ -58,6 +60,10 @@ public class RecipeRepository {
         return categories;
     }
 
+    public PublicPersonalRecipesLiveData getPublicPersonalRecipes() {
+        return publicPersonalRecipes;
+    }
+
     public void init() {
         personalRecipes = new PersonalRecipesLiveData(dbRef, FirebaseAuth.getInstance().getUid());
         publicRecipes = new PublicRecipesLiveData(dbRef);
@@ -68,6 +74,10 @@ public class RecipeRepository {
         specificRecipe = new SpecificRecipeLiveData(dbRef, publisherId, recipeId);
         categories = new CategoriesLiveData(dbRef);
         favorite = new FavoriteLiveData(dbRef, recipeId);
+    }
+
+    public void init(String uid){
+        publicPersonalRecipes = new PublicPersonalRecipesLiveData(dbRef, uid);
     }
 
     public UploadTask uploadRecipeImage(Bitmap bitmap, String path) {
@@ -114,7 +124,4 @@ public class RecipeRepository {
         }
     }
 
-    public PersonalRecipesLiveData getPersonalRecipesByUserId(String uid){
-        return new PersonalRecipesLiveData(dbRef, uid);
-    }
 }

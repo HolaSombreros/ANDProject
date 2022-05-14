@@ -26,7 +26,6 @@ public class MyFollowersRepository {
         if (instance == null) {
             instance = new MyFollowersRepository();
         }
-
         return instance;
     }
 
