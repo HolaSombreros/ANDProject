@@ -30,7 +30,7 @@ public class FollowingFollowersFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         tabLayout = view.findViewById(R.id.followingFollowers_tabLayout);
-        viewPager = view.findViewById(R.id.followingFollwers_viewPager);
+        viewPager = view.findViewById(R.id.followingFollowers_viewPager);
 
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new MyFollowersFragment());

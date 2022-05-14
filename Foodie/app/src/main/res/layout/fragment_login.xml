@@ -23,6 +23,7 @@
                 android:id="@+id/login_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-smallcaps"
                 android:text="@string/welcome_to_foodie"
                 android:textColor="#4a148c"
                 android:textSize="30sp"
@@ -91,10 +92,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/login_passwordContainer" />
 
             <TextView
-                android:id="@+id/login_dontHaveAnAccountText"
+                android:id="@+id/login_dontHaveAnAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="64dp"
+                android:fontFamily="sans-serif-smallcaps"
                 android:text="@string/don_t_have_account"
                 android:textColor="#b388ff"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -107,11 +109,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/create_a_new_account"
+                android:fontFamily="sans-serif-smallcaps"
                 android:textColor="#7B1FA2"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/login_dontHaveAnAccountText" />
+                app:layout_constraintTop_toBottomOf="@+id/login_dontHaveAnAccount" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

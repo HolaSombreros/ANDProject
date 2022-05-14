@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             if (user == null) {
                 navController.navigate(R.id.fragment_login);
             } else {
-                StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/users/" + user.getUid() + ".jpg");
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/users/" + user.getEmail());
                 GlideApp.with(this).load(storageRef).into(image);
                 username.setText(user.getDisplayName());
                 email.setText(user.getEmail());

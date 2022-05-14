@@ -3,7 +3,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp">
@@ -13,10 +12,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:text="Ingredient name"
+        android:text="@string/ingredient_name"
         android:textSize="16sp"
         android:textColor="?attr/colorPrimary"
-        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@id/view_recipe_ingredient_quantity"
@@ -26,27 +24,15 @@
         android:id="@+id/view_recipe_ingredient_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:gravity="end"
-        android:text="100"
-        android:textSize="16sp"
+        android:text="@string/quantity"
         android:textColor="?attr/colorPrimary"
-        app:layout_constraintStart_toEndOf="@id/view_recipe_ingredient_name"
-        app:layout_constraintTop_toTopOf="@id/view_recipe_ingredient_name"
-        app:layout_constraintEnd_toStartOf="@id/view_recipe_ingredient_measurement"
-        app:layout_constraintBottom_toBottomOf="@id/view_recipe_ingredient_name"
-        android:layout_marginStart="16dp"/>
-
-    <TextView
-        android:id="@+id/view_recipe_ingredient_measurement"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:gravity="end"
-        android:text="g"
         android:textSize="16sp"
-        android:textColor="?attr/colorPrimary"
         app:layout_constraintBottom_toBottomOf="@id/view_recipe_ingredient_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/view_recipe_ingredient_quantity"
+        app:layout_constraintStart_toEndOf="@id/view_recipe_ingredient_name"
         app:layout_constraintTop_toTopOf="@id/view_recipe_ingredient_name" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

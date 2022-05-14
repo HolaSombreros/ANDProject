@@ -2,33 +2,21 @@ package com.group2.foodie.view.fragment;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 import com.group2.foodie.R;
-import com.group2.foodie.adapter.ViewPagerAdapter;
-import com.group2.foodie.dailyrecipe.DailyRecipe;
 import com.group2.foodie.dailyrecipe.ExtendedIngredientsAdapter;
-import com.group2.foodie.list.ViewIngredientsAdapter;
-import com.group2.foodie.model.Recipe;
 import com.group2.foodie.viewmodel.DailyRecipeViewModel;
 
 public class DailyRecipeFragment extends Fragment {

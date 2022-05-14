@@ -48,11 +48,11 @@ public class ViewIngredientsAdapter extends RecyclerView.Adapter<ViewIngredients
         }
 
         if (ingredient.getQuantity() > 0)
-            holder.quantity.setText(String.valueOf(ingredient.getQuantity()));
+            holder.quantity.setText(new StringBuilder().append((ingredient.getQuantity()))
+                    .append(" ")
+                    .append(ingredient.getMeasurement().toString()));
         else
             holder.quantity.setText("");
-
-        holder.measurement.setText(ingredient.getMeasurement().toString());
     }
 
     @Override
@@ -71,14 +71,12 @@ public class ViewIngredientsAdapter extends RecyclerView.Adapter<ViewIngredients
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView name;
         private TextView quantity;
-        private TextView measurement;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             name = itemView.findViewById(R.id.view_recipe_ingredient_name);
             quantity = itemView.findViewById(R.id.view_recipe_ingredient_quantity);
-            measurement = itemView.findViewById(R.id.view_recipe_ingredient_measurement);
 
             itemView.setOnClickListener(v -> {
                 if (listener != null)
