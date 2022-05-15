@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.group2.foodie.R;
@@ -65,7 +66,11 @@ public class MyFollowersAdapter extends RecyclerView.Adapter<MyFollowersAdapter.
         Follower follower = followers.get(position);
 
         StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/users/" + follower.getEmail());
-        GlideApp.with(viewHolder.itemView).load(storageRef).into(viewHolder.image);
+        GlideApp.with(viewHolder.itemView)
+                .load(storageRef)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(viewHolder.image);
         viewHolder.username.setText(follower.getUsername());
         viewHolder.handle.setText(follower.getEmail());
 

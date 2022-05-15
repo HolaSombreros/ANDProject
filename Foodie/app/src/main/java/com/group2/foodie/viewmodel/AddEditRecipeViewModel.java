@@ -43,6 +43,10 @@ public class AddEditRecipeViewModel extends ViewModel {
         userRepository.initCurrentUser();
     }
 
+    public void removeIngredients() {
+        ingredients.setValue(new ArrayList<>());
+    }
+
     public LiveData<User> getCurrentUser() {
         return userRepository.getCurrentUser();
     }

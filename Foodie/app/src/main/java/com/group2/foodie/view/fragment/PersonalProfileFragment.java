@@ -84,13 +84,21 @@ public class PersonalProfileFragment extends Fragment {
     }
 
     private void setupViews() {
-            viewModel.getUser().observe(getViewLifecycleOwner(), user -> {
-                username.setText(user.getUsername());
-                password.setText(user.getPassword());
-                email.setText(user.getEmail());
+        viewModel.getUser().observe(getViewLifecycleOwner(), user -> {
+            username.setText(user.getUsername());
+            password.setText(user.getPassword());
+            email.setText(user.getEmail());
+
+            if (profilePicture.getDrawable() == null) {
                 StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/users/" + user.getEmail());
-                GlideApp.with(this).load(storageRef).diskCacheStrategy(DiskCacheStrategy.NONE).into(profilePicture);
-            });
+                GlideApp.with(this)
+                        .load(storageRef)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
+                        .into(profilePicture);
+            }
+        });
+
         viewModel.getMyFollowing().observe(getViewLifecycleOwner(), following -> {
             followingTextLabel.setText(new StringBuilder().append("Following: ").append(following.size()));
         });
@@ -125,11 +133,10 @@ public class PersonalProfileFragment extends Fragment {
             navController.navigate(R.id.fragment_followingfollowers);
         });
 
-        //edit profile picture
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getData() != null) {
                 Uri image = result.getData().getData();
-                Picasso.get().load(image).into(profilePicture);
+                profilePicture.setImageURI(image);
             }
         });
 
@@ -142,7 +149,6 @@ public class PersonalProfileFragment extends Fragment {
             activityResultLauncher.launch(intent);
         });
 
-        //editing personal profile details
         editBtn.setOnClickListener(v ->{
             viewModel.editUser(username.getText().toString(), email.getText().toString(), password.getText().toString());
             if(profilePicture.getDrawable()!= null) {

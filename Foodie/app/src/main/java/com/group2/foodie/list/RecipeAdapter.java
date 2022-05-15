@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.group2.foodie.R;
@@ -43,7 +44,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     public void onBindViewHolder(@NonNull RecipeAdapter.ViewHolder viewHolder, int position) {
         String id = recipes.get(position).getId();
         StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/recipes/" + id);
-        GlideApp.with(viewHolder.itemView).load(storageRef).into(viewHolder.image);
+        GlideApp.with(viewHolder.itemView)
+                .load(storageRef)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(viewHolder.image);
         viewHolder.recipeName.setText(recipes.get(position).getName());
     }
 

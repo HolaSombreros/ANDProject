@@ -1,5 +1,7 @@
 package com.group2.foodie.livedata;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,25 +17,42 @@ import java.util.List;
 public class FavouriteRecipeLiveData extends LiveData<List<Recipe>> {
     private DatabaseReference recipesDbRef;
     private DatabaseReference favouritesRef;
+    private DatabaseReference publicDbRef;
 
     public FavouriteRecipeLiveData(DatabaseReference dbRef) {
         this.favouritesRef = dbRef.child("favorites")
                 .child(FirebaseAuth.getInstance().getUid());
-        this.recipesDbRef = dbRef.child("publicrecipes");
+        this.recipesDbRef = dbRef.child("personalrecipes").child(FirebaseAuth.getInstance().getUid());
+        this.publicDbRef = dbRef.child("publicrecipes");
         setValue(new ArrayList<>());
     }
     private ChildEventListener favouritesListener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
-            String uid = snapshot.getKey();
-            recipesDbRef.child(uid).get().addOnCompleteListener(task -> {
-                Recipe recipe = task.getResult().getValue(Recipe.class);
-                recipe.setId(uid);
-                recipe.setFavorite(true);
-                List<Recipe> recipes = getValue();
-                if(!recipes.contains(recipe))
-                    recipes.add(recipe);
-                setValue(recipes);
+            String recipeId = snapshot.getKey();
+
+            recipesDbRef.child(recipeId).get().addOnCompleteListener(task -> {
+                if (task.getResult().exists()) {
+                    DataSnapshot data = task.getResult();
+                    Recipe recipe = data.getValue(Recipe.class);
+                    recipe.setId(data.getKey());
+                    recipe.setFavorite(true);
+                    List<Recipe> recipes = getValue();
+                    if (!recipes.contains(recipe))
+                        recipes.add(recipe);
+                    setValue(recipes);
+                } else {
+                    publicDbRef.child(task.getResult().getKey()).get().addOnCompleteListener(result -> {
+                        DataSnapshot data = result.getResult();
+                        Recipe recipe = data.getValue(Recipe.class);
+                        recipe.setId(data.getKey());
+                        recipe.setFavorite(true);
+                        List<Recipe> recipes = getValue();
+                        if (!recipes.contains(recipe))
+                            recipes.add(recipe);
+                        setValue(recipes);
+                    });
+                }
             });
         }
 
@@ -44,18 +63,16 @@ public class FavouriteRecipeLiveData extends LiveData<List<Recipe>> {
         @Override
         public void onChildRemoved(DataSnapshot snapshot) {
             String uid = snapshot.getKey();
-            recipesDbRef.child(uid).get().addOnCompleteListener(task -> {
-                Recipe recipe = task.getResult().getValue(Recipe.class);
-                recipe.setId(uid);
-                List<Recipe> favourite = getValue();
-                for (int i = 0; i < favourite.size(); i++) {
-                    if (favourite.get(i).getId().equals(uid)) {
-                        favourite.remove(i);
-                        break;
-                    }
+
+            List<Recipe> recipes = getValue();
+            for (int i = 0; i < recipes.size(); i++) {
+                if (recipes.get(i).getId().equals(uid)) {
+                    recipes.remove(i);
+                    break;
                 }
-                setValue(favourite);
-            });
+            }
+
+            setValue(recipes);
         }
 
         @Override

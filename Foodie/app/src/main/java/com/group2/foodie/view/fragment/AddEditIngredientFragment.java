@@ -2,6 +2,7 @@ package com.group2.foodie.view.fragment;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,8 @@ public class AddEditIngredientFragment extends Fragment {
 
         } else {
             viewModel.init("");
+            viewModel.setDate(Util.getCurrentLocalDate(LocalDate.now()));
+            Log.i("foodieappie", viewModel.getDate());
         }
         setupViews();
     }

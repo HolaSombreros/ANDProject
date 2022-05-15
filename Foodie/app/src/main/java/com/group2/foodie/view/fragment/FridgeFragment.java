@@ -56,10 +56,9 @@ public class FridgeFragment extends Fragment {
         ingredientsRecycler.hasFixedSize();
         ingredientsRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        // TODO - List looks empty on first load; have to access the searchbar first
         ingredientsAdapter = new ViewIngredientsAdapter();
         viewModel.getFridgeIngredients().observe(getViewLifecycleOwner(), ingredients -> {
-            viewModel.filterByIngredientName("");
+            viewModel.setFilter("");
         });
         ingredientsRecycler.setAdapter(ingredientsAdapter);
 

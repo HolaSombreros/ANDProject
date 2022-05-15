@@ -69,6 +69,14 @@ public class UserRepository {
     public void updateUser(User user) {
         String userId = FirebaseAuth.getInstance().getUid();
         dbRef.child("users").child(userId).setValue(user);
+
+        UserProfileChangeRequest request = new UserProfileChangeRequest.Builder()
+                .setDisplayName(user.getUsername())
+                .build();
+
+        currentFirebaseUser.getValue().updateProfile(request);
+        currentFirebaseUser.getValue().updateEmail(user.getEmail());
+        currentFirebaseUser.getValue().updatePassword(user.getPassword());
     }
 
     public void logIn(String email, String password) {

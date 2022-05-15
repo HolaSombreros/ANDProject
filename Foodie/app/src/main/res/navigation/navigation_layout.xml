@@ -125,6 +125,7 @@
     <fragment
         android:id="@+id/fragment_user_profile"
         android:name="com.group2.foodie.view.fragment.UserProfileFragment"
+        android:label="Public Profile"
         tools:layout="@layout/fragment_user_profile"/>
     <fragment
         android:id="@+id/fragment_favouriteRecipes"

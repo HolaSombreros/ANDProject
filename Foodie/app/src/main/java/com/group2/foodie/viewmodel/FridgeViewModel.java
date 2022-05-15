@@ -1,5 +1,7 @@
 package com.group2.foodie.viewmodel;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -39,6 +41,7 @@ public class FridgeViewModel extends ViewModel {
     public LiveData<List<Ingredient>> filterByIngredientName(String name) {
         List<Ingredient> ingredients = new ArrayList<>();
 
+        Log.i("foodieappie", "Name empty? " + name.isEmpty());
         if (name == null || name.isEmpty()) {
             return repository.getFridgeIngredients();
         } else {

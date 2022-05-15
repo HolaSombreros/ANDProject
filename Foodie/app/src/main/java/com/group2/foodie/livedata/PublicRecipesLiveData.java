@@ -35,10 +35,11 @@ public class PublicRecipesLiveData extends LiveData<List<Recipe>> {
         @Override
         public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
             Recipe updated = snapshot.getValue(Recipe.class);
+            updated.setId(snapshot.getKey());
             List<Recipe> allRecipes = getValue();
 
             for (int i = 0; i < allRecipes.size(); i++) {
-                if (allRecipes.get(i).getId().equals(snapshot.getKey())) {
+                if (allRecipes.get(i).getId().equals(updated.getId())) {
                     allRecipes.set(i, updated);
                     break;
                 }
@@ -50,6 +51,7 @@ public class PublicRecipesLiveData extends LiveData<List<Recipe>> {
         @Override
         public void onChildRemoved(@NonNull DataSnapshot snapshot) {
             Recipe recipe = snapshot.getValue(Recipe.class);
+            recipe.setId(snapshot.getKey());
             List<Recipe> allRecipes = getValue();
             allRecipes.remove(recipe);
             setValue(allRecipes);

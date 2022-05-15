@@ -26,6 +26,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.group2.foodie.R;
@@ -111,14 +112,22 @@ public class AddEditRecipeFragment extends Fragment {
         recipeCategoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         recipeCategoryInput.setAdapter(recipeCategoryAdapter);
 
+        viewModel.removeIngredients();
         if (getArguments() != null) {
             viewModel.getRecipe().observe(getViewLifecycleOwner(), recipe -> {
                 recipeNameInput.setText(recipe.getName());
                 publicSwitch.setChecked(recipe.isPublic());
                 recipeCategoryInput.setSelection(viewModel.getRecipeCategories().getValue().indexOf(recipe.getCategory()));
                 recipeInstructionsInput.setText(recipe.getInstructions());
-                StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/recipes/" + recipe.getId());
-                GlideApp.with(this).load(storageRef).into(image);
+
+                if (image.getDrawable() == null) {
+                    StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/recipes/" + recipe.getId());
+                    GlideApp.with(this)
+                            .load(storageRef)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .skipMemoryCache(true)
+                            .into(image);
+                }
 
                 for (Ingredient ingredient : recipe.getIngredients()) {
                     viewModel.addNewIngredient(ingredient.getName(),
@@ -137,6 +146,8 @@ public class AddEditRecipeFragment extends Fragment {
                 Uri image = result.getData().getData();
                 this.image.setImageURI(image);
             }
+
+            viewModel.removeIngredients();
         });
 
         image.setDrawingCacheEnabled(true);
@@ -204,20 +215,15 @@ public class AddEditRecipeFragment extends Fragment {
 
                 if (image.getDrawable() != null) {
                     Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
-                    viewModel.uploadRecipeImage(bitmap, recipeId);
+                    viewModel.uploadRecipeImage(bitmap, recipeId).addOnCompleteListener(listener -> {
+                        Toast.makeText(getActivity(), "Recipe \"" + recipeNameInput.getText().toString() + "\" created!", Toast.LENGTH_SHORT).show();
+                        navController.popBackStack();
+                    });
+                } else {
+                    Toast.makeText(getActivity(), "Recipe \"" + recipeNameInput.getText().toString() + "\" created!", Toast.LENGTH_SHORT).show();
+                    navController.popBackStack();
                 }
-
-                Toast.makeText(getActivity(), "Recipe \"" + recipeNameInput.getText().toString() +
-                        "\" created!", Toast.LENGTH_SHORT).show();
-                navController.popBackStack();
             }
         });
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        viewModel.reset();
     }
 }

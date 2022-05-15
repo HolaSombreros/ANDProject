@@ -22,6 +22,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.group2.foodie.R;
@@ -68,12 +70,23 @@ public class UserProfileFragment extends Fragment {
         viewModel.getUser().observe(getViewLifecycleOwner(), user -> {
             username.setText(user.getUsername());
             StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/users/" + user.getEmail());
-            GlideApp.with(view).load(storageRef).into(profilePicture);
+            GlideApp.with(view)
+                    .load(storageRef)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(profilePicture);
+
             isFollowing();
             if(!follower.isFollowed()){
                 follower.setEmail(user.getEmail());
                 follower.setId(viewModel.getUid());
                 follower.setUsername(user.getUsername());
+            }
+
+            if (user.getId().equals(FirebaseAuth.getInstance().getUid())) {
+                follow.setVisibility(View.GONE);
+            } else {
+                follow.setVisibility(View.VISIBLE);
             }
         });
         viewModel.following().observe(getViewLifecycleOwner(), v->{

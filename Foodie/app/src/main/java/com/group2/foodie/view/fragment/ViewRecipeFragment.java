@@ -18,6 +18,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.group2.foodie.R;
@@ -89,7 +90,11 @@ public class ViewRecipeFragment extends Fragment {
                     favoriteImage.setImageResource(R.drawable.ic_empty_heart);
             });
             StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/recipes/" + recipe.getId());
-            GlideApp.with(this).load(storageRef).into(foodImage);
+            GlideApp.with(this)
+                    .load(storageRef)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(foodImage);
 
             if (!recipe.getPublisherId().equals(viewModel.getCurrentUser().getValue().getUid())) {
                 editButton.setVisibility(View.INVISIBLE);

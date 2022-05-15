@@ -21,6 +21,7 @@ public class UserLiveData extends LiveData<User> {
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
             User user = snapshot.getValue(User.class);
+            user.setId(snapshot.getKey());
             setValue(user);
         }
 

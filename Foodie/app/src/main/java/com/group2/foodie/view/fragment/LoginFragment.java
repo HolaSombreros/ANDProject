@@ -66,7 +66,9 @@ public class LoginFragment extends Fragment {
         });
 
         viewModel.getErrorMessage().observe(getViewLifecycleOwner(), error -> {
-            Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+            if (error != null) {
+                Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+            }
         });
 
         registerButton.setOnClickListener(v ->{
