@@ -25,7 +25,7 @@
 - [x] 17. As a user, I want to view the recipe of the day, so that I can get inspired
 - [x] 28. As a user, I want to view my account's details, so that I can keep track of the information displayed
 - [x] 29. As a user, I want to edit the details of my account, so that the information stored is up to date
-- [ ] 30. As a user, I want to view another users's profile, so that I can have an overview of their public account
+- [x] 30. As a user, I want to view another users's profile, so that I can have an overview of their public account
 - [x] 32. As a user, I want to view a list of my favourite recipes, so that I can easily find what to cook
 
 #### **Low**
@@ -41,4 +41,4 @@
 - [ ] 26. As a user, I want to mark a recipe as done, so that its ingredients will be automatically removed from my virtual fridge
 - [ ] 9. As a user, I want to view the location of nearby grocery stores, so that I can get an overview of the closest local shops
 - [ ] 27. As a user, I want to receive a notification when users I follow publish a new public recipes, so that I can easily track new recipes
-- [ ] 31. As a user, I want to search for a an ingredient in my virtual fridge, so that I can easily find it
+- [x] 31. As a user, I want to search for a an ingredient in my virtual fridge, so that I can easily find it
