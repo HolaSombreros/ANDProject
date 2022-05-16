@@ -37,7 +37,6 @@ import com.group2.foodie.R;
 
 import com.group2.foodie.util.GlideApp;
 import com.group2.foodie.viewmodel.PersonalProfileViewModel;
-import com.squareup.picasso.Picasso;
 
 
 public class PersonalProfileFragment extends Fragment {
@@ -107,7 +106,7 @@ public class PersonalProfileFragment extends Fragment {
             followersTextLabel.setText(new StringBuilder().append("Followers: ").append(followers.size()));
         });
 
-        viewModel.getFridge().observe(getViewLifecycleOwner(), fridge ->{
+        viewModel.getFridge().observe(getViewLifecycleOwner(), fridge -> {
             fridgeTxt.setText(new StringBuilder().append("Fridge: ").append(fridge.size()));
         });
 
@@ -115,22 +114,26 @@ public class PersonalProfileFragment extends Fragment {
             recipeTxt.setText(new StringBuilder().append("Recipes: ").append(recipes.size()));
         });
 
-        recipeLayout.setOnClickListener(n->{
+        recipeLayout.setOnClickListener(n -> {
             Bundle bundle = new Bundle();
             bundle.putString("recipeType", "personal");
             navController.navigate(R.id.fragment_recipes, bundle);
         });
 
-        fridgeLayout.setOnClickListener(n->{
+        fridgeLayout.setOnClickListener(n -> {
             navController.navigate(R.id.fragment_fridge);
         });
 
         followersTextLabel.setOnClickListener(listener -> {
-            navController.navigate(R.id.fragment_followingfollowers);
+            Bundle bundle = new Bundle();
+            bundle.putInt("followers", 0);
+            navController.navigate(R.id.fragment_followingfollowers, bundle);
         });
 
         followingTextLabel.setOnClickListener(listener -> {
-            navController.navigate(R.id.fragment_followingfollowers);
+            Bundle bundle = new Bundle();
+            bundle.putInt("followers", 1);
+            navController.navigate(R.id.fragment_followingfollowers, bundle);
         });
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -149,15 +152,14 @@ public class PersonalProfileFragment extends Fragment {
             activityResultLauncher.launch(intent);
         });
 
-        editBtn.setOnClickListener(v ->{
+        editBtn.setOnClickListener(v -> {
             viewModel.editUser(username.getText().toString(), email.getText().toString(), password.getText().toString());
-            if(profilePicture.getDrawable()!= null) {
+            if (profilePicture.getDrawable() != null) {
                 Bitmap bitmap = ((BitmapDrawable) profilePicture.getDrawable()).getBitmap();
                 viewModel.uploadUserImage(bitmap, viewModel.getUser().getValue().getEmail()).addOnCompleteListener(listener -> {
                     Toast.makeText(getActivity(), "Details Saved successfully", Toast.LENGTH_SHORT).show();
                 });
-            }
-            else
+            } else
                 Toast.makeText(getActivity(), "Details Saved successfully without picture", Toast.LENGTH_SHORT).show();
         });
 
