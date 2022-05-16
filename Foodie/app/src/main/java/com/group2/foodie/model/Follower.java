@@ -1,6 +1,5 @@
 package com.group2.foodie.model;
 
-import java.util.Objects;
 
 public class Follower {
     private String id;
