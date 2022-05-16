@@ -53,11 +53,19 @@
     <string name="add_ingredient">Add Ingredient</string>
     <string name="enter_step_by_step_instructions">Enter step by step instructions</string>
     <string name="search">Search</string>
-    <string name="search_for_recipes">Search For Recipes</string>
     <string name="bought">Bought</string>
     <string name="publisher">Publisher</string>
     <string name="title">Title</string>
     <string name="category">Category</string>
     <string name="edit">Edit</string>
     <string name="remove">Remove</string>
+    <string name="search_for_recipes">Search For Recipes</string>
+    <string name="button">Button</string>
+    <string name="recipes">Recipes</string>
+    <string name="fridge">Fridge</string>
+    <string name="editRecipe">Edit recipe</string>
+    <string name="editIngredient">Edit ingredient</string>
+    <string name="my_network">My Network</string>
+    <string name="follower_s_handle_here">Follower\'s handle here</string>
+    <string name="follower">Follower</string>
 </resources>

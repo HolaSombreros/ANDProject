@@ -117,7 +117,7 @@
     <fragment
         android:id="@+id/fragment_followingfollowers"
         android:name="com.group2.foodie.view.fragment.FollowingFollowersFragment"
-        android:label="My Followers" />
+        android:label="My Network" />
     <fragment
         android:id="@+id/fragment_map"
         android:name="com.group2.foodie.view.fragment.MapsFragment"

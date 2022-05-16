@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -94,6 +95,9 @@ public class AddEditRecipeFragment extends Fragment {
         ingredientsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         ingredientsAdapter = new EditableIngredientsAdapter(viewModel.getIngredients().getValue());
         ingredientsRecyclerView.setAdapter(ingredientsAdapter);
+        if(getArguments() != null) {
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.editRecipe);
+        }
 
         viewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
         });
@@ -225,5 +229,6 @@ public class AddEditRecipeFragment extends Fragment {
                 }
             }
         });
+
     }
 }

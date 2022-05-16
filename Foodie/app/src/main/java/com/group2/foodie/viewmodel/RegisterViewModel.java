@@ -1,7 +1,6 @@
 package com.group2.foodie.viewmodel;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import androidx.lifecycle.ViewModel;
 
