@@ -122,7 +122,7 @@ public class AddEditRecipeViewModel extends ViewModel {
             return false;
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        Recipe recipe = new Recipe(name, 0, ingredients.getValue(), instructions, isPublic, category, currentUser.getUid(), currentUser.getDisplayName());
+        Recipe recipe = new Recipe(name, 0, ingredients.getValue(), instructions, isPublic, category, currentUser.getUid());
         recipeRepository.editRecipe(recipe);
         return true;
     }
@@ -136,7 +136,7 @@ public class AddEditRecipeViewModel extends ViewModel {
             return null;
         }
 
-        Recipe recipe = new Recipe(name, 0, ingredients.getValue(), instructions, isPublic, category, FirebaseAuth.getInstance().getUid(), getCurrentUser().getValue().getUsername());
+        Recipe recipe = new Recipe(name, 0, ingredients.getValue(), instructions, isPublic, category, FirebaseAuth.getInstance().getUid());
         return recipeRepository.addRecipe(recipe);
     }
 

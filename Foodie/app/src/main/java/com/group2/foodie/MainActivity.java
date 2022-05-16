@@ -44,8 +44,6 @@ public class MainActivity extends AppCompatActivity {
         initializeLayout();
         setupNavigation();
         setupAuthentication();
-        if (FirebaseAuth.getInstance().getCurrentUser() != null)
-            scheduleNotification();
     }
 
     private void initializeLayout() {
@@ -133,27 +131,5 @@ public class MainActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
-    }
-
-    public void scheduleNotification() {
-//        Intent intent = new Intent(this, NotificationPublisher.class);
-//        intent.putExtra("hasExpired", "false");
-//
-//        viewModel.getIngredients().observe(this, ingredients -> {
-//            for (Ingredient ingredient : ingredients) {
-//                if (Util.getLocalDateFromString(ingredient.getExpirationDate()).equals(LocalDate.now().plusDays(1)))
-//                    intent.putExtra("hasExpired", "true");
-//            }
-//        });
-//
-//        PendingIntent pending = PendingIntent.getBroadcast(this, 42, intent, PendingIntent.FLAG_MUTABLE);
-//
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.set(Calendar.HOUR_OF_DAY, 8);
-//        calendar.set(Calendar.MINUTE, 0);
-//        calendar.set(Calendar.SECOND, 0);
-//
-//        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-//        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pending);
     }
 }

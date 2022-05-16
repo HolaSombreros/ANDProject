@@ -43,6 +43,8 @@ public class FollowingFollowersFragment extends Fragment {
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             tab.setText(tabTitles[position]);
         }).attach();
+
+        tabLayout.selectTab(tabLayout.getTabAt(getArguments().getInt("followers")));
     }
 
     private class ViewPagerAdapter extends FragmentStateAdapter {
