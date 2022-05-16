@@ -2,7 +2,8 @@
 
 **Foodie** is a recipe application that shares meal ideas among food lovers and passionate chefs. The main idea is to spread knowledge about food culture that does not only feed the stomach, but the soul. Additionally, Foodie acts like a virtual fridge allowing users to manage their kitchen inventory.
 
-<br>
+# Video
+https://youtu.be/BqbZxsdezus
 
 ## User stories
 #### **Critical**
