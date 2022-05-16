@@ -116,7 +116,6 @@ public class AddEditRecipeFragment extends Fragment {
         recipeCategoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         recipeCategoryInput.setAdapter(recipeCategoryAdapter);
 
-        viewModel.removeIngredients();
         if (getArguments() != null) {
             viewModel.getRecipe().observe(getViewLifecycleOwner(), recipe -> {
                 recipeNameInput.setText(recipe.getName());
@@ -133,6 +132,7 @@ public class AddEditRecipeFragment extends Fragment {
                             .into(image);
                 }
 
+                viewModel.removeIngredients();
                 for (Ingredient ingredient : recipe.getIngredients()) {
                     viewModel.addNewIngredient(ingredient.getName(),
                             String.valueOf(ingredient.getQuantity()),
@@ -150,8 +150,6 @@ public class AddEditRecipeFragment extends Fragment {
                 Uri image = result.getData().getData();
                 this.image.setImageURI(image);
             }
-
-            viewModel.removeIngredients();
         });
 
         image.setDrawingCacheEnabled(true);
