@@ -16,13 +16,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.group2.foodie.R;
 import com.group2.foodie.model.Measurement;
 import com.group2.foodie.util.Util;
-import com.group2.foodie.viewmodel.AddEditIngredientViewModel;
 import com.group2.foodie.viewmodel.AddShoppingListIngredientViewModel;
 
 public class AddShoppingListIngredientFragment extends Fragment {

@@ -9,30 +9,17 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.group2.foodie.util.GlideApp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.group2.foodie.model.Ingredient;
-import com.group2.foodie.util.NotificationPublisher;
-import com.group2.foodie.util.Util;
 import com.group2.foodie.viewmodel.MainViewModel;
-
-import java.time.LocalDate;
-import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
     private ImageView image;
