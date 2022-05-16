@@ -1,6 +1,5 @@
 package com.group2.foodie.livedata;
 
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 

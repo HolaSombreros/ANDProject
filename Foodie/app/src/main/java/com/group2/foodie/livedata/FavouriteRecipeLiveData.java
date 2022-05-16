@@ -1,7 +1,5 @@
 package com.group2.foodie.livedata;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 
 import com.google.firebase.auth.FirebaseAuth;

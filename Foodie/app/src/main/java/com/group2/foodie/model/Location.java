@@ -1,7 +1,5 @@
 package com.group2.foodie.model;
 
-import java.util.Objects;
-
 public class Location {
 
     private String name;

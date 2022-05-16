@@ -1,6 +1,5 @@
 package com.group2.foodie.livedata;
 
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,8 +9,6 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
-import com.group2.foodie.model.Ingredient;
 import com.group2.foodie.model.Location;
 
 import java.util.ArrayList;

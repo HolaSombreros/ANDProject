@@ -4,7 +4,6 @@ import com.google.firebase.database.Exclude;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class Ingredient {
     private String id;
