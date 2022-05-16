@@ -5,8 +5,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.group2.foodie.livedata.ShoppingListLiveData;
-import com.group2.foodie.model.Ingredient;
-import com.group2.foodie.model.Measurement;
 import com.group2.foodie.repository.ShoppingListRepository;
 
 public class ShoppingListViewModel extends ViewModel {

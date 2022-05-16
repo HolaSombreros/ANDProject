@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,10 +15,8 @@ import android.view.ViewGroup;
 
 import com.group2.foodie.R;
 import com.group2.foodie.list.MyFollowersAdapter;
-import com.group2.foodie.model.Follower;
 import com.group2.foodie.viewmodel.MyFollowersViewModel;
 
-import java.util.List;
 
 public class MyFollowersFragment extends Fragment {
     private MyFollowersViewModel viewModel;

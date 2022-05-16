@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -100,6 +101,10 @@ public class AddEditIngredientFragment extends Fragment {
         ingredientMeasurementAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         measurement.setAdapter(ingredientMeasurementAdapter);
         remove.setVisibility(View.INVISIBLE);
+
+        if(getArguments() != null) {
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.editIngredient);
+        }
 
         if (getArguments() != null && getArguments().get("ingredient") != null) {
             viewModel.getIngredient().observe(getViewLifecycleOwner(), ingredient -> {
